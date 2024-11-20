@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     } else {
         // Incorrect username or password
-        echo "Incorrect username or password. <a href='/Hams/login/'>Try again</a>";
+        echo "Incorrect username or password. <a href='login.php'>Try again</a>";
     }
 
     $stmt->close();

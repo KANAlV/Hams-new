@@ -1,3 +1,11 @@
+<?php
+    //start session
+    session_start();
+    //check if logged in
+    if (isset($_SESSION['staff_id'])) {
+        header("location: home.php");
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
