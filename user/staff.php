@@ -57,44 +57,48 @@
             </div>
         </div>
         <!-- Main container -->
-        <div id="container" class="md:inline-block">
-            <div class="flex">
-                <div class=""><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=status&order=<?php echo $sortColumn === 'status' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Status</a></div>
-                <div class=""><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=surname&order=<?php echo $sortColumn === 'surname' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Surname</a></div>
-                <div class=""><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=date_added&order=<?php echo $sortColumn === 'date_added' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Date Added</a></div>
-            </div>
-            <?php
-                // table rows
-                if (mysqli_num_rows($result) > 0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo "
-                            <form class='flex backdrop-blur-sm bg-white/80 rounded-xl' action='/staff/edit.php' method='POST'>
-                                    <div class='w-6'>";
-                                        if($row['status'] == 1){
-                                            echo"<div class='bg-green-400 w-4 h-4 rounded-full'></div>";
-                                        } else if ($row['status']== 0){
-                                            echo"<div class='bg-red-600 w-4 h-4 rounded-full'></div>";
-                                        } else if ($row['status'] == 2){
-                                            echo"<div class='bg-yellow-300 w-4 h-4 rounded-full'></div>";
-                                        }else {
-                                            echo"Err.";
-                                        }
-                                    echo "</div>
-                                    <div class='r3'>{$row['surname']}, {$row['first_name']} {$row['m_i']}. {$row['prefix']}</div>
-                                    <div class='r7'>{$row['date_added']}</div>
-                            ";if ($_SESSION['level'] == '4' || $_SESSION['p1'] == '1') {
-                                echo "
-                                    <input hidden name='id' value='{$row['staff_id']}'>
-                                    <input hidden name='surname' value='{$row['surname']}'>
-                                    <input hidden name='first_name' value='{$row['first_name']}'>
-                                    <div class='r8'><input class='edit' type='submit' value=' '></div>
-                                ";
-                            } echo "
-                            </form>
-                        ";
+        <div id="container" class="md:inline-block bg-[url('../resources/mbg.jpg')] bg-center sm:bg-[url('../resources/bg.jpg')] bg-cover h-screen w-screen">
+            <div class="backdrop-blur-md bg-slate-300/30 w-screen h-screen">
+                <div class="flex w-96 bg-white m-auto">
+                    <div class='w-4'></div>
+                    <div class="w-14"><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=surname&order=<?php echo $sortColumn === 'surname' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Name</a></div>
+                    <div class=""><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=date_added&order=<?php echo $sortColumn === 'date_added' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Date Added</a></div>
+                </div>
+                <?php
+                    // table rows
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $timestamp = $row['date_added'];
+                            $date = date("Y-m-d", strtotime($timestamp));
+                            echo "
+                                <form class='flex h-6 w-96 m-auto mt-2 items-center backdrop-blur-sm bg-white/80 rounded-xl' action='/staff/edit.php' method='POST'>
+                                        <div class='w-4'>";
+                                            if($row['status'] == 1){
+                                                echo"<div class='border-l-solid border-l-8 border-green-400 w-0 h-6'></div>";
+                                            } else if ($row['status']== 0){
+                                                echo"<div class='border-l-solid border-l-8 border-red-600 w-0 h-6'></div>";
+                                            } else if ($row['status'] == 2){
+                                                echo"<div class='border-l-solid border-l-8 border-yellow-300 w-0 h-6'></div>";
+                                            }else {
+                                                echo"Err.";
+                                            }
+                                        echo "</div>
+                                        <div class='r3'>{$row['surname']}, {$row['first_name']} {$row['m_i']}. {$row['prefix']}</div>
+                                        <div class='r7'>$date</div>
+                                ";if ($_SESSION['level'] == '4' || $_SESSION['p1'] == '1') {
+                                    echo "
+                                        <input hidden name='id' value='{$row['staff_id']}'>
+                                        <input hidden name='surname' value='{$row['surname']}'>
+                                        <input hidden name='first_name' value='{$row['first_name']}'>
+                                        <div class='r8'><button class='bg-[url(../resources/pencil.png)] bg-cover  w-4 h-4' type='submit'></button></div>
+                                    ";
+                                } echo "
+                                </form>
+                            ";
+                        }
                     }
-                }
-            ?>
+                ?>
+            </div>
         </div>
     </div>
 </body>

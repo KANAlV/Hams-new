@@ -7,7 +7,7 @@
     <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
     <title>Home</title>
 </head>
-<body class="bg-slate-200 dark:bg-slate-800 font-sans m-0 fixed overflow-x-scroll">
+<body class="bg-slate-200/55 dark:bg-slate-800 font-sans m-0 fixed overflow-x-scroll">
     <?php include "navbar.php";?>   
     <div class="sm:flex">
         <div id="topbar" class="flex w-screen md:w-16 bg-white h-16 sm:h-screen">
@@ -19,8 +19,10 @@
             </div>
         </div>
         <!-- Main container -->
-        <div id="container" class="md:inline-block">
-            
+        <div id="container" class="md:inline-block bg-[url('../resources/mbg.jpg')] bg-center sm:bg-[url('../resources/bg.jpg')] bg-cover h-screen w-screen">
+            <div class="backdrop-blur-md bg-slate-300/30 w-screen h-screen">
+                
+            </div>
         </div>
     </div>
 </body>
