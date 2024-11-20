@@ -10,7 +10,7 @@
 <body class="bg-slate-200 dark:bg-slate-800 font-sans">
     <?php include "navbar.php";?>   
     <div class="sm:flex">
-        <div id="topbar" class="flex w-92 sm:w-16 bg-white h-16 sm:h-screen">
+        <div id="topbar" class="flex w-92 md:w-16 bg-white h-16 md:h-screen">
             <div class="w-18">
                 <button data-modal-target="navbar" data-modal-show="navbar" class="block text-slate-700 font-bold rounded-lg text-4xl px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">=</button>
             </div>
@@ -19,7 +19,7 @@
             </div>
         </div>
         <!-- Main container -->
-        <div id="container" class="sm:inline-block">
+        <div id="container" class="md:inline-block">
 
         </div>
     </div>

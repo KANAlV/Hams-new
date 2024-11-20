@@ -2,7 +2,7 @@
     //start session
     session_start();
     //check if logged in
-    if (!isset($_SESSION['acc_id'])) {
+    if (!isset($_SESSION['staff_id'])) {
         header("location: login.php");
     }
 ?>

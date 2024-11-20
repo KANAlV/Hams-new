@@ -2,14 +2,14 @@
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    include "DBconfig.php"; // Include your database connection file
+    include "dbcon.php"; // Include your database connection file
     
     // Get user input from the form
     $username = $_POST["username"];
     $password = $_POST["password"];
 
     // Query to retrieve the user's hashed password from the database
-    $sql = "SELECT * FROM accounts WHERE acc_name=?";
+    $sql = "SELECT * FROM staff WHERE acc_name=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($user && password_verify($password, $user["acc_pwd"])) {
         // Password is correct, log the user in
-        $_SESSION["acc_id"] = $user["acc_id"];
+        $_SESSION["staff_id"] = $user["staff_id"];
         $_SESSION["level"] = $user["level"];
         $_SESSION["usr"] = $user["acc_name"];
         $_SESSION["occu"] = $user["occupation"];
