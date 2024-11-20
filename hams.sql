@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2024 at 10:12 AM
+-- Generation Time: Nov 20, 2024 at 02:58 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -228,7 +228,7 @@ CREATE TABLE `staff` (
   `surname` varchar(50) NOT NULL,
   `first_name` varchar(50) NOT NULL,
   `m_i` varchar(50) NOT NULL,
-  `prefix` varchar(10) NOT NULL,
+  `suffix` varchar(10) NOT NULL,
   `occupation` varchar(30) NOT NULL DEFAULT 'error',
   `status` int(11) NOT NULL DEFAULT 0,
   `date_added` datetime NOT NULL DEFAULT current_timestamp(),
@@ -249,10 +249,10 @@ CREATE TABLE `staff` (
 -- Dumping data for table `staff`
 --
 
-INSERT INTO `staff` (`staff_id`, `staff_uid`, `profile`, `acc_name`, `acc_pwd`, `surname`, `first_name`, `m_i`, `prefix`, `occupation`, `status`, `date_added`, `addedBy`, `level`, `stf`, `bb`, `med`, `equip`, `rm`, `bd`, `acc`, `ui`, `aprvl`) VALUES
+INSERT INTO `staff` (`staff_id`, `staff_uid`, `profile`, `acc_name`, `acc_pwd`, `surname`, `first_name`, `m_i`, `suffix`, `occupation`, `status`, `date_added`, `addedBy`, `level`, `stf`, `bb`, `med`, `equip`, `rm`, `bd`, `acc`, `ui`, `aprvl`) VALUES
 (1, '', 'default-avatar.jpg', 'root', '$2y$10$GNM3qcX3C1dBMbXSMbcGNeXsJaoPnu8RM1kzJ5SQ.Hv3JQq4byFry', 'Diocampo', 'Ivan Winzle', 'S', '', 'root', 0, '2024-09-07 15:41:55', 'Database', 4, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(2, '', 'default-avatar.jpg', 'acc1', '$2y$10$S5bTvjd/sI2isOSKqwBcKudSdZ5S5AztYeaDgYi46qYD7O89c6hLm', '', '', '', '', 'superuser', 0, '2024-09-07 17:36:26', 'Database', 3, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(3, '', 'default-avatar.jpg', 'acc2', '$2y$10$KKmT4FvyU9BHgaNzg6YoXeXK53KDLsPwOlwkbXVoPhuagC/EsccvO', '', '', '', '', 'normal', 0, '2024-09-07 17:42:26', 'Database', 1, 0, 1, 1, 1, 0, 0, 0, 0, 0);
+(2, '', 'default-avatar.jpg', 'acc1', '$2y$10$S5bTvjd/sI2isOSKqwBcKudSdZ5S5AztYeaDgYi46qYD7O89c6hLm', 'Bunyi', 'Carl Andrei', 'L', '', 'superuser', 0, '2024-09-07 17:36:26', 'Database', 3, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(3, '', 'default-avatar.jpg', 'acc2', '$2y$10$KKmT4FvyU9BHgaNzg6YoXeXK53KDLsPwOlwkbXVoPhuagC/EsccvO', 'Mirasol', 'Adrian', 'Z', '', 'normal', 0, '2024-09-07 17:42:26', 'Database', 1, 0, 1, 1, 1, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 

@@ -12,7 +12,7 @@
     <div class="sm:flex">
         <div id="topbar" class="flex w-screen md:w-16 bg-white h-16 sm:h-screen">
             <div class="w-18">
-                <button data-drawer-target="navbar" data-drawer-show="navbar" aria-controls="navbar" class="block text-slate-700 font-bold rounded-lg text-4xl px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">=</button>
+                <button data-drawer-target="navbar" data-drawer-backdrop="false" data-drawer-show="navbar" aria-controls="navbar" class="block text-slate-700 font-bold rounded-lg text-4xl px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">=</button>
             </div>
             <div class="flex items-center">
                 <div class="w-screen font-bold md:hidden landscape:hidden">HAMS</div>

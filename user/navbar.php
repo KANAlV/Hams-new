@@ -6,7 +6,7 @@
         header("location: login.php");
     }
 ?>
-<div id="navbar" class="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-none transition-transform -translate-x-full backdrop-blur-md bg-white/60 w-80 dark:bg-gray-800/60" tabindex="-1" aria-labelledby="drawer-label">
+<div id="navbar" class="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-none transition-transform -translate-x-full backdrop-blur-md bg-white/30 w-80 dark:bg-gray-800/60" tabindex="-1" aria-labelledby="drawer-label">
     <h5 class="font-bold"><?php echo $_SESSION['usr'];?></h5>
     <button type="button" data-drawer-hide="navbar" aria-controls="navbar" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white" >
         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
