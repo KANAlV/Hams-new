@@ -1,35 +1,29 @@
-<?php
-    //start session
-    session_start();
-    //check if logged in
-    if (!isset($_SESSION['staff_id'])) {
-        header("location: login.php");
-    }
-?>
-<div id="navbar" class="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-none transition-transform -translate-x-full backdrop-blur-md bg-white/30 w-80 dark:bg-gray-800/60" tabindex="-1" aria-labelledby="drawer-label">
-    <h5 class="font-bold"><?php echo $_SESSION['usr'];?></h5>
-    <button type="button" data-drawer-hide="navbar" aria-controls="navbar" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white" >
-        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-        </svg>
-        <span class="sr-only">Close menu</span>
-    </button>
-      
-    <a class="flex items-center h-12" href="home.php"><div class="w-screen px-8 font-bold">Home</div></a>
-    <a class="flex items-center h-12" href="approval.php"><div class="w-screen px-8 font-bold">Approval</div></a>
-    <a class="flex items-center h-12" href="staff.php"><div class="w-screen px-8 font-bold">Staff</div></a>
-    <a class="flex items-center h-12" href="blood.php"><div class="w-screen px-8 font-bold">Blood</div></a>
-    <a class="flex items-center h-12" href="medicine.php"><div class="w-screen px-8 font-bold">Medicine</div></a>
-    <a class="flex items-center h-12" href="equipments.php"><div class="w-screen px-8 font-bold">Equipments</div></a>
-    <a class="flex items-center h-12" href="rooms.php"><div class="w-screen px-8 font-bold">Rooms</div></a>
-    <a class="flex items-center h-12" href="beds.php"><div class="w-screen px-8 font-bold">Beds</div></a>
-    <a class="flex items-center h-12" href="uid.php"><div class="w-screen px-8 font-bold">UID</div></a>
-    <a class="flex items-center h-12" href="scanner.php"><div class="w-screen px-8 font-bold">Scanner</div></a>
-    <a class="flex items-center h-12 sm:hidden" ><div class="w-screen px-8 font-bold"></div></a>
-    <div class="grid grid-cols-2 gap-4">
-        <a href="#" class="px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Learn more</a>
-        <a href="logout.php" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-green-500 rounded-lg hover:bg-green-600 focus:ring-4 focus:ring-green-300 dark:bg-green-700 dark:hover:bg-green-800 focus:outline-none dark:focus:ring-green-900">Log Out <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-        </svg></a>
-   </div>
+<div id="topbar" class="flex w-screen sm:w-16 backdrop-blur-md bg-white/80 dark:bg-slate-700/80 h-16 sm:h-screen">
+    <div class="w-18">
+        <button data-drawer-target="navbar" data-drawer-backdrop="false" data-drawer-show="navbar" aria-controls="navbar" class="block md:hidden text-slate-700 dark:text-white font-bold rounded-lg text-4xl px-5 py-2 text-center" type="button">=</button>
+        <div id="drawer-hover-trigger" class="hidden md:block h-max w-max px-2 justify-center">
+            <div class="bg-[url('../resources/AMC.png')] mt-2 bg-contain bg-no-repeat bg-center h-12 w-12"></div>
+            <div class="bg-[url('../resources/dashboard.png')] dark:bg-[url('../resources/dark/dashboard.png')] mt-4 ml-2 bg-contain bg-no-repeat bg-center h-8 w-8"></div>
+            <?php
+                if ($_SESSION['level'] == '4' || $_SESSION['p1'] == '1') {
+                    ?><div class="bg-[url('../resources/checkbox.png')] dark:bg-[url('../resources/dark/checkbox.png')] mt-4 ml-2 bg-contain bg-no-repeat bg-center h-8 w-8"></div><?php
+                }
+            ?>
+            <div class="bg-[url('../resources/staff.png')] dark:bg-[url('../resources/dark/staff.png')] mt-4 ml-2 bg-contain bg-no-repeat bg-center h-8 w-8"></div>
+            <div class="bg-[url('../resources/heart.png')] dark:bg-[url('../resources/dark/heart.png')] mt-4 ml-2 bg-contain bg-no-repeat bg-center h-8 w-8"></div>
+            <div class="bg-[url('../resources/medicine.png')] dark:bg-[url('../resources/dark/medicine.png')] mt-4 ml-2 bg-contain bg-no-repeat bg-center h-8 w-8"></div>
+            <div class="bg-[url('../resources/equipment.png')] dark:bg-[url('../resources/dark/equipment.png')] mt-4 ml-2 bg-contain bg-no-repeat bg-center h-8 w-8"></div>
+            <div class="bg-[url('../resources/room.png')] dark:bg-[url('../resources/dark/room.png')] mt-4 ml-2 bg-contain bg-no-repeat bg-center h-8 w-8"></div>
+            <div class="bg-[url('../resources/bed.png')] dark:bg-[url('../resources/dark/bed.png')] mt-4 ml-2 bg-contain bg-no-repeat bg-center h-8 w-8"></div>
+            <?php
+                if ($_SESSION['level'] == '4' || $_SESSION['p7'] == '1') {
+                    ?><div class="bg-[url('../resources/barcode.png')] dark:bg-[url('../resources/dark/barcode.png')] mt-4 ml-2 bg-contain bg-no-repeat bg-center h-8 w-8"></div><?php
+                }
+            ?>
+            <div class="bg-[url('../resources/qr-scan.png')] dark:bg-[url('../resources/dark/qr-scan.png')] mt-4 ml-2 bg-contain bg-no-repeat bg-center h-8 w-8"></div>
+        </div>
+    </div>
+    <div class="flex items-center">
+        <div class="w-screen font-bold md:hidden landscape:hidden dark:text-white">HAMS</div>
+    </div>
 </div>

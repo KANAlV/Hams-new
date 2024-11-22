@@ -3,6 +3,7 @@ module.exports = {
   darkMode: 'selector',
   content: [
     "./user/*.php",
+    "./user/**/*.php",
     "./node_modules/flowbite/**/*.js"
   ],
   theme: {

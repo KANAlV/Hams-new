@@ -8,22 +8,35 @@
     <title>Home</title>
 </head>
 <body class="bg-slate-200/55 dark:bg-slate-800 font-sans m-0 fixed overflow-x-scroll">
-    <?php include "navbar.php";?>   
+    <?php include "drawer.php";?>   
     <div class="sm:flex">
-        <div id="topbar" class="flex w-screen md:w-16 bg-white h-16 sm:h-screen">
-            <div class="w-18">
-                <button data-drawer-target="navbar" data-drawer-backdrop="false" data-drawer-show="navbar" aria-controls="navbar" class="block text-slate-700 font-bold rounded-lg text-4xl px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">=</button>
-            </div>
-            <div class="flex items-center">
-                <div class="w-screen font-bold md:hidden landscape:hidden">HAMS</div>
-            </div>
-        </div>
+        <?php include "navbar.php";?> 
         <!-- Main container -->
-        <div id="container" class="md:inline-block bg-[url('../resources/mbg.jpg')] bg-center sm:bg-[url('../resources/bg.jpg')] bg-cover h-screen w-screen">
-            <div class="backdrop-blur-md bg-slate-300/30 w-screen h-screen">
+        <div id="container" class="md:inline-block bg-[url('../resources/mbg.jpg')] bg-center sm:bg-[url('../resources/bg.jpg')] bg-fit bg-no-repeat h-screen w-screen">
+            <div class="backdrop-blur-md bg-slate-300/30 dark:bg-slate-800/50 w-screen h-screen">
                 
             </div>
         </div>
     </div>
+    <script>
+        //Trigger for hover duplicate[id="drawer-hover-trigger"]
+
+        const drawerElement = document.getElementById('navbar');
+        const drawerInstance = new Drawer(drawerElement, {
+        placement: 'left', // Can be 'left', 'right', 'top', or 'bottom'
+        backdrop: false,
+        });
+
+        // Hover Event Listeners
+        const trigger = document.getElementById('drawer-hover-trigger');
+
+        trigger.addEventListener('mouseover', () => {
+        drawerInstance.show(); // Show drawer on hover
+        });
+
+        drawerElement.addEventListener('mouseleave', () => {
+        drawerInstance.hide(); // Hide drawer on mouse leave
+        });
+    </script>
 </body>
 </html>

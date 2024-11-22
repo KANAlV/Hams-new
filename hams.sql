@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2024 at 02:58 PM
+-- Generation Time: Nov 22, 2024 at 08:50 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -227,8 +227,8 @@ CREATE TABLE `staff` (
   `acc_pwd` varchar(100) NOT NULL,
   `surname` varchar(50) NOT NULL,
   `first_name` varchar(50) NOT NULL,
-  `m_i` varchar(50) NOT NULL,
-  `suffix` varchar(10) NOT NULL,
+  `m_i` varchar(50) DEFAULT NULL,
+  `suffix` varchar(10) DEFAULT NULL,
   `occupation` varchar(30) NOT NULL DEFAULT 'error',
   `status` int(11) NOT NULL DEFAULT 0,
   `date_added` datetime NOT NULL DEFAULT current_timestamp(),
@@ -250,9 +250,20 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`staff_id`, `staff_uid`, `profile`, `acc_name`, `acc_pwd`, `surname`, `first_name`, `m_i`, `suffix`, `occupation`, `status`, `date_added`, `addedBy`, `level`, `stf`, `bb`, `med`, `equip`, `rm`, `bd`, `acc`, `ui`, `aprvl`) VALUES
-(1, '', 'default-avatar.jpg', 'root', '$2y$10$GNM3qcX3C1dBMbXSMbcGNeXsJaoPnu8RM1kzJ5SQ.Hv3JQq4byFry', 'Diocampo', 'Ivan Winzle', 'S', '', 'root', 0, '2024-09-07 15:41:55', 'Database', 4, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(2, '', 'default-avatar.jpg', 'acc1', '$2y$10$S5bTvjd/sI2isOSKqwBcKudSdZ5S5AztYeaDgYi46qYD7O89c6hLm', 'Bunyi', 'Carl Andrei', 'L', '', 'superuser', 0, '2024-09-07 17:36:26', 'Database', 3, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(3, '', 'default-avatar.jpg', 'acc2', '$2y$10$KKmT4FvyU9BHgaNzg6YoXeXK53KDLsPwOlwkbXVoPhuagC/EsccvO', 'Mirasol', 'Adrian', 'Z', '', 'normal', 0, '2024-09-07 17:42:26', 'Database', 1, 0, 1, 1, 1, 0, 0, 0, 0, 0);
+(1, '', 'default-avatar.jpg', 'root', '$2y$10$GNM3qcX3C1dBMbXSMbcGNeXsJaoPnu8RM1kzJ5SQ.Hv3JQq4byFry', 'Diocampo', 'Ivan Winzle', 'S.', '', 'root', 0, '2024-09-07 15:41:55', 'Database', 4, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(2, '', 'default-avatar.jpg', 'acc1', '$2y$10$S5bTvjd/sI2isOSKqwBcKudSdZ5S5AztYeaDgYi46qYD7O89c6hLm', 'Bunyi', 'Carl Andrei', 'L.', '', 'superuser', 0, '2024-09-07 17:36:26', 'Database', 3, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(3, '', 'default-avatar.jpg', 'acc2', '$2y$10$KKmT4FvyU9BHgaNzg6YoXeXK53KDLsPwOlwkbXVoPhuagC/EsccvO', 'Mirasol', 'Adrian', 'Z.', '', 'normal', 0, '2024-09-07 17:42:26', 'Database', 1, 0, 1, 1, 1, 0, 0, 0, 0, 0),
+(4, '', 'default-avatar.jpg', 'acc4', '$2y$10$qorsU4oORDRBE4rzkLqFXOpjOw4VEeG/z1mhseAHTbkIDKKx5HfAy', 'Opmacoid', 'Navi', '', '', 'test', 0, '2024-11-21 12:43:00', 'root', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(5, '', 'default-avatar.jpg', 'acc5', '$2y$10$IjCw3LBSb9xNSUce.g30f.F.nCoIqQ0cno4ddYdCjgf3fXMpe1Sx6', 'Opma', 'Nav Elznie', 'S.', 'Jr', 'test', 0, '2024-11-21 13:35:30', 'root', 2, 1, 1, 1, 1, 1, 1, 0, 1, 1),
+(6, '', 'default-avatar.jpg', 'acc3', '$2y$10$/VFnVaPhYq2YEkVvSChsFukAg5SRlC3H8mspy/Q9thretur588qSG', 'Bungi', 'Coarl', 'L.', '', 'test', 0, '2024-11-21 19:04:24', 'root', 1, 1, 1, 1, 1, 1, 1, 0, 1, 1),
+(7, '', 'default-avatar.jpg', 'acc6', '$2y$10$a3pYl3dPWy16U0NDuRfSo.dU/ipIIvM4TQSxopFAnOdwTYTJBrJDS', 'Miraculo', 'Yan Yan', 'Z.', '', 'test', 0, '2024-11-21 19:43:53', 'root', 2, 1, 0, 1, 0, 1, 0, 0, 0, 1),
+(8, '', 'default-avatar.jpg', 'acc7', '$2y$10$fJscSXq3U8icqSPhN1YQKuAMzCXKt.IPjH7jSuomg8FtcPBR8O2lW', 'Muyco', 'Jan Pauline', 'M.', '', 'test', 0, '2024-11-22 19:37:00', 'root', 2, 1, 0, 1, 1, 0, 1, 0, 0, 1),
+(9, '', 'default-avatar.jpg', 'acc8', '$2y$10$rN05U/bF/fNaRkEOGU7fROOPQKvGilr72t6Af4nENZ8U5YvpLexNO', 'Muyco', 'Fatima', 'M.', '', 'test', 0, '2024-11-23 00:13:44', 'root', 2, 0, 1, 0, 0, 1, 0, 0, 1, 0),
+(10, '', 'default-avatar.jpg', 'acc9', '$2y$10$Zs12eX9T86dIBBHQFPIOXezat9hNsIYq9YD8WcOhq9kjFwwdgT9uq', 'Tabancura', 'Jian', '', '', 'test', 0, '2024-11-23 02:59:56', 'root', 1, 1, 1, 1, 0, 0, 0, 0, 1, 1),
+(11, '', 'default-avatar.jpg', 'acc10', '$2y$10$inKHfHPdmYtZxRtmJ3pB..gISHhqZR9K5BllznAf1V99KxPJZnvYG', 'Tabancura', 'Jericha', NULL, '', 'test', 0, '2024-11-23 03:00:40', 'root', 2, 0, 0, 0, 1, 1, 1, 0, 0, 0),
+(13, '8286418476107', 'default-avatar.jpg', 'acc11', '$2y$10$1H57uRwEGkM6qznZOLSi1.4FFgcHEznAYH3t10k1aeqx9524dfvbC', 'Winchester', 'Dean', '', '', 'hunter', 0, '2024-11-23 03:14:59', 'root', 2, 0, 1, 0, 1, 1, 1, 0, 1, 0),
+(20, '8286418476110', 'default-avatar.jpg', 'acc12', '$2y$10$IC1MIz720rIQYU5acImPNu/dOV4ErWpmYesMfpF9lDIkYAPPcRlxK', 'Winchester', 'Sam', '', '', 'hunter', 0, '2024-11-23 03:41:51', 'root', 1, 1, 1, 1, 1, 1, 1, 0, 1, 1),
+(21, '8286418476108', 'default-avatar.jpg', 'acc13', '$2y$10$FJ3PDD7xcDRWNfbmRU1dteaYPEkV19NA8DX0SiF5EDjp2/BbC4KZy', 'Crownguard', 'Luxanna', '', '', 'mage', 0, '2024-11-23 03:47:44', 'root', 3, 1, 1, 1, 1, 1, 1, 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -277,13 +288,13 @@ INSERT INTO `uid` (`Q_id`, `uid`, `assigned`, `table_name`) VALUES
 (3, '8286418476102', '0002', 'bed'),
 (4, '8286418476103', '0003', 'bed'),
 (5, '8286418476104', '0004', 'bed'),
-(6, '8286418476105', '0005', 'bed'),
+(6, '8286418476105', '0005', NULL),
 (7, '8286418476106', 'gamot ni coarl', 'medicine'),
-(8, '8286418476107', 'gamot ni opma', 'medicine'),
-(9, '8286418476108', NULL, NULL),
+(8, '8286418476107', 'Winchester, Dean ', 'staff'),
+(9, '8286418476108', 'Crownguard, Luxanna ', 'staff'),
 (10, '8286418476109', NULL, NULL),
-(11, '8286418476110', 'Navi S Opmacoid', 'staff'),
-(12, '8286418476111', 'Carl Anderi L Bunyi', 'staff'),
+(11, '8286418476110', 'Winchester, Sam ', 'staff'),
+(12, '8286418476111', NULL, NULL),
 (13, '8286418476112', NULL, NULL),
 (14, '8286418476113', NULL, NULL),
 (15, '8286418476114', NULL, NULL),
@@ -389,7 +400,7 @@ ALTER TABLE `room`
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `staff_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `staff_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `uid`
