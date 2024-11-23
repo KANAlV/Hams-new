@@ -214,13 +214,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    if ($_POST["password"] == "lwdadrspsoo"){ //same password
-       $sql = "UPDATE `staff` SET `acc_name`='$username;',
+    if ($password == "lwdadrspsoo"){ //same password
+       $sql = "UPDATE `staff` SET `acc_name`='$username',
                         `surname`='$surname',`first_name`='$first_name',`m_i`='$m_i',`suffix`='$suffix',
-                        `occupation`='$occupation',`level`='[value-14]',
+                        `occupation`='$occupation',`level`='$level',
                         `stf`='$staff',`bb`='$bloodBank',`med`='$medicines',`equip`='$equipments',
-                        `rm`='$rooms',`bd`='$beds',`acc`='[value-21]',`ui`='$uid',`aprvl`='$approval'
-        WHERE `staff_id`=$id";
+                        `rm`='$rooms',`bd`='$beds',`aprvl`='$approval'
+        WHERE `staff_id`= $id";
         $stmt = $conn->prepare($sql);
         if ($stmt->execute()) {
             echo "Registration successful! <a href='/Hams/account_management/'>Login</a>";
@@ -230,12 +230,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Error: " . $stmt->error;
         }
     } else { //different password
-        $sql = "UPDATE `staff` SET `acc_name`='$username;',`acc_pwd`='$password',
+        $sql = "UPDATE `staff` SET `acc_name`='$username',`acc_pwd`='$password',
                         `surname`='$surname',`first_name`='$first_name',`m_i`='$m_i',`suffix`='$suffix',
-                        `occupation`='$occupation',`level`='[value-14]',
+                        `occupation`='$occupation',`level`='$level',
                         `stf`='$staff',`bb`='$bloodBank',`med`='$medicines',`equip`='$equipments',
-                        `rm`='$rooms',`bd`='$beds',`acc`='[value-21]',`ui`='$uid',`aprvl`='$approval'
-        WHERE `staff_id`=$id";
+                        `rm`='$rooms',`bd`='$beds',`aprvl`='$approval'
+        WHERE `staff_id`= $id";
         $stmt = $conn->prepare($sql);
         if ($stmt->execute()) {
             echo "Registration successful! <a href='/Hams/account_management/'>Login</a>";
