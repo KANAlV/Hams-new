@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 22, 2024 at 08:50 PM
+-- Generation Time: Nov 28, 2024 at 09:14 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -107,17 +107,27 @@ CREATE TABLE `medicine` (
   `uid` varchar(50) DEFAULT NULL,
   `name` varchar(50) NOT NULL,
   `manufacturer` varchar(50) NOT NULL,
-  `stock` varchar(11) NOT NULL
+  `type` varchar(300) NOT NULL,
+  `expiry` varchar(30) NOT NULL,
+  `stock` varchar(11) NOT NULL,
+  `addedBy` varchar(30) NOT NULL DEFAULT 'error',
+  `date added` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `medicine`
 --
 
-INSERT INTO `medicine` (`med_id`, `uid`, `name`, `manufacturer`, `stock`) VALUES
-(1, '8286418476100', 'Enervon', 'UNILAB, Inc.', '34'),
-(2, '8286418476107', 'gamot ni opma', 'opmanufacturer', '35'),
-(3, '8286418476106', 'gamot ni coarl', 'coarlfacturer', '35');
+INSERT INTO `medicine` (`med_id`, `uid`, `name`, `manufacturer`, `type`, `expiry`, `stock`, `addedBy`, `date added`) VALUES
+(1, NULL, 'opmadrug', 'opmanufacture', 'Analgesics / Anesthetics / Anti-addiction agents', '02/01/2025', '11', 'root', '2024-11-28 13:58:33'),
+(2, NULL, 'opmadrug', 'opmanufacture', 'Analgesics / Anesthetics / Anti-addiction agents', '02/02/2025', '12', 'root', '2024-11-28 13:58:49'),
+(3, NULL, 'opmadrug', 'opmanufacture', 'Analgesics / Anesthetics / Anti-addiction agents', '02/03/2025', '13', 'root', '2024-11-28 14:03:55'),
+(4, NULL, 'opmadrug', 'opmanufacture', 'Analgesics / Anesthetics / Anti-addiction agents', '02/04/2025', '14', 'root', '2024-11-28 14:04:33'),
+(5, NULL, 'opmadrug', 'opmanufacture', 'Analgesics / Anesthetics / Anti-addiction agents', '02/05/2025', '15', 'root', '2024-11-28 14:05:19'),
+(6, NULL, 'gamot ni coarl', 'carlmano', 'Dental and oral agents', '02/09/2025', '20', 'root', '2024-11-28 16:02:02'),
+(7, NULL, 'opmadrug', 'opmanufacturer', '', '02/27/2025', '35', 'root', '2024-11-28 16:04:09'),
+(8, NULL, 'opmadrug', 'opmanufacture', 'Analgesics / Anesthetics / Anti-addiction agents', '02/28/2025', '35', 'root', '2024-11-28 16:04:37'),
+(9, NULL, 'gamot ni opma', 'opmanufacture', 'Central nervous system agents / Dental and oral agents', '11/30/2024', '77', 'root', '2024-11-28 16:06:12');
 
 -- --------------------------------------------------------
 
@@ -258,12 +268,13 @@ INSERT INTO `staff` (`staff_id`, `staff_uid`, `profile`, `acc_name`, `acc_pwd`, 
 (6, '', 'default-avatar.jpg', 'acc3', '$2y$10$/VFnVaPhYq2YEkVvSChsFukAg5SRlC3H8mspy/Q9thretur588qSG', 'Bungi', 'Coarl', 'L.', '', 'test', 0, '2024-11-21 19:04:24', 'root', 1, 1, 1, 1, 1, 1, 1, 0, 1, 1),
 (7, '', 'default-avatar.jpg', 'acc6', '$2y$10$a3pYl3dPWy16U0NDuRfSo.dU/ipIIvM4TQSxopFAnOdwTYTJBrJDS', 'Miraculo', 'Yan Yan', 'Z.', '', 'test', 0, '2024-11-21 19:43:53', 'root', 2, 1, 0, 1, 0, 1, 0, 0, 0, 1),
 (8, '', 'default-avatar.jpg', 'acc7', '$2y$10$fJscSXq3U8icqSPhN1YQKuAMzCXKt.IPjH7jSuomg8FtcPBR8O2lW', 'Muyco', 'Jan Pauline', 'M.', '', 'test', 0, '2024-11-22 19:37:00', 'root', 2, 1, 0, 1, 1, 0, 1, 0, 0, 1),
-(9, '', 'default-avatar.jpg', 'acc8', '$2y$10$rN05U/bF/fNaRkEOGU7fROOPQKvGilr72t6Af4nENZ8U5YvpLexNO', 'Muyco', 'Fatima', 'M.', '', 'test', 0, '2024-11-23 00:13:44', 'root', 2, 0, 1, 0, 0, 1, 0, 0, 1, 0),
+(9, '', 'default-avatar.jpg', 'acc8', '$2y$10$CxFfKSIVwsH5cDi1rFc2ZODI9pp9UKiEBwQcO2VrEcFGbdHpfHZmW', 'Muyco', 'Fatima', '', '', 'test', 0, '2024-11-23 00:13:44', 'root', 2, 0, 1, 0, 0, 1, 0, 0, 1, 0),
 (10, '', 'default-avatar.jpg', 'acc9', '$2y$10$Zs12eX9T86dIBBHQFPIOXezat9hNsIYq9YD8WcOhq9kjFwwdgT9uq', 'Tabancura', 'Jian', '', '', 'test', 0, '2024-11-23 02:59:56', 'root', 1, 1, 1, 1, 0, 0, 0, 0, 1, 1),
 (11, '', 'default-avatar.jpg', 'acc10', '$2y$10$inKHfHPdmYtZxRtmJ3pB..gISHhqZR9K5BllznAf1V99KxPJZnvYG', 'Tabancura', 'Jericha', NULL, '', 'test', 0, '2024-11-23 03:00:40', 'root', 2, 0, 0, 0, 1, 1, 1, 0, 0, 0),
 (13, '8286418476107', 'default-avatar.jpg', 'acc11', '$2y$10$1H57uRwEGkM6qznZOLSi1.4FFgcHEznAYH3t10k1aeqx9524dfvbC', 'Winchester', 'Dean', '', '', 'hunter', 0, '2024-11-23 03:14:59', 'root', 2, 0, 1, 0, 1, 1, 1, 0, 1, 0),
 (20, '8286418476110', 'default-avatar.jpg', 'acc12', '$2y$10$IC1MIz720rIQYU5acImPNu/dOV4ErWpmYesMfpF9lDIkYAPPcRlxK', 'Winchester', 'Sam', '', '', 'hunter', 0, '2024-11-23 03:41:51', 'root', 1, 1, 1, 1, 1, 1, 1, 0, 1, 1),
-(21, '8286418476108', 'default-avatar.jpg', 'acc13', '$2y$10$FJ3PDD7xcDRWNfbmRU1dteaYPEkV19NA8DX0SiF5EDjp2/BbC4KZy', 'Crownguard', 'Luxanna', '', '', 'mage', 0, '2024-11-23 03:47:44', 'root', 3, 1, 1, 1, 1, 1, 1, 0, 1, 1);
+(21, '8286418476108', 'default-avatar.jpg', 'acc13', '$2y$10$199Fgr2pQc54uHDghCmVSOBo05W9lYP8arStSZbr8QEHONhyJ4yjW', 'Crownguard', 'Luxanna', '', '', 'mage', 0, '2024-11-23 03:47:44', 'root', 0, 1, 1, 1, 1, 1, 1, 0, 1, 1),
+(22, '8286418476109', 'default-avatar.jpg', 'acc14', '$2y$10$fZvxqUWOpegVTOIJiPcZyOxeuEf1RiauYBEsKcvBaD6GwzzI0XLli', 'Crownguard', 'Garren', '', '', 'tank', 0, '2024-11-23 14:42:59', 'root', 2, 1, 1, 1, 1, 1, 1, 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -292,7 +303,7 @@ INSERT INTO `uid` (`Q_id`, `uid`, `assigned`, `table_name`) VALUES
 (7, '8286418476106', 'gamot ni coarl', 'medicine'),
 (8, '8286418476107', 'Winchester, Dean ', 'staff'),
 (9, '8286418476108', 'Crownguard, Luxanna ', 'staff'),
-(10, '8286418476109', NULL, NULL),
+(10, '8286418476109', 'Crownguard, Garren ', 'staff'),
 (11, '8286418476110', 'Winchester, Sam ', 'staff'),
 (12, '8286418476111', NULL, NULL),
 (13, '8286418476112', NULL, NULL),
@@ -382,7 +393,7 @@ ALTER TABLE `equipment`
 -- AUTO_INCREMENT for table `medicine`
 --
 ALTER TABLE `medicine`
-  MODIFY `med_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `med_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `requests`
@@ -400,7 +411,7 @@ ALTER TABLE `room`
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `staff_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `staff_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `uid`
