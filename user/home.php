@@ -7,9 +7,9 @@
     <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
     <title>Home</title>
 </head>
-<body class="bg-slate-200/55 dark:bg-slate-800 font-sans m-0 fixed overflow-x-scroll">
+<body>
     <?php include "drawer.php";?>   
-    <div class="sm:flex">
+    <div class="sm:flex bg-[url('../resources/mbg.jpg')] bg-center sm:bg-[url('../resources/bg.jpg')] bg-cover font-sans m-0 fixed overflow-x-scroll">
         <?php include "navbar.php";?> 
         <!-- Main container -->
         <div id="container" class="md:inline-block bg-[url('../resources/mbg.jpg')] bg-center sm:bg-[url('../resources/bg.jpg')] bg-fit bg-no-repeat h-screen w-screen">

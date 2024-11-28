@@ -9,21 +9,26 @@
                 $sortColumn = isset($_GET['sort']) ? $_GET['sort'] : 'name';
                 $sortOrder = isset($_GET['order']) && strtoupper($_GET['order']) === 'DESC' ? 'DESC' : 'ASC';
 
-                $sql = "SELECT * FROM `medicine` WHERE 
-                        `med_id` LIKE '%$search%' OR
-                        `name` LIKE '%$search%' OR
-                        `manufacturer` LIKE '%$search%' OR
-                        `stock` LIKE '%$search%'
+                $sql = "SELECT name, manufacturer, type, SUM(stock) AS total_stock
+                        FROM `medicine`
+                        WHERE `med_id` LIKE '%$search%' OR
+                            `name` LIKE '%$search%' OR
+                            `manufacturer` LIKE '%$search%' OR
+                            `stock` LIKE '%$search%' OR
+                            `type` LIKE '%$search%' 
+                        GROUP BY name, manufacturer, type
                         ORDER BY $sortColumn $sortOrder
                         LIMIT $offset, $recordsPerPage";
-
                 $result = mysqli_query($conn, $sql);
 
-                $totalRecordsQuery = "SELECT COUNT(*) AS total FROM `medicine` WHERE 
-                                    `med_id` LIKE '%$search%' OR
-                                    `name` LIKE '%$search%' OR
-                                    `manufacturer` LIKE '%$search%' OR
-                                    `stock` LIKE '%$search%'";
+
+                $totalRecordsQuery = "SELECT COUNT(DISTINCT name, manufacturer) AS total 
+                                    FROM `medicine` 
+                                    WHERE `med_id` LIKE '%$search%' OR
+                                            `name` LIKE '%$search%' OR
+                                            `manufacturer` LIKE '%$search%' OR
+                                            `stock` LIKE '%$search%' OR
+                                            `type` LIKE '%$search%'";
                 $totalRecordsResult = mysqli_query($conn, $totalRecordsQuery);
                 $totalRecords = mysqli_fetch_assoc($totalRecordsResult)['total'];
                 $totalPages = ceil($totalRecords / $recordsPerPage);
@@ -35,34 +40,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
-    <title>Staff</title>
+    <title>Medicine</title>
 </head>
-<body class="bg-[url('../resources/mbg.jpg')] bg-center sm:bg-[url('../resources/bg.jpg')] bg-cover font-sans m-0 fixed overflow-x-scroll">
-    <?php include "drawer.php";?>   
-    <div class="sm:flex">
+<body>
+    <?php include "drawer.php";
+    //addMed Modal
+        include "medicine/addMed.php";
+    ?>
+    <div class="sm:flex bg-[url('../resources/mbg.jpg')] bg-center sm:bg-[url('../resources/bg.jpg')] bg-cover font-sans m-0 fixed overflow-x-scroll">
         <?php include "navbar.php";?> 
         <!-- Main container -->
         <div id="container" class="md:inline-block h-screen w-screen">
             <div class="backdrop-blur-md bg-slate-300/30 dark:bg-slate-800/50 w-screen h-screen">
-                <div class="p-2 md:h-32 w-full items-center text-center"><h1 class="hidden md:block font-bold text-2xl dark:text-white">STAFF</h1><br>
+                <div class="p-2 md:h-32 w-full items-center text-center"><h1 class="hidden md:block font-bold text-2xl dark:text-white">Medicine</h1><br>
                     <form method="GET" class="flex w-min m-auto rounded-full bg-white/60 backdrop-blur-md">
                         <div class="bg-[url('../resources/loupe.png')] bg-contain bg-no-repeat bg-center h-6 w-10 m-auto invert dark:invert-0"></div>
                         <input type="text" class="rounded-full bg-white/0 border-none focus:outline-none focus:ring-0" name="search" placeholder="Search..." value="<?php echo $search; ?>">
                     </form>
                 </div>
-                <div class="flex h-8 2xl:h-12 w-96 md:w-4/5 lg:w-3/5 xl:w-2/4 2xl:w-5/12 items-center bg-green-500 text-white m-auto rounded-lg">
-                    <div class='w-4'></div>
-                    <div class="w-48 xl:hidden text-center font-bold"><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=surname&order=<?php echo $sortColumn === 'surname' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Name</a></div>
-                    <div class="hidden w-24 xl:block text-center font-bold"><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=surname&order=<?php echo $sortColumn === 'surname' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Surname</a></div>
-                    <div class='hidden w-24 xl:block text-center font-bold'><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=first_name&order=<?php echo $sortColumn === 'first_name' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">First Name</a></div>
-                    <div class='hidden w-12 xl:block text-center font-bold'><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=m_i&order=<?php echo $sortColumn === 'm_i' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">M.I.</a></div>
-                    <div class='hidden w-12 xl:block text-center font-bold'></div>
-                    <div class='hidden md:block w-32 font-bold text-center'><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=occupation&order=<?php echo $sortColumn === 'occupation' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Occupation</a></div>
-                    <div class='hidden md:block w-32 font-bold text-center'><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=addedBy&order=<?php echo $sortColumn === 'addedBy' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Added By</a></div>
-                    <div class="text-center font-bold"><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=date_added&order=<?php echo $sortColumn === 'date_added' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Date Added</a></div>
+                <div class="flex h-8 2xl:h-12 w-90 md:w-4/5 lg:w-3/5 xl:w-2/4 2xl:w-5/12 items-center bg-green-500 text-white m-auto rounded-lg">
+                    <div class='w-20 font-bold text-center'><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=total_stock&order=<?php echo $sortColumn === 'total_stock' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Stock</a></div>
+                    <div class='w-32 font-bold text-center'><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=name&order=<?php echo $sortColumn === 'name' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Description</a></div>
+                    <div class="hidden md:block w-32 text-center font-bold"><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=manufacturer&order=<?php echo $sortColumn === 'manufacturer' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Manufacturer</a></div>
+                    <div class="hidden xl:block w-72 text-center font-bold"><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=type&order=<?php echo $sortColumn === 'type' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Type</a></div>
                     <?php
                         if ($_SESSION['level'] == '4' || $_SESSION['p1'] == '1') {
-                            echo "<a class='flex-1 text-center items-center' href='staff/register.php'><button class='bg-[url(../resources/add.png)] bg-cover  w-6 h-6 mt-1' type='submit'></button></a>";
+                            echo "<div class='flex-1 text-center items-center'><button data-modal-target='addMed' data-modal-show='addMed' class='bg-[url(../resources/add.png)] bg-cover  w-6 h-6 mt-1' type='submit'></button></div>";
+                        } else {
+                            echo "<div class='flex-1 text-center items-center'></div>";
                         }
                     ?>
                 </div>
@@ -70,41 +75,23 @@
                     // table rows
                     if (mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
-                            $timestamp = $row['date_added'];
-                            $date = date("Y-m-d", strtotime($timestamp));
                             echo "
-                                <form class='flex h-8 2xl:h-12 w-96 md:w-4/5 lg:w-3/5 xl:w-2/4 2xl:w-5/12 m-auto mt-2 items-center backdrop-blur-sm bg-white/80 dark:bg-slate-800/50 rounded-xl' action='staff/edit.php' method='POST'>
-                                        <div class='w-4 md:w-8'>";
-                                            if($row['status'] == 1){
-                                                echo"<div class='border-l-solid border-l-8 border-green-400 w-0 h-8 2xl:h-12'></div>";
-                                            } else if ($row['status']== 0){
-                                                echo"<div class='border-l-solid border-l-8 border-red-600 w-0 h-8 2xl:h-12'></div>";
-                                            } else if ($row['status'] == 2){
-                                                echo"<div class='border-l-solid border-l-8 border-yellow-300 w-0 h-8 2xl:h-12'></div>";
-                                            }else {
-                                                echo"Err.";
-                                            }
-                                        echo "</div>
-                                        <div class='dark:text-white w-48 xl:hidden'>{$row['surname']}, {$row['first_name']} {$row['m_i']}. {$row['suffix']}</div>
-                                        <div class='dark:text-white w-24 hidden xl:block'>{$row['surname']}</div>
-                                        <div class='dark:text-white w-24 hidden xl:block'>{$row['first_name']}</div>
-                                        <div class='dark:text-white w-12 hidden xl:block text-center'>{$row['m_i']}</div>
-                                        <div class='dark:text-white w-12 hidden xl:block text-center'>{$row['suffix']}</div>
-                                        <div class='dark:text-white hidden md:block w-32 text-center'>{$row['occupation']}</div>
-                                        <div class='dark:text-white hidden md:block w-32 text-center'>{$row['addedBy']}</div>
-                                        <div class='dark:text-white'>$date</div>
-                                ";if ($_SESSION['level'] == '4' || $_SESSION['p1'] == '1') {
-                                    echo "
-                                        <input type='text' hidden name='id' value='{$row['staff_id']}'>
-                                        <div class='flex-1 text-center'><button class='bg-[url(../resources/pencil.png)] bg-cover  w-4 h-4' type='submit'></button></div>
-                                    ";
-                                } echo "
+                                <form class='flex h-8 2xl:h-12 w-90 md:w-4/5 lg:w-3/5 xl:w-2/4 2xl:w-5/12 m-auto mt-2 items-center backdrop-blur-sm bg-white/80 dark:bg-slate-800/50 rounded-xl' action='medicine/data.php' method='POST'>
+                                        <div class='dark:text-white w-20 text-center'>{$row['total_stock']}</div>
+                                        <div class='dark:text-white w-32 text-center'>{$row['name']}</div>
+                                        <div class='dark:text-white w-32 text-center hidden md:block'>{$row['manufacturer']}</div>
+                                        <div class='dark:text-white w-72 h-8 text-center hidden xl:block overflow-y-scroll overflow-x-hidden'>{$row['type']}</div>
+                                        <input type='text' hidden name='name' value='{$row['name']}'>
+                                        <input type='text' hidden manufacturer='id' value='{$row['manufacturer']}'>
+                                        <div class='flex-1 text-center'><button class='bg-[url(../resources/angle-double-left.png)] bg-cover  w-4 h-4' type='submit'></button></div>
                                 </form>
                             ";
                         }
+                    } else {
+                        echo"<div class='flex h-8 2xl:h-12 w-90 md:w-4/5 lg:w-3/5 xl:w-2/4 2xl:w-5/12 m-auto mt-2 items-center backdrop-blur-sm bg-white/80 dark:bg-slate-800/50 dark:text-white rounded-xl'><div class='m-auto'>No Data</div></div>";
                     }
                     if ($totalPages != 1) {
-                        echo "<div class='h-8 w-96 md:w-4/5 lg:w-3/5 xl:w-2/4 2xl:w-5/12 m-auto mt-2'>";
+                        echo "<div class='h-8 w-90 md:w-4/5 lg:w-3/5 xl:w-2/4 2xl:w-5/12 m-auto mt-2'>";
                         $prev = $page - 1;
                         $next = $page + 1;
                         echo "<nav aria-label='Page navigation example'>

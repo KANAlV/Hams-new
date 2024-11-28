@@ -45,9 +45,9 @@
     <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
     <title>Staff</title>
 </head>
-<body class="bg-[url('../resources/mbg.jpg')] bg-center sm:bg-[url('../resources/bg.jpg')] bg-cover font-sans m-0 fixed overflow-x-scroll">
+<body>
     <?php include "drawer.php";?>   
-    <div class="sm:flex">
+    <div class="sm:flex bg-[url('../resources/mbg.jpg')] bg-center sm:bg-[url('../resources/bg.jpg')] bg-cover font-sans m-0 fixed overflow-x-scroll">
         <?php include "navbar.php";?> 
         <!-- Main container -->
         <div id="container" class="md:inline-block h-screen w-screen">
