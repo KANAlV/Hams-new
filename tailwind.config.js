@@ -13,6 +13,9 @@ module.exports = {
           'raw': '(orientation: landscape)'
         },
       },
+      height: {
+        '24rem':'24rem'
+      },
     },
   },
   plugins: [

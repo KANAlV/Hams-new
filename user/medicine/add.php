@@ -86,19 +86,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $uidResult1 = mysqli_query($conn, $uidSql1);
     if (mysqli_num_rows($uidResult1) > 0) {
         $uidRow1 = mysqli_fetch_assoc($uidResult1);
-        $sql = "INSERT INTO medicine (stock, name, manufacturer, expiry, type, addedBy) 
-                VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO requests (qty, description, manufacturer, expiry, type, req_by, table_name, operation) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssss", $amount, $name, $manufacturer, $expiry, $uidRow1["type"], $_SESSION["usr"]);
+        $stmt->bind_param("ssssssss", $amount, $name, $manufacturer, $expiry, $uidRow1["type"], $_SESSION["usr"], "medicine", "+");
         if ($stmt->execute()) {
             header("Location: ../medicine.php");
             exit();
         }
     } else {
-        $sql = "INSERT INTO medicine (stock, name, manufacturer, type, expiry, addedBy) 
-                VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO requests (qty, description, manufacturer, type, expiry, req_by, table_name, operation) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssss", $amount, $name, $manufacturer, $type, $expiry, $_SESSION["usr"]);
+        $stmt->bind_param("ssssssss", $amount, $name, $manufacturer, $type, $expiry, $_SESSION["usr"], "medicine", "+");
         if ($stmt->execute()) {
             header("Location: ../medicine.php");
             exit();

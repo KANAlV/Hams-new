@@ -11,7 +11,7 @@
 
                 $sql = "SELECT name, manufacturer, type, SUM(stock) AS total_stock
                         FROM `medicine`
-                        WHERE `med_id` LIKE '%$search%' OR
+                        WHERE `uid` LIKE '%$search%' OR
                             `name` LIKE '%$search%' OR
                             `manufacturer` LIKE '%$search%' OR
                             `stock` LIKE '%$search%' OR
@@ -24,7 +24,7 @@
 
                 $totalRecordsQuery = "SELECT COUNT(DISTINCT name, manufacturer) AS total 
                                     FROM `medicine` 
-                                    WHERE `med_id` LIKE '%$search%' OR
+                                    WHERE `uid` LIKE '%$search%' OR
                                             `name` LIKE '%$search%' OR
                                             `manufacturer` LIKE '%$search%' OR
                                             `stock` LIKE '%$search%' OR
@@ -77,13 +77,13 @@
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo "
                                 <form class='flex h-8 2xl:h-12 w-90 md:w-4/5 lg:w-3/5 xl:w-2/4 2xl:w-5/12 m-auto mt-2 items-center backdrop-blur-sm bg-white/80 dark:bg-slate-800/50 rounded-xl' action='medicine/data.php' method='POST'>
-                                        <div class='dark:text-white w-20 text-center'>{$row['total_stock']}</div>
-                                        <div class='dark:text-white w-32 text-center'>{$row['name']}</div>
-                                        <div class='dark:text-white w-32 text-center hidden md:block'>{$row['manufacturer']}</div>
-                                        <div class='dark:text-white w-72 h-8 text-center hidden xl:block overflow-y-scroll overflow-x-hidden'>{$row['type']}</div>
-                                        <input type='text' hidden name='name' value='{$row['name']}'>
-                                        <input type='text' hidden manufacturer='id' value='{$row['manufacturer']}'>
-                                        <div class='flex-1 text-center'><button class='bg-[url(../resources/angle-double-left.png)] bg-cover  w-4 h-4' type='submit'></button></div>
+                                    <div class='dark:text-white w-20 text-center'>{$row['total_stock']}</div>
+                                    <div class='dark:text-white w-32 text-center'>{$row['name']}</div>
+                                    <div class='dark:text-white w-32 text-center hidden md:block'>{$row['manufacturer']}</div>
+                                    <div class='dark:text-white w-72 h-8 text-center hidden xl:block overflow-y-auto overflow-x-hidden'>{$row['type']}</div>
+                                    <input type='text' hidden name='name' value='{$row['name']}'>
+                                    <input type='text' hidden name='manufacturer' value='{$row['manufacturer']}'>
+                                    <div class='flex-1 text-center'><button class='bg-[url(../resources/angle-double-left.png)] bg-cover  w-4 h-4' type='submit'></button></div>
                                 </form>
                             ";
                         }
@@ -101,7 +101,11 @@
                         }
                         for ($i = 1; $i <= $totalPages; $i++) {
                             $activeClass = $i === $page ? 'active' : '';
-                            echo "<li><a href='?search=$search&page=$i&sort=$sortColumn&order=$sortOrder' class='flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'>$i</a></li>";
+                            if ($page == $i) {
+                                echo "<li><a href='?search=$search&page=$i&sort=$sortColumn&order=$sortOrder' class='flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-green border border-green-300 hover:bg-green-100 hover:text-gray-700 dark:bg-green-800 dark:border-green-700 dark:text-gray-400 dark:hover:bg-green-700 dark:hover:text-white'>$i</a></li>";
+                            } else {
+                                echo "<li><a href='?search=$search&page=$i&sort=$sortColumn&order=$sortOrder' class='flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'>$i</a></li>";
+                            }
                         }
                         if($page < $totalPages){
                             echo "<li><a href='?search=$search&page=$next&sort=$sortColumn&order=$sortOrder' class='flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'>Next</a></li>";
