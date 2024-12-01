@@ -54,7 +54,7 @@ class Data {
 class Mutator extends Data implements tideFunctions {
     function id() { $this->id = $_POST['id'] ?? null; }
     function username() { $this->username = $_POST['username'] ?? null; }
-    function password() { $this->password = password_hash($_POST["password"] ?? "", PASSWORD_DEFAULT); }
+    function password() { $this->password = $_POST['password'] ?? null;}
     function occupation() { $this->occupation = $_POST['occupation'] ?? null; }
     function staff_uid() { $this->staff_uid = $_POST['staff_uid'] ?? null; }
     function oldStaff_uid() { $this->oldStaff_uid = $_POST['oldStaff_uid'] ?? null; }
@@ -214,7 +214,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    if ($password == "lwdadrspsoo"){ //same password
+    if ($password == null){ //same password
        $sql = "UPDATE `staff` SET `acc_name`='$username',
                         `surname`='$surname',`first_name`='$first_name',`m_i`='$m_i',`suffix`='$suffix',
                         `occupation`='$occupation',`level`='$level',
@@ -230,7 +230,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Error: " . $stmt->error;
         }
     } else { //different password
-        $sql = "UPDATE `staff` SET `acc_name`='$username',`acc_pwd`='$password',
+        $hashedPassword = password_hash($password ?? "", PASSWORD_DEFAULT);
+        $sql = "UPDATE `staff` SET `acc_name`='$username',`acc_pwd`='$hashedPassword',
                         `surname`='$surname',`first_name`='$first_name',`m_i`='$m_i',`suffix`='$suffix',
                         `occupation`='$occupation',`level`='$level',
                         `stf`='$staff',`bb`='$bloodBank',`med`='$medicines',`equip`='$equipments',

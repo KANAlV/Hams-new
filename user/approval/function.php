@@ -7,6 +7,7 @@ include "../dbcon.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     abstract class jayke{
         protected $req_id;
+        protected $rmv_id;
         protected $req_by;
         protected $qty;
         protected $desc;
@@ -35,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $this->type = $row['type'];
                     $this->table_name = $row['table_name'];
                     $this->expiry = $row['expiry'];
+                    $this->rmv_id = $row['rmv_id'];
                     $this->op = $row['operation'];
                     $this->date_aprvd = $row['date_approved'];
                     $this->req_by = $row['req_by'];
@@ -55,6 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($var == "expiry"){return $this->expiry;}
             if ($var == "op"){return $this->op;}
             if ($var == "aprvd"){return $this->aprvd;}
+            if ($var == "rmv_id"){return $this->rmv_id;}
             if ($var == "date_aprvd"){return $this->date_aprvd;}
             if ($var == "req_by"){return $this->req_by;}
             if ($var == "date_added"){return $this->date_added;}
@@ -79,6 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $exp = $getter->magic("expiry");
     $ope = $getter->magic("op");
     $apd = $getter->magic("aprvd");
+    $rmv_id = $getter->magic("rmv_id");
     $dtaprvd = $getter->magic("date_aprvd");
     $req_by = $getter->magic("req_by");
     $date_added = $getter->magic("date_added");
@@ -90,27 +94,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("ssssss", $qty, $dsc, $man, $typ, $exp, $_SESSION["usr"]);
             if ($stmt->execute()) {
-                header("Location: ../medicine.php");
-                exit();
+                $sql1 = "UPDATE requests SET approved = ?, approved_by = ?, date_approved = now()  WHERE req_id = ?";
+                $stmt1 = $conn->prepare($sql1);
+                if (!$stmt1) {
+                    die('Prepare failed: ' . htmlspecialchars($conn->error));
+                }
+                $apd = 1;
+                $stmt1->bind_param("isi", $apd, $_SESSION['usr'], $id);
+                if ($stmt1->execute()) {
+                    echo "
+                        <form id='myForm' action='items.php' method='POST'>
+                            <input type='text' name='show' value='pending' hidden readonly/>
+                            <input type='text' name='req_by' value='{$req_by}' hidden readonly/>
+                            <input type='text' name='date_added' value='{$date_added}' hidden readonly/>
+                        </form>
+                    ";
+                }
+            }
+        } if ($ope == "rmv") {
+            $val0 = 1;
+            $sql = "UPDATE medicine SET discarded = ? WHERE med_id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ss", $val0, $rmv_id);
+            if ($stmt->execute()) {
+                $sql1 = "UPDATE requests SET approved = ?, approved_by = ?, date_approved = now()  WHERE req_id = ?";
+                $stmt1 = $conn->prepare($sql1);
+                if (!$stmt1) {
+                    die('Prepare failed: ' . htmlspecialchars($conn->error));
+                }
+                $apd = 1;
+                $stmt1->bind_param("isi", $apd, $_SESSION['usr'], $id);
+                if ($stmt1->execute()) {
+                    echo "
+                        <form id='myForm' action='items.php' method='POST'>
+                            <input type='text' name='show' value='pending' hidden readonly/>
+                            <input type='text' name='req_by' value='{$req_by}' hidden readonly/>
+                            <input type='text' name='date_added' value='{$date_added}' hidden readonly/>
+                        </form>
+                    ";
+                }
             }
         }
     }// above medicine below ...
-
-    $sql1 = "UPDATE requests SET approved = ?, approved_by = '{$_SESSION['usr']}', date_approved = now()  WHERE req_id = ?";
-    $stmt1 = $conn->prepare($sql1);
-    if (!$stmt1) {
-        die('Prepare failed: ' . htmlspecialchars($conn->error));
-    }
-    $stmt1->bind_param("ii", $apd, $id);
-    if ($stmt1->execute()) {
-        echo "
-            <form id='myForm' action='items.php' method='POST'>
-                <input type='text' name='show' value='pending' hidden readonly/>
-                <input type='text' name='req_by' value='{$req_by}' hidden readonly/>
-                <input type='text' name='date_added' value='{$date_added}' hidden readonly/>
-            </form>
-        ";
-    }
 }
 ?>
 <script>

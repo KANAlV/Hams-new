@@ -81,6 +81,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $type = $medAccessor->type();
     $expiry = $medAccessor->expiry();
 
+    $req_by = $_SESSION["usr"];
+    $table_name = "medicine";
+    $operation = "+";
+
     // Check if the medicine already exists
     $uidSql1 = "SELECT * FROM `medicine` WHERE name = '$name' AND manufacturer = '$manufacturer'";
     $uidResult1 = mysqli_query($conn, $uidSql1);
@@ -89,20 +93,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "INSERT INTO requests (qty, description, manufacturer, expiry, type, req_by, table_name, operation) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssssss", $amount, $name, $manufacturer, $expiry, $uidRow1["type"], $_SESSION["usr"], "medicine", "+");
+        $stmt->bind_param("ssssssss", $amount, $name, $manufacturer, $expiry, $uidRow1["type"], $req_by, $table_name, $operation);
         if ($stmt->execute()) {
-            header("Location: ../medicine.php");
-            exit();
+            echo "
+                <form id='myForm' action='data.php' method='POST'>
+                    <input type='text' name='name' value='$name' hidden readonly/>
+                    <input type='text' name='manufacturer' value='$manufacturer' hidden readonly/>
+                </form>
+            ";
         }
     } else {
         $sql = "INSERT INTO requests (qty, description, manufacturer, type, expiry, req_by, table_name, operation) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssssss", $amount, $name, $manufacturer, $type, $expiry, $_SESSION["usr"], "medicine", "+");
+        $stmt->bind_param("ssssssss", $amount, $name, $manufacturer, $type, $expiry, $req_by, $table_name, $operation);
         if ($stmt->execute()) {
-            header("Location: ../medicine.php");
-            exit();
+            echo "
+                <form id='myForm' action='data.php' method='POST'>
+                    <input type='text' name='name' value='$name' hidden readonly/>
+                    <input type='text' name='manufacturer' value='$manufacturer' hidden readonly/>
+                    <input type='text' name='discarded' value='{$_POST["discarded"]}' hidden readonly/>
+                </form>
+            ";
         }
     }
 }
 ?>
+<script>
+    window.onload = function() {
+        setTimeout(function() {
+            document.getElementById("myForm").submit();
+        }, 0);
+    };
+</script>

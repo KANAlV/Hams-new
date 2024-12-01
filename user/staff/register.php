@@ -21,18 +21,18 @@
                         <div class="flex">
                             <div class="text-left p-2">
                                 <label>USERNAME</label><br>
-                                <input class="w-28 border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5" type="text" name="username" required><br><br>
+                                <input onkeypress="return isAlphaNumerical(event)" class="w-28 border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5" type="text" name="username" required><br><br>
                                 <label>PASSWORD</label><br>
-                                <input class="w-28 border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5" type="password" name="password" required><br><br>
+                                <input onkeypress="return isAlphaNumerical(event)" class="w-28 border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5" type="password" name="password" required><br><br>
                                 <label>Occupation</label><br>
-                            <input class="w-28 border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5" type="text" name="occupation" required><br>
+                                <input onkeypress="return isAlphaNumerical(event)" class="w-28 border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5" type="text" name="occupation" required><br>
                             </div>
                             <div class="text-left p-2">
                                 <label>NAME</label><br>
-                                <input class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5 w-48" type="text" name="surname" placeholder="Surname" required><br>
-                                <input class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5 w-48" type="text" name="first_name" placeholder="First Name" required><br>
-                                <input class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5 w-12" type="text" name="m_i" placeholder="M.I.">
-                                <input class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5 w-20" type="text" name="suffix" placeholder="Suffix"><br><br>
+                                <input onkeypress="return isAlphaNumerical(event)" class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5 w-48" type="text" name="surname" placeholder="Surname" required><br>
+                                <input onkeypress="return isAlphaNumerical(event)" class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5 w-48" type="text" name="first_name" placeholder="First Name" required><br>
+                                <input onkeypress="return isAlphaNumerical(event)" class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5 w-12" type="text" name="m_i" placeholder="M.I.">
+                                <input onkeypress="return isAlphaNumerical(event)" class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5 w-20" type="text" name="suffix" placeholder="Suffix"><br><br>
                                 <label for='staff_uid'>UID:</label><br>
                                 <select name='staff_uid' class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5">
                                     <option class='dark:bg-slate-800' value=''>--none--</option>
@@ -116,6 +116,16 @@
         drawerElement.addEventListener('mouseleave', () => {
         drawerInstance.hide(); // Hide drawer on mouse leave
         });
+
+        function isAlphaNumerical(event) {
+            const charCode = event.which || event.keyCode;
+            const char = String.fromCharCode(charCode);
+            const validPattern = /^[a-zA-Z0-9-_,.]$/;
+            if (!validPattern.test(char)) {
+                return false;
+            }
+            return true;
+        }
     </script>
 </body>
 </html>

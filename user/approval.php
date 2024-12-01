@@ -14,7 +14,7 @@
                 
                 $search = isset($_GET['search']) ? $_GET['search'] : '';
                 $sortColumn = isset($_GET['sort']) ? $_GET['sort'] : 'date_added';
-                $sortOrder = isset($_GET['order']) && strtoupper($_GET['order']) === 'DESC' ? 'DESC' : 'ASC';
+                $sortOrder = isset($_GET['order']) && strtoupper($_GET['order']) === 'ASC' ? 'ASC' : 'DESC';
 
             if ($toggle == "pending") {
                 $sql = "SELECT * FROM `requests` WHERE 

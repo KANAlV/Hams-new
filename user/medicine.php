@@ -1,6 +1,11 @@
 <?php
     include "dbcon.php";
 
+    $discarded = "";
+    if(isset($_GET["discarded"]))
+    { $discarded = $_GET["discarded"]; }
+    else{$discarded = 0;}
+
     $recordsPerPage = 10;
                 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
                 $offset = ($page - 1) * $recordsPerPage;
@@ -9,13 +14,14 @@
                 $sortColumn = isset($_GET['sort']) ? $_GET['sort'] : 'name';
                 $sortOrder = isset($_GET['order']) && strtoupper($_GET['order']) === 'DESC' ? 'DESC' : 'ASC';
 
-                $sql = "SELECT name, manufacturer, type, SUM(stock) AS total_stock
+                $sql = "SELECT name, manufacturer, type, SUM(stock) AS total_stock 
                         FROM `medicine`
-                        WHERE `uid` LIKE '%$search%' OR
-                            `name` LIKE '%$search%' OR
-                            `manufacturer` LIKE '%$search%' OR
-                            `stock` LIKE '%$search%' OR
-                            `type` LIKE '%$search%' 
+                        WHERE (`discarded` = '$discarded' AND
+                               (`uid` LIKE '%$search%' OR
+                                `name` LIKE '%$search%' OR
+                                `manufacturer` LIKE '%$search%' OR
+                                `stock` LIKE '%$search%' OR
+                                `type` LIKE '%$search%'))
                         GROUP BY name, manufacturer, type
                         ORDER BY $sortColumn $sortOrder
                         LIMIT $offset, $recordsPerPage";
@@ -24,11 +30,12 @@
 
                 $totalRecordsQuery = "SELECT COUNT(DISTINCT name, manufacturer) AS total 
                                     FROM `medicine` 
-                                    WHERE `uid` LIKE '%$search%' OR
+                                    WHERE (`discarded` = '$discarded' AND
+                                           (`uid` LIKE '%$search%' OR
                                             `name` LIKE '%$search%' OR
                                             `manufacturer` LIKE '%$search%' OR
                                             `stock` LIKE '%$search%' OR
-                                            `type` LIKE '%$search%'";
+                                            `type` LIKE '%$search%'))";
                 $totalRecordsResult = mysqli_query($conn, $totalRecordsQuery);
                 $totalRecords = mysqli_fetch_assoc($totalRecordsResult)['total'];
                 $totalPages = ceil($totalRecords / $recordsPerPage);
@@ -64,10 +71,21 @@
                     <div class="hidden md:block w-32 text-center font-bold"><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=manufacturer&order=<?php echo $sortColumn === 'manufacturer' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Manufacturer</a></div>
                     <div class="hidden xl:block w-72 text-center font-bold"><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=type&order=<?php echo $sortColumn === 'type' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Type</a></div>
                     <?php
-                        if ($_SESSION['level'] == '4' || $_SESSION['p1'] == '1') {
-                            echo "<div class='flex-1 text-center items-center'><button data-modal-target='addMed' data-modal-show='addMed' class='bg-[url(../resources/add.png)] bg-cover  w-6 h-6 mt-1' type='submit'></button></div>";
+                        if ($_SESSION['level'] == '3' || $_SESSION['p3'] == '1') {
+                            echo "<div class='flex-1 flex text-center items-center' name='discarded' id='discarded'>
+                                    <form class=' text-center items-center' name='discarded' id='discarded'>" ?>
+                                        <div><input type="radio" name="discarded" <?php if ($discarded == '0') { ?>checked='checked' <?php } ?>value="0" onChange="autoSubmit();" />On-Stock</div>
+                                        <div class="md:ml-2"><input type="radio" name="discarded" <?php if ($discarded == '1') { ?>checked='checked' <?php } ?> value="1" onChange="autoSubmit();" /> Discarded</div>
+                                    </form>
+                                    <div class="flex-1"><button data-modal-target='addMed' data-modal-show='addMed' class='bg-[url(../resources/add.png)] bg-cover  w-6 h-6 mt-1' type='button'></button></div>
+                                </div>
+                            <?php ;
                         } else {
-                            echo "<div class='flex-1 text-center items-center'></div>";
+                            echo "<form class='flex-1 text-center items-center' name='discarded' id='discarded' class='flex-1 block md:flex'>" ?>
+                                    <div><input type="radio" name="discarded" <?php if ($discarded == '0') { ?>checked='checked' <?php } ?>value="0" onChange="autoSubmit();" />On-Stock</div>
+                                    <div class="md:ml-2"><input type="radio" name="discarded" <?php if ($discarded == '1') { ?>checked='checked' <?php } ?> value="1" onChange="autoSubmit();" /> Discarded</div>
+                                    <button data-modal-target='addMed' data-modal-show='addMed' class='bg-[url(../resources/add.png)] bg-cover  w-6 h-6 mt-1' type='button'></button>
+                                </form> <?php ;
                         }
                     ?>
                 </div>
@@ -83,6 +101,7 @@
                                     <div class='dark:text-white w-72 h-8 text-center hidden xl:block overflow-y-auto overflow-x-hidden'>{$row['type']}</div>
                                     <input type='text' hidden name='name' value='{$row['name']}'>
                                     <input type='text' hidden name='manufacturer' value='{$row['manufacturer']}'>
+                                    <input type='hidden' name='discarded' value='{$discarded}'>
                                     <div class='flex-1 text-center'><button class='bg-[url(../resources/angle-double-left.png)] bg-cover  w-4 h-4' type='submit'></button></div>
                                 </form>
                             ";
@@ -137,6 +156,11 @@
         drawerElement.addEventListener('mouseleave', () => {
         drawerInstance.hide(); // Hide drawer on mouse leave
         });
+        
+        function autoSubmit() {
+            var formObject = document.forms['discarded'];
+            formObject.submit();
+        }
     </script>
 </body>
 </html>

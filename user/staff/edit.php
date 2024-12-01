@@ -177,18 +177,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="flex">
                             <div class="text-left p-2">
                                 <label>USERNAME</label><br>
-                                <input class="w-28 border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5" type="text" name="username" value="<?php echo $accessor->username();?>" required><br><br>
+                                <input onkeypress="return isAlphaNumerical(event)" class="w-28 border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5" type="text" name="username" value="<?php echo $accessor->username();?>" required><br><br>
                                 <label>PASSWORD</label><br>
-                                <input class="w-28 border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5" type="password" name="password" value="lwdadrspsoo" required><br><br>
+                                <input onkeypress="return isAlphaNumerical(event)" class="w-28 border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5" type="password" name="password" value="lwdadrspsoo" required><br><br>
                                 <label>Occupation</label><br>
-                            <input class="w-28 border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5" type="text" name="occupation" value="<?php echo $accessor->occupation();?>" required><br>
+                                <input onkeypress="return isAlphaNumerical(event)" class="w-28 border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5" type="text" name="occupation" value="<?php echo $accessor->occupation();?>" required><br>
                             </div>
                             <div class="text-left p-2">
                                 <label>NAME</label><br>
-                                <input class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5 w-48" type="text" name="surname" placeholder="Surname" value="<?php echo $accessor->surname();?>" required><br>
-                                <input class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5 w-48" type="text" name="first_name" placeholder="First Name" value="<?php echo $accessor->first_name();?>" required><br>
-                                <input class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5 w-12" type="text" name="m_i" value="<?php echo $accessor->m_i();?>" placeholder="M.I.">
-                                <input class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5 w-20" type="text" name="suffix" placeholder="Suffix" value="<?php echo $accessor->suffix();?>"><br><br>
+                                <input onkeypress="return isAlphaNumerical(event)" class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5 w-48" type="text" name="surname" placeholder="Surname" value="<?php echo $accessor->surname();?>" required><br>
+                                <input onkeypress="return isAlphaNumerical(event)" class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5 w-48" type="text" name="first_name" placeholder="First Name" value="<?php echo $accessor->first_name();?>" required><br>
+                                <input onkeypress="return isAlphaNumerical(event)" class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5 w-12" type="text" name="m_i" value="<?php echo $accessor->m_i();?>" placeholder="M.I.">
+                                <input onkeypress="return isAlphaNumerical(event)" class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5 w-20" type="text" name="suffix" placeholder="Suffix" value="<?php echo $accessor->suffix();?>"><br><br>
                                 <label for='staff_uid'>UID:</label><br>
                                 <select name='staff_uid' class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5">
                                     <option class='dark:bg-slate-800' value="<?php echo $accessor->staff_uid();?>"><?php echo $accessor->staff_uid();?></option>
@@ -275,6 +275,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         drawerElement.addEventListener('mouseleave', () => {
         drawerInstance.hide(); // Hide drawer on mouse leave
         });
+
+        function isAlphaNumerical(event) {
+            const charCode = event.which || event.keyCode;
+            const char = String.fromCharCode(charCode);
+            const validPattern = /^[a-zA-Z0-9-_,.]$/;
+            if (!validPattern.test(char)) {
+                return false;
+            }
+            return true;
+        }
     </script>
 </body>
 </html>

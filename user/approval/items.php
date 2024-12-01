@@ -110,7 +110,7 @@
                                     <div class='dark:text-white w-48 h-8 2xl:h-12 text-center overflow-y-auto overflow-x-hidden'>{$row['type']}</div>
                                     <div class='dark:text-white w-20 text-center'>{$row['table_name']}</div>
                                     <input type='text' name='req_id' value='{$row['req_id']}' hidden readonly/>
-                                    <div class='flex-1 text-center'><button class='bg-[url(../resources/angle-double-left.png)] bg-cover  w-4 h-4' type='submit'></button></div>
+                                    <div class='flex-1 text-center'><button class='bg-[url(../resources/approve.png)] bg-cover  w-8 h-8' type='submit'></button></div>
                                 </form>
                             ";
                         }
