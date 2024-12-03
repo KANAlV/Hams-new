@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2024 at 02:54 PM
+-- Generation Time: Dec 03, 2024 at 11:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -77,24 +77,22 @@ INSERT INTO `blood` (`blood_id`, `type`, `rh`, `amount`, `uid`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `equipment`
+-- Table structure for table `equipments`
 --
 
-CREATE TABLE `equipment` (
+CREATE TABLE `equipments` (
   `equip_id` int(50) NOT NULL,
+  `uid` varchar(50) DEFAULT NULL,
   `name` varchar(50) NOT NULL,
-  `stock` int(11) NOT NULL,
-  `uid` varchar(50) NOT NULL
+  `manufacturer` varchar(50) NOT NULL,
+  `type` varchar(300) NOT NULL,
+  `expiry` varchar(30) NOT NULL,
+  `expired` int(1) NOT NULL DEFAULT 0,
+  `stock` varchar(11) NOT NULL,
+  `discarded` int(1) NOT NULL DEFAULT 0,
+  `addedBy` varchar(30) NOT NULL DEFAULT 'error',
+  `date added` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `equipment`
---
-
-INSERT INTO `equipment` (`equip_id`, `name`, `stock`, `uid`) VALUES
-(1, 'syringe', 10, '8286418476144 '),
-(2, 'scalpel', 10, '8286418476145'),
-(3, 'face mask', 100, '8286418476146');
 
 -- --------------------------------------------------------
 
@@ -364,9 +362,9 @@ ALTER TABLE `blood`
   ADD PRIMARY KEY (`blood_id`);
 
 --
--- Indexes for table `equipment`
+-- Indexes for table `equipments`
 --
-ALTER TABLE `equipment`
+ALTER TABLE `equipments`
   ADD PRIMARY KEY (`equip_id`);
 
 --
@@ -416,10 +414,10 @@ ALTER TABLE `blood`
   MODIFY `blood_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `equipment`
+-- AUTO_INCREMENT for table `equipments`
 --
-ALTER TABLE `equipment`
-  MODIFY `equip_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `equipments`
+  MODIFY `equip_id` int(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `medicine`

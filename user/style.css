@@ -1783,9 +1783,9 @@ input:checked + .toggle-bg {
   background-color: rgb(224 36 36 / var(--tw-bg-opacity, 1));
 }
 
-.bg-red-700 {
+.bg-red-800 {
   --tw-bg-opacity: 1;
-  background-color: rgb(200 30 30 / var(--tw-bg-opacity, 1));
+  background-color: rgb(155 28 28 / var(--tw-bg-opacity, 1));
 }
 
 .bg-slate-200 {
@@ -1833,11 +1833,6 @@ input:checked + .toggle-bg {
 
 .bg-white\/80 {
   background-color: rgb(255 255 255 / 0.8);
-}
-
-.bg-red-800 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(155 28 28 / var(--tw-bg-opacity, 1));
 }
 
 .bg-\[url\(\'\.\.\/resources\/AMC\.png\'\)\] {
