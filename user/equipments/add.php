@@ -82,11 +82,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $expiry = $medAccessor->expiry();
 
     $req_by = $_SESSION["usr"];
-    $table_name = "medicine";
+    $table_name = "equipments";
     $operation = "+";
 
     // Check if the medicine already exists
-    $uidSql1 = "SELECT * FROM `medicine` WHERE name = '$name' AND manufacturer = '$manufacturer'";
+    $uidSql1 = "SELECT * FROM `equipments` WHERE name = '$name' AND manufacturer = '$manufacturer'";
     $uidResult1 = mysqli_query($conn, $uidSql1);
     if (mysqli_num_rows($uidResult1) > 0) {
         $uidRow1 = mysqli_fetch_assoc($uidResult1);

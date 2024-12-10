@@ -53,17 +53,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $manufacturer = $delMedAccessor->manufacturer();
     $operation = "rmv";
     $req_by = $_SESSION['usr'];
-    $table_name = "medicine";
+    $table_name = "equipments";
 
     // get med details
-    $uidSql1 = "SELECT * FROM `medicine` WHERE med_id = '$delID'";
+    $uidSql1 = "SELECT * FROM `equipments` WHERE equip_id = '$delID'";
     $uidResult1 = mysqli_query($conn, $uidSql1);
     if (mysqli_num_rows($uidResult1) > 0) {
         $uidRow1 = mysqli_fetch_assoc($uidResult1);
         $sql = "INSERT INTO requests (qty, description, manufacturer, expiry, type, req_by, table_name, operation, rmv_id) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssssssss", $uidRow1["stock"], $uidRow1["name"], $uidRow1["manufacturer"], $uidRow1["expiry"], $uidRow1["type"], $req_by, $table_name, $operation, $uidRow1["med_id"]);
+        $stmt->bind_param("sssssssss", $uidRow1["stock"], $uidRow1["name"], $uidRow1["manufacturer"], $uidRow1["expiry"], $uidRow1["type"], $req_by, $table_name, $operation, $uidRow1["equip_id"]);
         if ($stmt->execute()) {
             echo "
                 <form id='myForm' action='data.php' method='POST'>

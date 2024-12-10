@@ -135,7 +135,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             }
         }
-    }// above medicine below ...
+    }//medicine above / equipments below...
+    if($tbl == "equipments"){
+        if ($ope == "+") {
+            $sql = "INSERT INTO equipments (stock, name, manufacturer, type, expiry, addedBy) 
+                    VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ssssss", $qty, $dsc, $man, $typ, $exp, $_SESSION["usr"]);
+            if ($stmt->execute()) {
+                $sql1 = "UPDATE requests SET approved = ?, approved_by = ?, date_approved = now()  WHERE req_id = ?";
+                $stmt1 = $conn->prepare($sql1);
+                if (!$stmt1) {
+                    die('Prepare failed: ' . htmlspecialchars($conn->error));
+                }
+                $apd = 1;
+                $stmt1->bind_param("isi", $apd, $_SESSION['usr'], $id);
+                if ($stmt1->execute()) {
+                    echo "
+                        <form id='myForm' action='items.php' method='POST'>
+                            <input type='text' name='show' value='pending' hidden readonly/>
+                            <input type='text' name='req_by' value='{$req_by}' hidden readonly/>
+                            <input type='text' name='date_added' value='{$date_added}' hidden readonly/>
+                        </form>
+                    ";
+                }
+            }
+        } if ($ope == "rmv") {
+            $val0 = 1;
+            $sql = "UPDATE equipments SET discarded = ? WHERE equip_id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ss", $val0, $rmv_id);
+            if ($stmt->execute()) {
+                $sql1 = "UPDATE requests SET approved = ?, approved_by = ?, date_approved = now()  WHERE req_id = ?";
+                $stmt1 = $conn->prepare($sql1);
+                if (!$stmt1) {
+                    die('Prepare failed: ' . htmlspecialchars($conn->error));
+                }
+                $apd = 1;
+                $stmt1->bind_param("isi", $apd, $_SESSION['usr'], $id);
+                if ($stmt1->execute()) {
+                    echo "
+                        <form id='myForm' action='items.php' method='POST'>
+                            <input type='text' name='show' value='pending' hidden readonly/>
+                            <input type='text' name='req_by' value='{$req_by}' hidden readonly/>
+                            <input type='text' name='date_added' value='{$date_added}' hidden readonly/>
+                        </form>
+                    ";
+                }
+            }
+        }
+    }
 }
 ?>
 <script>
