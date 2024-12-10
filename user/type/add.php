@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo"Entry is already in the Database! <a href='../types.php'>go back?</a>";
     } else {
         $sql = "INSERT INTO types (table, type, addedBy) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                VALUES (?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sss",$table, $type, $_SESSION["usr"]);
         if ($stmt->execute()) {
