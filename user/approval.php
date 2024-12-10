@@ -85,8 +85,14 @@
                     <div class='flex-1 font-bold text-center'><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&toggle=<?php echo $toggle; ?>&sort=req_by&order=<?php echo $sortColumn === 'req_by' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Requested By</a></div>
                     <div class='flex-1 font-bold text-center'><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&toggle=<?php echo $toggle; ?>&sort=date_added&order=<?php echo $sortColumn === 'date_added' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Date Added</a></div>
                     <form name='toggle' id='toggle' class="flex-1 block md:flex">
-                        <div><input type="radio" name="toggle" <?php if ($toggle == 'pending') { ?>checked='checked' <?php } ?>value="pending" onChange="autoSubmit();" />Pending</div>
-                        <div class="md:ml-2"><input type="radio" name="toggle" <?php if ($toggle == 'approved') { ?>checked='checked' <?php } ?> value="approved" onChange="autoSubmit();" /> Approved</div>
+                        <select class="bg-green-500" name="toggle" onChange="autoSubmit();">
+                                <option class="text-black border-transparent" value="$discarded" hidden><?php 
+                                    if ($toggle == 'pending') {echo "Pending";}
+                                    if ($toggle == 'approved') {echo "Approved";}
+                                ?></option>
+                                <option class="text-black dark:text-white bg-slate-300 dark:bg-slate-800" value="pending">Pending</option>
+                                <option class="text-black dark:text-white bg-slate-300 dark:bg-slate-800" value="approved">Approved</option>
+                            </select>
                     </form>
                 </div>
                 <div class="h-24rem md:h-max overflow-y-auto">

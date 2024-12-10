@@ -44,6 +44,11 @@
             ?><a class="flex items-center h-12" href="/hams-new/user/approval.php"><div class="w-screen px-12 font-bold block md:bg-[url('../resources/checkbox.png')] md:dark:bg-[url('../resources/dark/checkbox.png')] bg-no-repeat bg-contain">Approval</div></a><?php
         }
     ?>
+    <?php
+        if ($_SESSION['level'] == '4' || $_SESSION['p9'] == '1') {
+            ?><a class="flex items-center h-12" href="/hams-new/user/types.php"><div class="w-screen px-12 font-bold block md:bg-[url('../resources/category.png')] md:dark:bg-[url('../resources/dark/category.png')] bg-no-repeat bg-contain">Types</div></a><?php
+        }
+    ?>
     <a class="flex items-center h-12" href="/hams-new/user/staff.php"><div class="w-screen px-12 font-bold block md:bg-[url('../resources/staff.png')] md:dark:bg-[url('../resources/dark/staff.png')] bg-no-repeat bg-contain">Staff</div></a>
     <a class="flex items-center h-12" href="/hams-new/user/blood.php"><div class="w-screen px-12 font-bold block md:bg-[url('../resources/heart.png')] md:dark:bg-[url('../resources/dark/heart.png')] bg-no-repeat bg-contain">Blood</div></a>
     <a class="flex items-center h-12" href="/hams-new/user/medicine.php"><div class="w-screen px-12 font-bold block md:bg-[url('../resources/medicine.png')] md:dark:bg-[url('../resources/dark/medicine.png')] bg-no-repeat bg-contain">Medicine</div></a>

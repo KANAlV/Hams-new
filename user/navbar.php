@@ -5,8 +5,11 @@
             <div class="bg-[url('../resources/AMC.png')] mt-2 bg-contain bg-no-repeat bg-center h-12 w-12"></div>
             <div class="bg-[url('../resources/dashboard.png')] dark:bg-[url('../resources/dark/dashboard.png')] mt-4 ml-2 bg-contain bg-no-repeat bg-center h-8 w-8"></div>
             <?php
-                if ($_SESSION['level'] == '4' || $_SESSION['p1'] == '1') {
+                if ($_SESSION['level'] == '4' || $_SESSION['p8'] == '1') {
                     ?><div class="bg-[url('../resources/checkbox.png')] dark:bg-[url('../resources/dark/checkbox.png')] mt-4 ml-2 bg-contain bg-no-repeat bg-center h-8 w-8"></div><?php
+                }
+                if ($_SESSION['level'] == '4' || $_SESSION['p9'] == '1') {
+                    ?><div class="bg-[url('../resources/category.png')] dark:bg-[url('../resources/dark/category.png')] mt-4 ml-2 bg-contain bg-no-repeat bg-center h-8 w-8"></div><?php
                 }
             ?>
             <div class="bg-[url('../resources/staff.png')] dark:bg-[url('../resources/dark/staff.png')] mt-4 ml-2 bg-contain bg-no-repeat bg-center h-8 w-8"></div>

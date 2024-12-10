@@ -59,7 +59,10 @@
         <!-- Main container -->
         <div id="container" class="md:inline-block h-screen w-screen">
             <div class="backdrop-blur-md bg-slate-300/30 dark:bg-slate-800/50 w-screen h-screen">
-                <div class="p-2 md:h-32 w-full items-center text-center"><h1 class="hidden md:block font-bold text-2xl dark:text-white">Medicine</h1><br>
+                <div class="p-2 md:h-32 w-full items-center text-center"><?php 
+                 if ($discarded == '0')  {echo "<h1 class='hidden md:block font-bold text-2xl dark:text-white'>";}
+                 if ($discarded == '1') {echo "<h1 class='hidden md:block font-bold text-2xl dark:text-red-600'>";}
+                 ?>Medicine</h1><br>
                     <form method="GET" class="flex w-min m-auto rounded-full bg-white/60 backdrop-blur-md">
                         <div class="bg-[url('../resources/loupe.png')] bg-contain bg-no-repeat bg-center h-6 w-10 m-auto invert dark:invert-0"></div>
                         <input type="text" class="rounded-full bg-white/0 border-none focus:outline-none focus:ring-0" name="search" placeholder="Search..." value="<?php echo $search; ?>">
@@ -74,8 +77,14 @@
                         if ($_SESSION['level'] == '3' || $_SESSION['p3'] == '1') {
                             echo "<div class='flex-1 flex text-center items-center' name='discarded' id='discarded'>
                                     <form class=' text-center items-center' name='discarded' id='discarded'>" ?>
-                                        <div><input type="radio" name="discarded" <?php if ($discarded == '0') { ?>checked='checked' <?php } ?>value="0" onChange="autoSubmit();" />On-Stock</div>
-                                        <div class="md:ml-2"><input type="radio" name="discarded" <?php if ($discarded == '1') { ?>checked='checked' <?php } ?> value="1" onChange="autoSubmit();" /> Discarded</div>
+                                        <select class="bg-green-500" name="discarded" onChange="autoSubmit();">
+                                <option class="text-black border-transparent" value="$discarded" hidden><?php 
+                                    if ($discarded == '0') {echo "On-Stock";}
+                                    if ($discarded == '1') {echo "Discarded";}
+                                ?></option>
+                                <option class="text-black dark:text-white bg-slate-300 dark:bg-slate-800" value="0">On-Stock</option>
+                                <option class="text-black dark:text-white bg-slate-300 dark:bg-slate-800" value="1">Discarded</option>
+                            </select>
                                     </form>
                                     <div class="flex-1"><button data-modal-target='addMed' data-modal-show='addMed' class='bg-[url(../resources/add.png)] bg-cover  w-6 h-6 mt-1' type='button'></button></div>
                                 </div>

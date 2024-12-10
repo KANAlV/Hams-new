@@ -33,6 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["p6"] = $user["acc"];
         $_SESSION["p7"] = $user["ui"];
         $_SESSION["p8"] = $user["aprvl"];
+        $_SESSION["p9"] = $user["typ"];
         header("Location: home.php"); // Redirect to a welcome page
         exit();
     } else {

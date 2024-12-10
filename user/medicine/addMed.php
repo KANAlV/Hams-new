@@ -30,53 +30,24 @@
                     <div class="block text-left md:ml-2">
                         <label class="dark:text-white">Type</label><button type="button" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom-start" class="bg-white/0 text-green-400 font-bold ml-4">+</button><br>
                         <div class="flex flex-wrap h-auto w-full max-h-32 overflow-y-auto dark:text-white border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-black/5 dark:bg-white/5 items-start gap-2">
-                            <div id="tag1" class="hidden rounded-md bg-green-500 w-min px-2">Analgesics <button id="x1" onclick="toggleDiv('1')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag2" class="hidden rounded-md bg-green-500 w-min px-2">Anesthetics <button id="x2" onclick="toggleDiv('2')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag3" class="hidden rounded-md bg-green-500 w-min px-2">Anti-addiction agents <button onclick="toggleDiv('3')" id="x3" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag4" class="hidden rounded-md bg-green-500 w-min px-2">Antibacterials <button id="x4" onclick="toggleDiv('4')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag5" class="hidden rounded-md bg-green-500 w-min px-2">Anticonvulsants <button id="x5" onclick="toggleDiv('5')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag6" class="hidden rounded-md bg-green-500 w-min px-2">Antidementia agents <button id="x6" onclick="toggleDiv('6')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag7" class="hidden rounded-md bg-green-500 w-min px-2">Antidepressants <button id="x7" onclick="toggleDiv('7')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag8" class="hidden rounded-md bg-green-500 w-min px-2">Antiemetics <button id="x8" type="button" onclick="toggleDiv('8')" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag9" class="hidden rounded-md bg-green-500 w-min px-2">Antifungals <button id="x9" type="button" onclick="toggleDiv('9')" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag10" class="hidden rounded-md bg-green-500 w-min px-2">Antigout agents <button id="x10" onclick="toggleDiv('10')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag11" class="hidden rounded-md bg-green-500 w-min px-2">Antimigraine agents <button id="x11" onclick="toggleDiv('11')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag12" class="hidden rounded-md bg-green-500 w-min px-2">Antimyasthenic agents <button id="x12" onclick="toggleDiv('12')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag13" class="hidden rounded-md bg-green-500 w-min px-2">Antimycobacterials <button id="x13" onclick="toggleDiv('13')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag14" class="hidden rounded-md bg-green-500 w-min px-2">Antineoplastics <button id="x14" onclick="toggleDiv('14')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag15" class="hidden rounded-md bg-green-500 w-min px-2">Antiparasitics <button id="x15" onclick="toggleDiv('15')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag16" class="hidden rounded-md bg-green-500 w-min px-2">Antiparkinson agents <button id="x16" onclick="toggleDiv('16')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag17" class="hidden rounded-md bg-green-500 w-min px-2">Antipsychotics <button id="x17" onclick="toggleDiv('17')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag18" class="hidden rounded-md bg-green-500 w-min px-2">Antispasticity agents <button id="x18" onclick="toggleDiv('18')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag19" class="hidden rounded-md bg-green-500 w-min px-2">Antivirals <button id="x19" onclick="toggleDiv('19')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag20" class="hidden rounded-md bg-green-500 w-min px-2">Anxiolytics <button id="x20" onclick="toggleDiv('20')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag21" class="hidden rounded-md bg-green-500 w-min px-2">Bipolar agents <button id="x21" onclick="toggleDiv('21')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag22" class="hidden rounded-md bg-green-500 w-min px-2">Blood glucose regulators <button id="x22" onclick="toggleDiv('22')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag23" class="hidden rounded-md bg-green-500 w-min px-2">Blood products <button id="x23" onclick="toggleDiv('23')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag24" class="hidden rounded-md bg-green-500 w-min px-2">Cardiovascular agents <button id="x24" onclick="toggleDiv('24')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag25" class="hidden rounded-md bg-green-500 w-min px-2">Central nervous system agents <button id="x25" onclick="toggleDiv('25')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag26" class="hidden rounded-md bg-green-500 w-min px-2">Dental and oral agents <button id="x26" onclick="toggleDiv('26')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag27" class="hidden rounded-md bg-green-500 w-min px-2">Dermatological agents <button id="x27" onclick="toggleDiv('27')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag28" class="hidden rounded-md bg-green-500 w-min px-2">E,M,M,V <button id="x28" onclick="toggleDiv('28')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag29" class="hidden rounded-md bg-green-500 w-min px-2">Gastrointestinal agents <button id="x29" onclick="toggleDiv('29')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag30" class="hidden rounded-md bg-green-500 w-min px-2">G/E/P disorder agents <button id="x30" onclick="toggleDiv('30')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag31" class="hidden rounded-md bg-green-500 w-min px-2">Genitourinary agents <button id="x31" onclick="toggleDiv('31')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag32" class="hidden rounded-md bg-green-500 w-min px-2">Hormonal agents (adrenal) <button id="x32" onclick="toggleDiv('32')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag33" class="hidden rounded-md bg-green-500 w-min px-2">Hormonal agents (pituitary) <button id="x33" onclick="toggleDiv('33')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag34" class="hidden rounded-md bg-green-500 w-min px-2">Hormonal agents (prostaglandins) <button id="x34" onclick="toggleDiv('34')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag35" class="hidden rounded-md bg-green-500 w-min px-2">Hormonal agents (sex hormones) <button id="x35" onclick="toggleDiv('35')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag36" class="hidden rounded-md bg-green-500 w-min px-2">Hormonal agents (thyroid) <button id="x36" onclick="toggleDiv('36')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag37" class="hidden rounded-md bg-green-500 w-min px-2">Hormone suppressant (adrenal) <button id="x37" onclick="toggleDiv('37')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag38" class="hidden rounded-md bg-green-500 w-min px-2">Hormone suppressant (pituitary) <button id="x38" onclick="toggleDiv('38')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag39" class="hidden rounded-md bg-green-500 w-min px-2">Hormone suppressant (thyroid) <button id="x39" onclick="toggleDiv('39')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag40" class="hidden rounded-md bg-green-500 w-min px-2">Immunological agents <button id="x40" onclick="toggleDiv('40')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag41" class="hidden rounded-md bg-green-500 w-min px-2">Inflammatory bowel disease agents <button id="x41" onclick="toggleDiv('41')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag42" class="hidden rounded-md bg-green-500 w-min px-2">Metabolic bone disease agents <button id="x42" onclick="toggleDiv('42')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag43" class="hidden rounded-md bg-green-500 w-min px-2">Ophthalmic agents <button id="x43" onclick="toggleDiv('43')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag44" class="hidden rounded-md bg-green-500 w-min px-2">Otic agents <button id="x44" onclick="toggleDiv('44')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag45" class="hidden rounded-md bg-green-500 w-min px-2">Respiratory tract agents <button id="x45" onclick="toggleDiv('45')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag46" class="hidden rounded-md bg-green-500 w-min px-2">Skeletal muscle relaxants <button id="x46" onclick="toggleDiv('46')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
-                            <div id="tag47" class="hidden rounded-md bg-green-500 w-min px-2">Sleep disorder agents <button id="x47" onclick="toggleDiv('47')" type="button" class="bg-white/0 text-green-900 inline-block ml-2">X</button></div>
+                            <?php
+                                $typeSql1 = "SELECT * FROM `types` WHERE `table` = 'medicine'";
+                                $typeResult1 = mysqli_query($conn, $typeSql1);
+                                if (mysqli_num_rows($typeResult1) > 0) {
+                                    $xy = 1;
+                                    while ($typeRow1 = mysqli_fetch_assoc($typeResult1)) {
+                                        echo "
+                                        <div id='tag$xy' class='hidden rounded-md bg-green-500 w-min px-2'>
+                                            {$typeRow1["type"]}
+                                            <button id='x$xy' onclick=\"toggleDiv('$xy')\" type='button' class='bg-white/0 text-green-900 inline-block ml-2'>X</button>
+                                        </div>";
+                                        $xy++;
+                                    }
+                                } else {
+                                    // Optional: Add a message for when no data is found.
+                                    echo "<p>No types found.</p>";
+                                }
+                            ?>
                         </div>
                     </div>
                     <!-- Dropdown menu -->

@@ -128,23 +128,28 @@
                         <button type='submit'>Stock</button>
                     </form>
                     <div class="hidden xl:block w-96 text-center font-bold">Type</div>
-                    <form class='w-20 font-bold text-center' method="POST">
+                    <form class='w-32 font-bold text-center' method="POST">
                         <input type='hidden' name='name' value='<?php echo $_POST['name'];?>'/>
                         <input type='hidden' name='manufacturer' value='<?php echo $_POST['manufacturer'];?>'/><?php echo"
                         <input type='hidden' name='discarded' value='$discarded'/>
                         <input type='hidden' name='search' value='$search'/>
                         <input type='hidden' name='page' value='$page'/>
-                        <input type='hidden' name='sort' value='stock'/>";?>
-                        <input type='hidden' name='order' value='<?php echo $sortColumn === 'stock' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>'/>
-                        <button type='submit'>Stock</button>
+                        <input type='hidden' name='sort' value='expiry'/>";?>
+                        <input type='hidden' name='order' value='<?php echo $sortColumn === 'expiry' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>'/>
+                        <button type='submit'>expiry</button>
                     </form>
-                    <div class='w-32 font-bold text-center'><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=expiry&order=<?php echo $sortColumn === 'expiry' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Expiry</a></div>
                     <div class='flex-1 flex text-center items-center' name='discarded' id='discarded'>
-                        <form class=' text-center items-center' name='discarded' id='discarded' method="POST">
+                        <form class='text-center items-center' name='discarded' id='discarded' method="POST">
                             <input type='text' hidden name='name' value='<?php echo $_POST['name'];?>'>
                             <input type='text' hidden name='manufacturer' value='<?php echo $_POST['manufacturer'];?>'>
-                            <div><input type="radio" name="discarded" <?php if ($discarded == '0') { ?>checked='checked' <?php } ?>value="0" onChange="autoSubmit();" />On-Stock</div>
-                            <div class="md:ml-2"><input type="radio" name="discarded" <?php if ($discarded == '1') { ?>checked='checked' <?php } ?> value="1" onChange="autoSubmit();" /> Discarded</div>
+                            <select class="bg-green-500" name="discarded" onChange="autoSubmit();">
+                                <option class="text-black border-transparent" value="$discarded" hidden><?php 
+                                    if ($discarded == '0') {echo "On-Stock";}
+                                    if ($discarded == '1') {echo "Discarded";}
+                                ?></option>
+                                <option class="text-black dark:text-white bg-slate-300 dark:bg-slate-800" value="0">On-Stock</option>
+                                <option class="text-black dark:text-white bg-slate-300 dark:bg-slate-800" value="1">Discarded</option>
+                            </select>
                         </form>
                         <div class="flex-1"><button data-modal-target='addMed' data-modal-show='addMed' class='bg-[url(../resources/add.png)] bg-cover  w-6 h-6 mt-1'></button></div>
                     </div>
