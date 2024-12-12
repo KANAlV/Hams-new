@@ -2761,6 +2761,10 @@ input:checked + .toggle-bg {
   background-color: rgb(3 84 63 / var(--tw-bg-opacity, 1));
 }
 
+.dark\:bg-red-800\/50:where(.dark, .dark *) {
+  background-color: rgb(155 28 28 / 0.5);
+}
+
 .dark\:bg-slate-400:where(.dark, .dark *) {
   --tw-bg-opacity: 1;
   background-color: rgb(148 163 184 / var(--tw-bg-opacity, 1));
@@ -2786,10 +2790,6 @@ input:checked + .toggle-bg {
 
 .dark\:bg-white\/5:where(.dark, .dark *) {
   background-color: rgb(255 255 255 / 0.05);
-}
-
-.dark\:bg-red-800\/50:where(.dark, .dark *) {
-  background-color: rgb(155 28 28 / 0.5);
 }
 
 .dark\:bg-\[url\(\'\.\.\/resources\/dark\/barcode\.png\'\)\]:where(.dark, .dark *) {

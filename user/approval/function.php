@@ -259,7 +259,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     ";
                 }
             }
-        } if ($ope == "rmv") {
+        }
+        if ($ope == "rmv") {
             $val0 = 1;
             $sql = "UPDATE bed SET discarded = ? WHERE bed_id = ?";
             $stmt = $conn->prepare($sql);
@@ -300,6 +301,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <input type='text' name='date_added' value='{$date_added}' hidden readonly/>
                             </form>
                         ";
+                    }
+                }
+            }
+        }
+        if ($ope == "edit") {
+            $Sql0 = "SELECT * FROM `bed` WHERE `no` = '$dsc'";
+            $Result0 = mysqli_query($conn, $Sql0);
+            if (mysqli_num_rows($Result0) > 0) {
+                $data = mysqli_fetch_assoc($Result0);
+                $dataUID = $data['uid'];
+                $sql1 = "UPDATE `uid` SET `assigned` = null, `table_name` = null WHERE `uid` = ?";
+                $stmt1 = $conn->prepare($sql1);
+                if (!$stmt1) {
+                    die('Prepare failed: ' . htmlspecialchars($conn->error));
+                }
+                $stmt1->bind_param("s", $dataUID);
+                if ($stmt1->execute()) {
+                    $sql4 = "UPDATE `uid` SET `assigned` = '$dsc', `table_name` = 'beds' WHERE `uid` = ?";
+                    $stmt4 = $conn->prepare($sql4);
+                    if (!$stmt4) {
+                        die('Prepare failed: ' . htmlspecialchars($conn->error));
+                    }
+                    $stmt4->bind_param("s", $uid);
+                    if ($stmt4->execute()) {
+                        $sql2 = "UPDATE `bed` SET `uid` = ? WHERE `bed_id` = '$rmv_id'";
+                        $stmt2 = $conn->prepare($sql2);
+                        if (!$stmt2) {
+                            die('Prepare failed: ' . htmlspecialchars($conn->error));
+                        }
+                        $stmt2->bind_param("s", $uid);
+                        if ($stmt2->execute()) {
+                            $sql3 = "UPDATE requests SET approved = ?, approved_by = ?, date_approved = now()  WHERE req_id = ?";
+                            $stmt3 = $conn->prepare($sql3);
+                            if (!$stmt3) {
+                                die('Prepare failed: ' . htmlspecialchars($conn->error));
+                            }
+                            $apd = 1;
+                            $stmt3->bind_param("isi", $apd, $_SESSION['usr'], $id);
+                            if ($stmt3->execute()) {
+                                echo "
+                                    <form id='myForm' action='items.php' method='POST'>
+                                        <input type='text' name='show' value='pending' hidden readonly/>
+                                        <input type='text' name='req_by' value='{$req_by}' hidden readonly/>
+                                        <input type='text' name='date_added' value='{$date_added}' hidden readonly/>
+                                    </form>
+                                ";
+                            }
+                        }
                     }
                 }
             }
