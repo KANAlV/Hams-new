@@ -1933,6 +1933,10 @@ input:checked + .toggle-bg {
   background-image: url(../resources/approve.png);
 }
 
+.bg-\[url\(\.\.\/resources\/minus\.png\)\] {
+  background-image: url(../resources/minus.png);
+}
+
 .bg-\[url\(\.\.\/resources\/pencil\.png\)\] {
   background-image: url(../resources/pencil.png);
 }
@@ -1943,10 +1947,6 @@ input:checked + .toggle-bg {
 
 .bg-\[url\(\.\.\/resources\/trash\.png\)\] {
   background-image: url(../resources/trash.png);
-}
-
-.bg-\[url\(\.\.\/resources\/minus\.png\)\] {
-  background-image: url(../resources/minus.png);
 }
 
 .bg-contain {
@@ -2786,6 +2786,10 @@ input:checked + .toggle-bg {
 
 .dark\:bg-white\/5:where(.dark, .dark *) {
   background-color: rgb(255 255 255 / 0.05);
+}
+
+.dark\:bg-red-800\/50:where(.dark, .dark *) {
+  background-color: rgb(155 28 28 / 0.5);
 }
 
 .dark\:bg-\[url\(\'\.\.\/resources\/dark\/barcode\.png\'\)\]:where(.dark, .dark *) {

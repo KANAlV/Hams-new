@@ -35,6 +35,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: ../uid.php");
             }
         }
+        if ($table_name == "staff") {
+            $sql2 = "UPDATE `staff` SET `uid` = null WHERE `uid` = '$uid'";
+            $stmt2 = $conn->prepare($sql2);
+            if (!$stmt2) {
+                die('Prepare failed: ' . htmlspecialchars($conn->error));
+            }
+            $stmt2->bind_param("s", $uid);
+            if ($stmt2->execute()) {
+                header("Location: ../uid.php");
+            }
+        }
     }
 }
 ?>

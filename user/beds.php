@@ -1,6 +1,6 @@
 <?php
     include "dbcon.php";
-
+    error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
     $discarded = "";
     if(isset($_GET["discarded"]))
     { $discarded = $_GET["discarded"]; }
@@ -16,20 +16,22 @@
     $bedsortOrder = isset($_GET['bedorder']) && strtoupper($_GET['bedorder']) === 'DESC' ? 'DESC' : 'ASC';
 
     $sql = "SELECT * FROM `bed` WHERE 
-            `uid` LIKE '%$search%' OR
+        (`discarded` = '$discarded' AND
+            (`uid` LIKE '%$search%' OR
             `no` LIKE '%$search%' OR
             `room` LIKE '%$search%' OR
-            `status` LIKE '%$search%'
+            `status` LIKE '%$search%'))
             ORDER BY $bedsortColumn $bedsortOrder
             LIMIT $bedoffset, $recordsPerPage";
 
     $result = mysqli_query($conn, $sql);
 
     $totalRecordsQuery = "SELECT COUNT(*) AS total FROM `bed` WHERE 
-                        `uid` LIKE '%$search%' OR
+                    (`discarded` = '$discarded' AND
+                        (`uid` LIKE '%$search%' OR
                         `no` LIKE '%$search%' OR
                         `room` LIKE '%$search%' OR
-                        `status` LIKE '%$search%'";
+                        `status` LIKE '%$search%'))";
     $totalRecordsResult = mysqli_query($conn, $totalRecordsQuery);
     $totalRecords = mysqli_fetch_assoc($totalRecordsResult)['total'];
     $totalPages = ceil($totalRecords / $recordsPerPage);
@@ -104,9 +106,11 @@
                 <?php
                     // table rows
                     if (mysqli_num_rows($result) > 0) {
+                        $xy = 1;
                         while ($row = mysqli_fetch_assoc($result)) {
+                            if ($discarded == 1) {echo "<form class='flex h-8 2xl:h-12 w-90 md:w-4/5 lg:w-3/5 xl:w-2/4 2xl:w-5/12 m-auto mt-2 items-center backdrop-blur-sm bg-white/80 dark:bg-red-800/50 rounded-xl' action='equipments/data.php' method='POST'>";}
+                            else{echo "<form class='flex h-8 2xl:h-12 w-90 md:w-4/5 lg:w-3/5 xl:w-2/4 2xl:w-5/12 m-auto mt-2 items-center backdrop-blur-sm bg-white/80 dark:bg-slate-800/50 rounded-xl' action='equipments/data.php' method='POST'>";}
                             echo "
-                                <form class='flex h-8 2xl:h-12 w-90 md:w-4/5 lg:w-3/5 xl:w-2/4 2xl:w-5/12 m-auto mt-2 items-center backdrop-blur-sm bg-white/80 dark:bg-slate-800/50 rounded-xl' action='equipments/data.php' method='POST'>
                                     <div class='w-4 md:w-8'>";
                                         if($row['status'] == 0){
                                             echo"<div class='border-l-solid border-l-8 border-green-400 w-0 h-8 2xl:h-12'></div>";
@@ -122,15 +126,21 @@
                                     <div class='dark:text-white w-24 text-center'>{$cleaned}</div>
                                     <div class='dark:text-white w-24 text-center'>{$row['room']}</div>
                                     <div class='hidden md:block dark:text-white w-72 text-center'>{$row['uid']}</div>";
+                                    if ($discarded == 1){}
+                                    else{
                                     if($_SESSION['level'] == '4' || $_SESSION['p5.2'] == '1'){ echo"
                                         <div class='flex-1'></div>
-                                        <div class='flex-1'><button data-modal-target='EditBed' data-modal-show='EditBed' class='bg-[url(../resources/pencil.png)] bg-cover  w-6 h-6 mt-1' type='button'></button></div>
-                                        <div class='flex-1'><button data-modal-target='DeleteBed' data-modal-show='DeleteBed' class='bg-[url(../resources/trash.png)] bg-cover  w-6 h-6 mt-1' type='button'></button></div>
+                                        <input type='hidden' id='id-{$xy}' value='{$row['bed_id']}'/>
+                                        <input type='hidden' id='no-{$xy}' value='{$row['no']}'/>
+                                        <input type='hidden' id='uid-{$xy}' value='{$row['uid']}'/>
+                                        <div class='flex-1'><button data-modal-target='EditBed' onclick=\"sendData('$xy')\" data-modal-show='EditBed' class='bg-[url(../resources/pencil.png)] bg-cover  w-6 h-6 mt-1' type='button'></button></div>
+                                        <div class='flex-1'><button data-modal-target='DeleteBed' onclick=\"sendData('$xy')\" data-modal-show='DeleteBed' class='bg-[url(../resources/trash.png)] bg-cover  w-6 h-6 mt-1' type='button'></button></div>
                                     ";} else {echo"
-                                        <div class='flex-1'>{$row['uid']}</div>
-                                    ";}echo"
+                                        <div class='flex-1 dark:text-white w-72 text-center'>{$row['uid']}</div>
+                                    ";}}echo"
                                 </form>
                             ";
+                            $xy++;
                         }
                     } else {
                         echo"<div class='flex h-8 2xl:h-12 w-90 md:w-4/5 lg:w-3/5 xl:w-2/4 2xl:w-5/12 m-auto mt-2 items-center backdrop-blur-sm bg-white/80 dark:bg-slate-800/50 dark:text-white rounded-xl'><div class='m-auto'>No Data</div></div>";
@@ -186,6 +196,37 @@
         function autoSubmit() {
             var formObject = document.forms['discarded'];
             formObject.submit();
+        }
+
+        function sendData(xy) {
+            // Retrieve values from the hidden inputs
+            const bedId = document.getElementById(`id-${xy}`).value;
+            const no = document.getElementById(`no-${xy}`).value;
+            const uid = document.getElementById(`uid-${xy}`).value;
+            const dropdown = document.getElementById('modalUID');
+            // Remove any dynamically created options (but leave PHP-generated options intact)
+            const dynamicOptions = dropdown.querySelectorAll('option[data-dynamic="true"]');
+            dynamicOptions.forEach(option => option.remove());
+
+            // Check if the uid is not empty
+            if (uid !== '') {
+            // Create a new option to display the value directly in the dropdown
+            const newOption = document.createElement('option');
+            newOption.value = uid;
+            newOption.textContent = uid;
+            newOption.setAttribute('data-dynamic', 'true'); // Mark it as dynamically created
+
+            // Add the new option to the dropdown
+            dropdown.appendChild(newOption);
+
+            // Set the dropdown value
+            dropdown.value = uid;
+            }
+
+            // Place values into other input fields
+            document.getElementById('modalID').value = bedId;
+            document.getElementById('modal-no').value = no;
+            
         }
     </script>
 </body>
