@@ -68,7 +68,7 @@
                         <input type="text" class="rounded-full bg-white/0 border-none focus:outline-none focus:ring-0" name="search" placeholder="Search..." value="<?php echo $search; ?>">
                     </form>
                 </div>
-                <div class="flex h-8 2xl:h-12 w-90 md:w-4/5 lg:w-3/5 xl:w-2/4 2xl:w-5/12 items-center bg-green-500 text-white m-auto rounded-lg">
+                <div class="flex h-12 2xl:h-12 w-90 md:w-4/5 lg:w-3/5 xl:w-2/4 2xl:w-5/12 items-center bg-green-500 text-white m-auto rounded-lg">
                     <div class='w-20 font-bold text-center'><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=total_stock&order=<?php echo $sortColumn === 'total_stock' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Stock</a></div>
                     <div class='w-32 font-bold text-center'><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=name&order=<?php echo $sortColumn === 'name' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Description</a></div>
                     <div class="hidden md:block w-32 text-center font-bold"><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=manufacturer&order=<?php echo $sortColumn === 'manufacturer' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Manufacturer</a></div>

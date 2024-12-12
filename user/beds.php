@@ -7,38 +7,32 @@
     else{$discarded = 0;}
 
     $recordsPerPage = 10;
-                $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
-                $offset = ($page - 1) * $recordsPerPage;
-                
-                $search = isset($_GET['search']) ? $_GET['search'] : '';
-                $sortColumn = isset($_GET['sort']) ? $_GET['sort'] : 'name';
-                $sortOrder = isset($_GET['order']) && strtoupper($_GET['order']) === 'DESC' ? 'DESC' : 'ASC';
+    
+    //BEDS TABLE
+    $bedpage = isset($_GET['bedpage']) && is_numeric($_GET['bedpage']) ? (int)$_GET['bedpage'] : 1;
+    $bedoffset = ($bedpage - 1) * $recordsPerPage;
+    $search = isset($_GET['search']) ? $_GET['search'] : '';
+    $bedsortColumn = isset($_GET['bedsort']) ? $_GET['bedsort'] : 'no';
+    $bedsortOrder = isset($_GET['bedorder']) && strtoupper($_GET['bedorder']) === 'DESC' ? 'DESC' : 'ASC';
 
-                $sql = "SELECT name, manufacturer, type, SUM(stock) AS total_stock 
-                        FROM `equipments`
-                        WHERE (`discarded` = '$discarded' AND
-                               (`uid` LIKE '%$search%' OR
-                                `name` LIKE '%$search%' OR
-                                `manufacturer` LIKE '%$search%' OR
-                                `stock` LIKE '%$search%' OR
-                                `type` LIKE '%$search%'))
-                        GROUP BY name, manufacturer, type
-                        ORDER BY $sortColumn $sortOrder
-                        LIMIT $offset, $recordsPerPage";
-                $result = mysqli_query($conn, $sql);
+    $sql = "SELECT * FROM `bed` WHERE 
+            `uid` LIKE '%$search%' OR
+            `no` LIKE '%$search%' OR
+            `room` LIKE '%$search%' OR
+            `status` LIKE '%$search%'
+            ORDER BY $bedsortColumn $bedsortOrder
+            LIMIT $bedoffset, $recordsPerPage";
 
+    $result = mysqli_query($conn, $sql);
 
-                $totalRecordsQuery = "SELECT COUNT(DISTINCT name, manufacturer) AS total 
-                                    FROM `equipments` 
-                                    WHERE (`discarded` = '$discarded' AND
-                                           (`uid` LIKE '%$search%' OR
-                                            `name` LIKE '%$search%' OR
-                                            `manufacturer` LIKE '%$search%' OR
-                                            `stock` LIKE '%$search%' OR
-                                            `type` LIKE '%$search%'))";
-                $totalRecordsResult = mysqli_query($conn, $totalRecordsQuery);
-                $totalRecords = mysqli_fetch_assoc($totalRecordsResult)['total'];
-                $totalPages = ceil($totalRecords / $recordsPerPage);
+    $totalRecordsQuery = "SELECT COUNT(*) AS total FROM `bed` WHERE 
+                        `uid` LIKE '%$search%' OR
+                        `no` LIKE '%$search%' OR
+                        `room` LIKE '%$search%' OR
+                        `status` LIKE '%$search%'";
+    $totalRecordsResult = mysqli_query($conn, $totalRecordsQuery);
+    $totalRecords = mysqli_fetch_assoc($totalRecordsResult)['total'];
+    $totalPages = ceil($totalRecords / $recordsPerPage);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,8 +45,8 @@
 </head>
 <body>
     <?php include "drawer.php";
-    //addEquip Modal
-        include "equipments/addEquip.php";
+    //Modals
+        include "beds/modals.php";
     ?>
     <div class="sm:flex bg-[url('../resources/mbg.jpg')] bg-center sm:bg-[url('../resources/bg.jpg')] bg-cover font-sans m-0 fixed overflow-x-scroll">
         <?php include "navbar.php";?> 
@@ -60,23 +54,24 @@
         <div id="container" class="md:inline-block h-screen w-screen">
             <div class="backdrop-blur-md bg-slate-300/30 dark:bg-slate-800/50 w-screen h-screen">
                 <div class="p-2 md:h-32 w-full items-center text-center"><?php 
-                 if ($discarded == '0')  {echo "<h1 class='hidden md:block font-bold text-2xl dark:text-white'>";}
-                 if ($discarded == '1') {echo "<h1 class='hidden md:block font-bold text-2xl dark:text-red-600'>";}
-                 ?>Equipments</h1><br>
+                    if ($discarded == '0')  {echo "<h1 class='hidden md:block font-bold text-2xl dark:text-white'>";}
+                    if ($discarded == '1') {echo "<h1 class='hidden md:block font-bold text-2xl dark:text-red-600'>";}
+                ?>Beds</h1><br>
                     <form method="GET" class="flex w-min m-auto rounded-full bg-white/60 backdrop-blur-md">
                         <div class="bg-[url('../resources/loupe.png')] bg-contain bg-no-repeat bg-center h-6 w-10 m-auto invert dark:invert-0"></div>
+                        <input type="hidden" name="toggle" value="<?php echo $toggle; ?>"/>
                         <input type="text" class="rounded-full bg-white/0 border-none focus:outline-none focus:ring-0" name="search" placeholder="Search..." value="<?php echo $search; ?>">
                     </form>
                 </div>
-                <div class="flex h-12 2xl:h-12 w-90 md:w-4/5 lg:w-3/5 xl:w-2/4 2xl:w-5/12 items-center bg-green-500 text-white m-auto rounded-lg">
-                    <div class='w-20 font-bold text-center'><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=total_stock&order=<?php echo $sortColumn === 'total_stock' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Stock</a></div>
-                    <div class='w-32 font-bold text-center'><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=name&order=<?php echo $sortColumn === 'name' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Description</a></div>
-                    <div class="hidden md:block w-32 text-center font-bold"><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=manufacturer&order=<?php echo $sortColumn === 'manufacturer' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Manufacturer</a></div>
-                    <div class="hidden xl:block w-72 text-center font-bold"><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=type&order=<?php echo $sortColumn === 'type' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Type</a></div>
+                <div class="flex h-12 w-90 md:w-4/5 lg:w-3/5 xl:w-2/4 2xl:w-5/12 items-center bg-green-500 text-white m-auto rounded-lg">
+                    <div class='w-4 md:w-8'></div>
+                    <div class='dark:text-white w-24 font-bold text-center'><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=no&order=<?php echo $sortColumn === 'no' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Bed No.</a></div>
+                    <div class='dark:text-white w-24 font-bold text-center'><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=room&order=<?php echo $sortColumn === 'room' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Room</a></div>
+                    <div class='hidden md:block dark:text-white w-72 font-bold text-center'><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=uid&order=<?php echo $sortColumn === 'uid' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">UID</a></div>
                     <?php
                         if ($_SESSION['level'] == '3' || $_SESSION['p4'] == '1') {
                             echo "<div class='flex-1 flex text-center items-center' name='discarded' id='discarded'>
-                                    <form class=' text-center items-center' name='discarded' id='discarded'>" ?>
+                                    <form class='text-center items-center' name='discarded' id='discarded'>" ?>
                                         <select class="bg-green-500" name="discarded" onChange="autoSubmit();">
                                             <option class="text-black border-transparent" value="$discarded" hidden><?php 
                                                 if ($discarded == '0') {echo "On-Stock";}
@@ -86,7 +81,7 @@
                                             <option class="text-black dark:text-white bg-slate-300 dark:bg-slate-800" value="1">Discarded</option>
                                         </select>
                                     </form>
-                                    <div class="flex-1"><button data-modal-target='addEquip' data-modal-show='addEquip' class='bg-[url(../resources/add.png)] bg-cover  w-6 h-6 mt-1' type='button'></button></div>
+                                    <div class="flex-1"><button data-modal-target='addBeds' data-modal-show='addBeds' class='bg-[url(../resources/add.png)] bg-cover  w-6 h-6 mt-1' type='button'></button></div>
                                 </div>
                             <?php ;
                         } else {
@@ -101,7 +96,7 @@
                                             <option class="text-black dark:text-white bg-slate-300 dark:bg-slate-800" value="1">Discarded</option>
                                         </select>
                                     </form>
-                                </div>
+                                </form>
                             <?php ;
                         }
                     ?>
@@ -112,14 +107,28 @@
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo "
                                 <form class='flex h-8 2xl:h-12 w-90 md:w-4/5 lg:w-3/5 xl:w-2/4 2xl:w-5/12 m-auto mt-2 items-center backdrop-blur-sm bg-white/80 dark:bg-slate-800/50 rounded-xl' action='equipments/data.php' method='POST'>
-                                    <div class='dark:text-white w-20 text-center'>{$row['total_stock']}</div>
-                                    <div class='dark:text-white w-32 text-center'>{$row['name']}</div>
-                                    <div class='dark:text-white w-32 text-center hidden md:block'>{$row['manufacturer']}</div>
-                                    <div class='dark:text-white w-72 h-8 text-center hidden xl:block overflow-y-auto overflow-x-hidden'>{$row['type']}</div>
-                                    <input type='text' hidden name='name' value='{$row['name']}'>
-                                    <input type='text' hidden name='manufacturer' value='{$row['manufacturer']}'>
-                                    <input type='hidden' name='discarded' value='{$discarded}'>
-                                    <div class='flex-1 text-center'><button class='bg-[url(../resources/angle-double-left.png)] bg-cover  w-4 h-4' type='submit'></button></div>
+                                    <div class='w-4 md:w-8'>";
+                                        if($row['status'] == 0){
+                                            echo"<div class='border-l-solid border-l-8 border-green-400 w-0 h-8 2xl:h-12'></div>";
+                                        } else if ($row['status']== 1){
+                                            echo"<div class='border-l-solid border-l-8 border-red-600 w-0 h-8 2xl:h-12'></div>";
+                                        } else if ($row['status'] == 2){
+                                            echo"<div class='border-l-solid border-l-8 border-yellow-300 w-0 h-8 2xl:h-12'></div>";
+                                        }else {
+                                            echo"Err.";
+                                        }
+                                    $cleaned = preg_replace('/^0+/', '', $row['no']);
+                                    echo "</div>
+                                    <div class='dark:text-white w-24 text-center'>{$cleaned}</div>
+                                    <div class='dark:text-white w-24 text-center'>{$row['room']}</div>
+                                    <div class='hidden md:block dark:text-white w-72 text-center'>{$row['uid']}</div>";
+                                    if($_SESSION['level'] == '4' || $_SESSION['p5.2'] == '1'){ echo"
+                                        <div class='flex-1'></div>
+                                        <div class='flex-1'><button data-modal-target='EditBed' data-modal-show='EditBed' class='bg-[url(../resources/pencil.png)] bg-cover  w-6 h-6 mt-1' type='button'></button></div>
+                                        <div class='flex-1'><button data-modal-target='DeleteBed' data-modal-show='DeleteBed' class='bg-[url(../resources/trash.png)] bg-cover  w-6 h-6 mt-1' type='button'></button></div>
+                                    ";} else {echo"
+                                        <div class='flex-1'>{$row['uid']}</div>
+                                    ";}echo"
                                 </form>
                             ";
                         }

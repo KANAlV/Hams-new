@@ -27,6 +27,7 @@ interface tideFunctions {
     function beds();
     function uid();
     function approval();
+    function type();
 }
 
 class Data {
@@ -49,6 +50,7 @@ class Data {
     protected $beds = 0;
     protected $uid = 0;
     protected $approval = 0;
+    protected $type = 0;
 }
 
 class Mutator extends Data implements tideFunctions {
@@ -71,6 +73,7 @@ class Mutator extends Data implements tideFunctions {
     function beds() { $this->beds = $_POST['bd'] ?? $this->beds; }
     function uid() { $this->uid = $_POST['ui'] ?? $this->uid; }
     function approval() { $this->approval = $_POST['aprvl'] ?? $this->approval; }
+    function type() { $this->type = $_POST['typ'] ?? $this->type; }
     public function exportState() { return get_object_vars($this); }
 }
 
@@ -94,6 +97,7 @@ class Accessor extends Mutator implements tideFunctions {
     function beds() { return $this->beds; }
     function uid() { return $this->uid; }
     function approval() { return $this->approval; }
+    function type() { return $this->type; }
     public function importState($state) {
         foreach ($state as $key => $value) {
             $this->$key = $value;
@@ -122,6 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mutator->beds();
         $mutator->uid();
         $mutator->approval();
+        $mutator->type();
 
     $accessor = new Accessor();
 
@@ -146,6 +151,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $beds = $accessor->beds();
         $uid = $accessor->uid();
         $approval = $accessor->approval();
+        $approval = $accessor->type();
 
     // Check if the username already exists
     $check1_sql = "SELECT * FROM staff WHERE acc_name=? AND staff_id != '$id'";
@@ -219,7 +225,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         `surname`='$surname',`first_name`='$first_name',`m_i`='$m_i',`suffix`='$suffix',
                         `occupation`='$occupation',`level`='$level',
                         `stf`='$staff',`bb`='$bloodBank',`med`='$medicines',`equip`='$equipments',
-                        `rm`='$rooms',`bd`='$beds',`aprvl`='$approval'
+                        `rm`='$rooms',`bd`='$beds',`aprvl`='$approval',`typ`='$type'
         WHERE `staff_id`= $id";
         $stmt = $conn->prepare($sql);
         if ($stmt->execute()) {
@@ -235,7 +241,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         `surname`='$surname',`first_name`='$first_name',`m_i`='$m_i',`suffix`='$suffix',
                         `occupation`='$occupation',`level`='$level',
                         `stf`='$staff',`bb`='$bloodBank',`med`='$medicines',`equip`='$equipments',
-                        `rm`='$rooms',`bd`='$beds',`aprvl`='$approval'
+                        `rm`='$rooms',`bd`='$beds',`aprvl`='$approval',`typ`='$type'
         WHERE `staff_id`= $id";
         $stmt = $conn->prepare($sql);
         if ($stmt->execute()) {

@@ -1232,6 +1232,10 @@ input:checked + .toggle-bg {
   margin-top: 1rem;
 }
 
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
 .mt-8 {
   margin-top: 2rem;
 }
@@ -1933,6 +1937,10 @@ input:checked + .toggle-bg {
   background-image: url(../resources/pencil.png);
 }
 
+.bg-\[url\(\.\.\/resources\/qr\.png\)\] {
+  background-image: url(../resources/qr.png);
+}
+
 .bg-\[url\(\.\.\/resources\/trash\.png\)\] {
   background-image: url(../resources/trash.png);
 }
@@ -1967,6 +1975,10 @@ input:checked + .toggle-bg {
 
 .p-4 {
   padding: 1rem;
+}
+
+.p-8 {
+  padding: 2rem;
 }
 
 .px-12 {

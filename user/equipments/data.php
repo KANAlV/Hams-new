@@ -112,7 +112,7 @@
                         <input type="text" class="rounded-full bg-white/0 border-none focus:outline-none focus:ring-0" name="search" placeholder="Search..." value="<?php echo $search; ?>">
                     </form>
                 </div>
-                <div class="flex h-8 2xl:h-12 w-96 md:w-4/5 lg:w-3/5 xl:w-2/4 2xl:w-5/12 items-center bg-green-500 text-white m-auto rounded-lg">
+                <div class="flex h-12 w-full md:w-4/5 lg:w-3/5 xl:w-2/4 2xl:w-5/12 items-center bg-green-500 text-white m-auto rounded-lg">
                     <div class='w-20 font-bold text-center'><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=total_stock&order=<?php echo $sortColumn === 'total_stock' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Stock</a></div>
                     <div class="hidden xl:block w-96 text-center font-bold"><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=type&order=<?php echo $sortColumn === 'type' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Type</a></div>
                     <div class='w-32 font-bold text-center'><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=expiry&order=<?php echo $sortColumn === 'expiry' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Expiry</a></div>
@@ -120,8 +120,14 @@
                         <form class=' text-center items-center' name='discarded' id='discarded' method="POST">
                             <input type='text' hidden name='name' value='<?php echo $_POST['name'];?>'>
                             <input type='text' hidden name='manufacturer' value='<?php echo $_POST['manufacturer'];?>'>
-                            <div><input type="radio" name="discarded" <?php if ($discarded == '0') { ?>checked='checked' <?php } ?>value="0" onChange="autoSubmit();" />On-Stock</div>
-                            <div class="md:ml-2"><input type="radio" name="discarded" <?php if ($discarded == '1') { ?>checked='checked' <?php } ?> value="1" onChange="autoSubmit();" /> Discarded</div>
+                            <select class="bg-green-500" name="discarded" onChange="autoSubmit();">
+                                <option class="text-black border-transparent" value="$discarded" hidden><?php 
+                                    if ($discarded == '0') {echo "On-Stock";}
+                                    if ($discarded == '1') {echo "Discarded";}
+                                ?></option>
+                                <option class="text-black dark:text-white bg-slate-300 dark:bg-slate-800" value="0">On-Stock</option>
+                                <option class="text-black dark:text-white bg-slate-300 dark:bg-slate-800" value="1">Discarded</option>
+                            </select>
                         </form>
                         <div class="flex-1"><button data-modal-target='addEquip' data-modal-show='addEquip' class='bg-[url(../resources/add.png)] bg-cover  w-6 h-6 mt-1'></button></div>
                     </div>
@@ -136,9 +142,9 @@
                                         <div class='dark:text-white w-20 text-center'>{$row['stock']}</div>
                                         <div class='dark:text-white w-96 h-8 text-center hidden xl:block overflow-y-auto overflow-x-hidden'>{$row['type']}</div>
                                         <div class='dark:text-white w-32 text-center block'>{$row['expiry']}</div>
-                                        <input type='text' hidden name='med_id' value='{$row['med_id']}'>
+                                        <input type='text' hidden name='equip_id' value='{$row['equip_id']}'>
                                         <input type='text' hidden name='discarded' value='{$_POST['discarded']}'>
-                                        <div class='flex-1 text-center'><button type='button' onclick='sendData({$row['med_id']})' data-modal-target='deleteEquip' data-modal-show='deleteEquip' class='bg-[url(../resources/trash.png)] bg-cover  w-6 h-6' type='submit'></button></div>
+                                        <div class='flex-1 text-center'><button type='button' onclick='sendData({$row['equip_id']})' data-modal-target='deleteEquip' data-modal-show='deleteEquip' class='bg-[url(../resources/trash.png)] bg-cover  w-6 h-6' type='submit'></button></div>
                                     </form>
                                 ";}
                                 if ($discarded == 1) {echo "
@@ -146,10 +152,10 @@
                                         <div class='dark:text-white w-20 text-center'>{$row['stock']}</div>
                                         <div class='dark:text-white w-96 h-8 text-center hidden xl:block overflow-y-auto overflow-x-hidden'>{$row['type']}</div>
                                         <div class='dark:text-white w-32 text-center block'>{$row['expiry']}</div>
-                                        <input type='text' hidden name='med_id' value='{$row['med_id']}'>
+                                        <input type='text' hidden name='equip_id' value='{$row['equip_id']}'>
                                         <input type='text' hidden name='discarded' value='{$_POST['discarded']}'>";
                                     if ($_SESSION['level'] == '3'){echo"
-                                        <div class='flex-1 text-center'><button type='button' onclick='sendData({$row['med_id']})' data-modal-target='deleteEquip' data-modal-show='deleteEquip' class='bg-[url(../resources/trash.png)] bg-cover  w-6 h-6' type='submit'></button></div>
+                                        <div class='flex-1 text-center'><button type='button' onclick='sendData({$row['equip_id']})' data-modal-target='deleteEquip' data-modal-show='deleteEquip' class='bg-[url(../resources/trash.png)] bg-cover  w-6 h-6' type='submit'></button></div>
                                         </form>  
                                     ";} else {echo "</form>";}
                                 }
@@ -160,7 +166,7 @@
                                         <div class='dark:text-white w-20 text-center'>{$row['stock']}</div>
                                         <div class='dark:text-white w-96 h-8 text-center hidden xl:block overflow-y-auto overflow-x-hidden'>{$row['type']}</div>
                                         <div class='dark:text-white w-32 text-center block'>{$row['expiry']}</div>
-                                        <input type='text' hidden name='med_id' value='{$row['med_id']}'>
+                                        <input type='text' hidden name='equip_id' value='{$row['equip_id']}'>
                                         <div class='flex-1 text-center'></div>
                                     </div>
                                 ";

@@ -45,15 +45,17 @@
                                         ";}
                                     }
                                 ?>
+                                </select>
                             </div>
                         </div>
                         <?php
                             if($_SESSION['level'] == '4'){
-                                echo '<label>usertype: </label><select class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5" name="level" placeholder="Password" required>
+                                echo '<label>usertype: </label>
+                                <select class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5" name="level" placeholder="Password" required>
                                     <option class="dark:bg-slate-800" value="1">1</option>
                                     <option class="dark:bg-slate-800" value="2">2</option>
                                     <option class="dark:bg-slate-800" value="3">3</option>
-                                    </select>
+                                </select>
                                 <br><br>';
                             } else if($_SESSION['level'] == '3'){
                                 echo '<label>usertype: </label><select class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5" name="level" placeholder="Password" required>
@@ -88,6 +90,8 @@
                                 <label for='med'> Medicine</label><br>
                                 <input type='checkbox' id='bd' name='bd' value='1'>
                                 <label for='bd'> Beds</label><br>
+                                <input type='checkbox' id='typ' name='typ' value='1'>
+                                <label for='typ'> Types</label><br>
                             </div>
                         </div>
                         <br>

@@ -6,6 +6,7 @@ include "../dbcon.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     abstract class jayke{
+        protected $uid;
         protected $req_id;
         protected $rmv_id;
         protected $req_by;
@@ -30,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result0 = mysqli_query($conn, $sql0);
             if (mysqli_num_rows($result0) > 0) {
                 while ($row = mysqli_fetch_assoc($result0)) {
+                    $this->uid = $row['uid'];
                     $this->qty = $row['qty'];
                     $this->desc = $row['description'];
                     $this->manu = $row['manufacturer'];
@@ -48,6 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     class aprvlGetter extends aprvlSetter{
         function magic($var){
+            if ($var == "uid"){return $this->uid;}
             if ($var == "req_id"){return $this->req_id;}
             if ($var == "qty"){return $this->qty;}
             if ($var == "desc"){return $this->desc;}
@@ -73,6 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $setter->magic($conn);
     $getter = new aprvlGetter;
     $getter->importState($setter->exportState());
+    $uid = $getter->magic("uid");
     $id = $getter->magic("req_id");
     $qty = $getter->magic("qty");
     $dsc = $getter->magic("desc");
@@ -89,10 +93,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if($tbl == "medicine"){
         if ($ope == "+") {
-            $sql = "INSERT INTO medicine (stock, name, manufacturer, type, expiry, addedBy) 
-                    VALUES (?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO medicine (stock, name, manufacturer, type, expiry, addedBy, uid) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ssssss", $qty, $dsc, $man, $typ, $exp, $_SESSION["usr"]);
+            $stmt->bind_param("sssssss", $qty, $dsc, $man, $typ, $exp, $_SESSION["usr"], $uid);
             if ($stmt->execute()) {
                 $sql1 = "UPDATE requests SET approved = ?, approved_by = ?, date_approved = now()  WHERE req_id = ?";
                 $stmt1 = $conn->prepare($sql1);
@@ -117,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("ss", $val0, $rmv_id);
             if ($stmt->execute()) {
-                $sql1 = "UPDATE requests SET approved = ?, approved_by = ?, date_approved = now()  WHERE req_id = ?";
+                $sql1 = "UPDATE requests SET approved = ?, approved_by = ?, date_approved = now() WHERE req_id = ?";
                 $stmt1 = $conn->prepare($sql1);
                 if (!$stmt1) {
                     die('Prepare failed: ' . htmlspecialchars($conn->error));
@@ -125,23 +129,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $apd = 1;
                 $stmt1->bind_param("isi", $apd, $_SESSION['usr'], $id);
                 if ($stmt1->execute()) {
-                    echo "
-                        <form id='myForm' action='items.php' method='POST'>
-                            <input type='text' name='show' value='pending' hidden readonly/>
-                            <input type='text' name='req_by' value='{$req_by}' hidden readonly/>
-                            <input type='text' name='date_added' value='{$date_added}' hidden readonly/>
-                        </form>
-                    ";
+                    $stockChk = "SELECT * FROM `medicine` WHERE `discarded` = 0 AND `name` = '$dsc' AND `manufacturer` = '$man'";
+                    $stockResult = mysqli_query($conn, $stockChk);
+                    if (mysqli_num_rows($stockResult) == 0) {
+                        // Update in uid table
+                        $sql1 = "UPDATE `uid` SET `assigned` = null, `table_name` = null WHERE `uid` = ?";
+                        $stmt1 = $conn->prepare($sql1);
+                        if (!$stmt1) {
+                            die('Prepare failed: ' . htmlspecialchars($conn->error));
+                        }
+                        $stmt1->bind_param("s", $uid);
+                        if ($stmt1->execute()) {
+                            echo "
+                                <form id='myForm' action='items.php' method='POST'>
+                                    <input type='text' name='show' value='pending' hidden readonly/>
+                                    <input type='text' name='req_by' value='{$req_by}' hidden readonly/>
+                                    <input type='text' name='date_added' value='{$date_added}' hidden readonly/>
+                                </form>
+                            ";
+                        }
+                    } else {
+                        echo "
+                            <form id='myForm' action='items.php' method='POST'>
+                                <input type='text' name='show' value='pending' hidden readonly/>
+                                <input type='text' name='req_by' value='{$req_by}' hidden readonly/>
+                                <input type='text' name='date_added' value='{$date_added}' hidden readonly/>
+                            </form>
+                        ";
+                    }
                 }
             }
         }
-    }//medicine above / equipments below...
+    }
+
+    // medicine above / equipments below //
+
     if($tbl == "equipments"){
         if ($ope == "+") {
-            $sql = "INSERT INTO equipments (stock, name, manufacturer, type, expiry, addedBy) 
-                    VALUES (?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO equipments (stock, name, manufacturer, type, expiry, addedBy, uid) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ssssss", $qty, $dsc, $man, $typ, $exp, $_SESSION["usr"]);
+            $stmt->bind_param("sssssss", $qty, $dsc, $man, $typ, $exp, $_SESSION["usr"], $uid);
             if ($stmt->execute()) {
                 $sql1 = "UPDATE requests SET approved = ?, approved_by = ?, date_approved = now()  WHERE req_id = ?";
                 $stmt1 = $conn->prepare($sql1);
@@ -174,13 +202,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $apd = 1;
                 $stmt1->bind_param("isi", $apd, $_SESSION['usr'], $id);
                 if ($stmt1->execute()) {
-                    echo "
-                        <form id='myForm' action='items.php' method='POST'>
-                            <input type='text' name='show' value='pending' hidden readonly/>
-                            <input type='text' name='req_by' value='{$req_by}' hidden readonly/>
-                            <input type='text' name='date_added' value='{$date_added}' hidden readonly/>
-                        </form>
-                    ";
+                    $stockChk = "SELECT * FROM `equipments` WHERE `discarded` = 0 AND `name` = '$dsc' AND `manufacturer` = '$man'";
+                    $stockResult = mysqli_query($conn, $stockChk);
+                    if (mysqli_num_rows($stockResult) == 0) {
+                        // Update in uid table
+                        $sql1 = "UPDATE `uid` SET `assigned` = null, `table_name` = null WHERE `uid` = ?";
+                        $stmt1 = $conn->prepare($sql1);
+                        if (!$stmt1) {
+                            die('Prepare failed: ' . htmlspecialchars($conn->error));
+                        }
+                        $stmt1->bind_param("s", $uid);
+                        if ($stmt1->execute()) {
+                            echo "
+                                <form id='myForm' action='items.php' method='POST'>
+                                    <input type='text' name='show' value='pending' hidden readonly/>
+                                    <input type='text' name='req_by' value='{$req_by}' hidden readonly/>
+                                    <input type='text' name='date_added' value='{$date_added}' hidden readonly/>
+                                </form>
+                            ";
+                        }
+                    } else {
+                        echo "
+                            <form id='myForm' action='items.php' method='POST'>
+                                <input type='text' name='show' value='pending' hidden readonly/>
+                                <input type='text' name='req_by' value='{$req_by}' hidden readonly/>
+                                <input type='text' name='date_added' value='{$date_added}' hidden readonly/>
+                            </form>
+                        ";
+                    }
                 }
             }
         }

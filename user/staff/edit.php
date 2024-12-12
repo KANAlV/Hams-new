@@ -243,10 +243,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <label for='ui'> UID</label><br>
                             </div>
                             <div class='block w-26 text-left'>
-                                <input type='checkbox' id='med' name='med' value='1' <?php if($accessor->med() == 1){echo "checked";};?>>
+                                <input type='checkbox' id='med' name='med' value='1'>
                                 <label for='med'> Medicine</label><br>
-                                <input type='checkbox' id='bd' name='bd' value='1' <?php if($accessor->bd() == 1){echo "checked";};?>>
+                                <input type='checkbox' id='bd' name='bd' value='1'>
                                 <label for='bd'> Beds</label><br>
+                                <input type='checkbox' id='typ' name='typ' value='1'>
+                                <label for='typ'> Types</label><br>
                             </div>
                         </div>
                         <br>

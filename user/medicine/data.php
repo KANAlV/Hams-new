@@ -10,6 +10,12 @@
                 $sortColumn = isset($_POST['sort']) ? $_POST['sort'] : 'name';
                 $sortOrder = isset($_POST['order']) && strtoupper($_POST['order']) === 'DESC' ? 'DESC' : 'ASC';
 
+                $getUID = "SELECT * FROM `medicine` WHERE 
+                            `name` = '{$_POST["name"]}' AND
+                            `manufacturer` = '{$_POST["manufacturer"]}'
+                            GROUP BY name, manufacturer, type";
+                $resultUID = mysqli_query($conn, $getUID);
+
                 $sql = "SELECT * FROM `medicine` WHERE 
                             `name` = '{$_POST["name"]}' AND
                             `manufacturer` = '{$_POST["manufacturer"]}' AND
@@ -106,7 +112,11 @@
         <!-- Main container -->
         <div id="container" class="md:inline-block h-screen w-screen">
             <div class="backdrop-blur-md bg-slate-300/30 dark:bg-slate-800/50 w-screen h-screen">
-                <div class="fklep-2 md:h-32 w-full items-center text-center"><h1 class="hidden md:block font-bold text-2xl dark:text-white"><?php echo $_POST["name"];?></h1><br>
+                <div class="fklep-2 md:h-32 w-full items-center text-center">
+                    <h1 class="hidden md:block font-bold text-2xl dark:text-white"><?php 
+                        $getUID = mysqli_fetch_assoc($resultUID);
+                        echo $_POST["name"] ." [". $getUID["uid"] . "]";?>
+                    </h1><br>
                     <form method="POST" class="flex w-min m-auto rounded-full bg-white/60 backdrop-blur-md"><?php echo"
                         <input type='hidden' name='page' value='1'/>
                         <input type='hidden' name='discarded' value='$discarded'/>";?>
@@ -116,7 +126,7 @@
                         <input type="text" class="rounded-full bg-white/0 border-none focus:outline-none focus:ring-0" name="search" placeholder="Search..." value="<?php echo $search; ?>">
                     </form>
                 </div>
-                <div class="flex h-8 2xl:h-12 w-96 md:w-4/5 lg:w-3/5 xl:w-2/4 2xl:w-5/12 items-center bg-green-500 text-white m-auto rounded-lg">
+                <div class="flex h-12 w-full md:w-4/5 lg:w-3/5 xl:w-2/4 2xl:w-5/12 items-center bg-green-500 text-white m-auto rounded-lg">
                     <form class='w-20 font-bold text-center' method="POST">
                         <input type='hidden' name='name' value='<?php echo $_POST['name'];?>'/>
                         <input type='hidden' name='manufacturer' value='<?php echo $_POST['manufacturer'];?>'/><?php echo"
