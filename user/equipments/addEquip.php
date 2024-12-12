@@ -25,6 +25,21 @@
                             <input type="date" id="expiry" name="expiry" class="block px-2.5 pb-2.5 pt-4 w-50 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
                             <label for="expiry" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-700 px-2 peer-focus:px-2 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Expiry</label>
                         </div>
+                        <div class="relative m-2">
+                            <select name='uid' class="block px-2.5 pb-2.5 pt-4 w-50 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer">
+                                <option class='dark:bg-slate-800' value=''>--none--</option>
+                                <?php
+                                    $uidSql = "SELECT * FROM `uid` WHERE `assigned` IS NULL ORDER BY `uid` LIMIT 10";
+                                    $uidResult = mysqli_query($conn, $uidSql);
+                                    if (mysqli_num_rows($uidResult) > 0) {
+                                        while ($uidRow = mysqli_fetch_assoc($uidResult)) { echo "
+                                            <option class='dark:bg-slate-800' value='{$uidRow['uid']}'>{$uidRow['uid']}</option>
+                                        ";}
+                                    }
+                                ?>
+                            </select>
+                            <label for='uid' class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-700 px-2 peer-focus:px-2 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">UID:</label><br>
+                        </div>
                     </div>
                     <!-- Multi Select -->
                     <div class="block text-left md:ml-2">

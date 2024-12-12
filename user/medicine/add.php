@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $this->expiry = $date->format('m/d/Y');
         }
         function uid() {
-            $this->uid = $_POST["uid"] ?? null;
+            $this->uid = $_POST["uid"] ?? "unassinged";
         }
         function type() {
             for ($x = 1; $x <= 47; $x++) {
@@ -105,10 +105,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sssssssss", $amount, $name, $manufacturer, $expiry, $uidRow1["type"], $req_by, $table_name, $operation, $uidRow1["uid"]);
         if ($stmt->execute()){
+            $discard = $_POST["discarded"] ?? 0;
             echo "
                 <form id='myForm' action='../medicine.php' method='POST'>
                     <input type='text' name='name' value='$name' hidden readonly/>
                     <input type='text' name='manufacturer' value='$manufacturer' hidden readonly/>
+                    <input type='text' name='discarded' value='$discard' hidden readonly/>
                 </form>
             ";
         }
@@ -119,11 +121,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("sssssssss", $amount, $name, $manufacturer, $type, $expiry, $req_by, $table_name, $operation, $uid);
         if ($stmt->execute()){
             //reserve uid
-            $uidSql2 = "SELECT * FROM `uid` WHERE uid = $uid AND assigned IS NOT NULL";
+            $uidSql2 = "SELECT * FROM `uid` WHERE uid = '$uid' AND assigned IS NOT NULL";
             $uidResult2 = mysqli_query($conn, $uidSql2);
             if (mysqli_num_rows($uidResult2) > 0) {
                 while ($uidRow2 = mysqli_fetch_assoc($uidResult2)) {
-                    echo "UID is Already Used By {$uidRow2['assigned']}. <a href='/Hams/bed'>return</a>";
+                    echo "UID is Already Used By {$uidRow2['assigned']}. <a href='../medicine.php'>return</a>";
                     exit();
                 }
             } else {
@@ -135,10 +137,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
                 $stmt1->bind_param("ss", $name, $uid);
                 if ($stmt1->execute()){
+                    $discard = $_POST["discarded"] ?? 0;
                     echo "
                         <form id='myForm' action='../medicine.php' method='POST'>
                             <input type='text' name='name' value='$name' hidden readonly/>
                             <input type='text' name='manufacturer' value='$manufacturer' hidden readonly/>
+                            <input type='text' name='discarded' value='$discard' hidden readonly/>
                         </form>
                     ";
                 }

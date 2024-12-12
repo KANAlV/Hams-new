@@ -10,6 +10,12 @@
                 $sortColumn = isset($_GET['sort']) ? $_GET['sort'] : 'name';
                 $sortOrder = isset($_GET['order']) && strtoupper($_GET['order']) === 'DESC' ? 'DESC' : 'ASC';
 
+                $getUID = "SELECT * FROM `equipments` WHERE 
+                            `name` = '{$_POST["name"]}' AND
+                            `manufacturer` = '{$_POST["manufacturer"]}'
+                            GROUP BY name, manufacturer, type";
+                $resultUID = mysqli_query($conn, $getUID);
+
                 $sql = "SELECT * FROM `equipments` WHERE 
                             `name` = '{$_POST["name"]}' AND
                             `manufacturer` = '{$_POST["manufacturer"]}' AND
@@ -106,7 +112,11 @@
         <!-- Main container -->
         <div id="container" class="md:inline-block h-screen w-screen">
             <div class="backdrop-blur-md bg-slate-300/30 dark:bg-slate-800/50 w-screen h-screen">
-                <div class="fklep-2 md:h-32 w-full items-center text-center"><h1 class="hidden md:block font-bold text-2xl dark:text-white"><?php echo $_POST["name"];?></h1><br>
+                <div class="fklep-2 md:h-32 w-full items-center text-center">
+                    <h1 class="hidden md:block font-bold text-2xl dark:text-white"><?php 
+                        $getUID = mysqli_fetch_assoc($resultUID);
+                        echo $_POST["name"] ." [". $getUID["uid"] . "]";?>
+                    </h1><br>
                     <form method="POST" class="flex w-min m-auto rounded-full bg-white/60 backdrop-blur-md">
                         <div class="bg-[url('../resources/loupe.png')] bg-contain bg-no-repeat bg-center h-6 w-10 m-auto invert dark:invert-0"></div>
                         <input type="text" class="rounded-full bg-white/0 border-none focus:outline-none focus:ring-0" name="search" placeholder="Search..." value="<?php echo $search; ?>">

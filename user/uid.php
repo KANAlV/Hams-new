@@ -59,10 +59,11 @@
                     <div class='dark:text-white w-64 font-bold text-center'><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=uid&order=<?php echo $sortColumn === 'uid' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">UID</a></div>
                     <div class='dark:text-white w-36 font-bold text-center'><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=assigned&order=<?php echo $sortColumn === 'assigned' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Assigned</a></div>
                     <div class='hidden md:block dark:text-white w-36 font-bold text-center'><a href="?search=<?php echo $search; ?>&page=<?php echo $page; ?>&sort=table_name&order=<?php echo $sortColumn === 'table_name' && $sortOrder === 'ASC' ? 'DESC' : 'ASC'; ?>">Type</a></div>
+                    <div class='md:hidden block dark:text-white w-24 font-bold text-center'></div>
                     <?php
                         if ($_SESSION['level'] == '3' || $_SESSION['p7'] == '1') {
                             echo "<div class='flex-1 flex text-center items-center' name='discarded' id='discarded'>"?>
-                                    <div class="flex-1"><button data-modal-target='addBeds' data-modal-show='addBeds' class='bg-[url(../resources/add.png)] bg-cover  w-6 h-6 mt-1' type='button'></button></div>
+                                    <div><button data-modal-target='addBeds' data-modal-show='addBeds' class='bg-[url(../resources/add.png)] bg-cover  w-6 h-6 mt-1' type='button'></button></div>
                                 </div>
                             <?php ;
                         }
@@ -82,7 +83,13 @@
                                         <input type='submit' class='bg-[url(../resources/qr.png)] bg-cover  w-6 h-6 mt-1' value=' '>
                                     </form>";
                                     if ($_SESSION['level'] == '3' || $_SESSION['p7'] == '1') {echo"
-                                        <form class='flex-1' action='uid/remove.php' method='POST'>    
+                                        <form class='flex-1 hidden md:block' action='uid/un-assign.php' method='POST'>    
+                                            <input hidden name='uid' value='{$row['uid']}'>
+                                            <input hidden name='assigned' value='{$row['assigned']}'>
+                                            <input hidden name='table_name' value='{$row['table_name']}'>
+                                            <input type='submit' class='bg-[url(../resources/minus.png)] bg-cover  w-6 h-6 mt-1' value=' '>
+                                        </form>
+                                        <form class='flex-1 hidden md:block' action='uid/remove.php' method='POST'>    
                                             <input hidden name='uid' value='{$row['uid']}'>
                                             <input hidden name='assigned' value='{$row['assigned']}'>
                                             <input hidden name='table_name' value='{$row['table_name']}'>

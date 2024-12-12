@@ -1945,6 +1945,10 @@ input:checked + .toggle-bg {
   background-image: url(../resources/trash.png);
 }
 
+.bg-\[url\(\.\.\/resources\/minus\.png\)\] {
+  background-image: url(../resources/minus.png);
+}
+
 .bg-contain {
   background-size: contain;
 }
