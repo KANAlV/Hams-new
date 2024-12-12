@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
-    <title>Home</title>
+    <title>Medicine</title>
 </head>
 <body>
-    <?php include "drawer.php";?>   
+    <?php include "drawer.php";?>
     <div class="sm:flex bg-[url('../resources/mbg.jpg')] bg-center sm:bg-[url('../resources/bg.jpg')] bg-cover font-sans m-0 fixed overflow-x-scroll">
         <?php include "navbar.php";?> 
         <!-- Main container -->
-        <div id="container" class="md:inline-block bg-[url('../resources/mbg.jpg')] bg-center sm:bg-[url('../resources/bg.jpg')] bg-fit bg-no-repeat h-screen w-screen">
+        <div id="container" class="md:inline-block h-screen w-screen">
             <div class="backdrop-blur-md bg-slate-300/30 dark:bg-slate-800/50 w-screen h-screen">
-                
+
             </div>
         </div>
     </div>
