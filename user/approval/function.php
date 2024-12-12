@@ -92,6 +92,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $date_added = $getter->magic("date_added");
 
     if($tbl == "medicine"){
+        if ($ope == "-") {
+            $sql = "SELECT * FROM `medicine` WHERE
+                        `discarded` = 0 AND
+                        `name` = '$dsc'
+                    ORDER BY `expiry` ASC LIMIT 1";
+            $result = mysqli_query($conn, $sql);
+            if (mysqli_num_rows($result) > 0) {
+                $row = mysqli_fetch_assoc($result);
+                $newStock = $row['stock'] - $qty;
+                $sql1 = "UPDATE medicine SET stock = ? WHERE name = ?";
+                $stmt1 = $conn->prepare($sql1);
+                $stmt1->bind_param("ss", $newStock, $dsc);
+                if ($stmt1->execute()) {
+                    $sql2 = "UPDATE requests SET approved = ?, approved_by = ?, date_approved = now()  WHERE req_id = ?";
+                    $stmt2 = $conn->prepare($sql2);
+                    if (!$stmt2) {
+                        die('Prepare failed: ' . htmlspecialchars($conn->error));
+                    }
+                    $apd = 1;
+                    $stmt2->bind_param("isi", $apd, $_SESSION['usr'], $id);
+                    if ($stmt2->execute()) {
+                        echo "
+                            <form id='myForm' action='items.php' method='POST'>
+                                <input type='text' name='show' value='pending' hidden readonly/>
+                                <input type='text' name='req_by' value='{$req_by}' hidden readonly/>
+                                <input type='text' name='date_added' value='{$date_added}' hidden readonly/>
+                            </form>
+                        ";
+                    }
+                }
+            }
+        }
         if ($ope == "+") {
             $sql = "INSERT INTO medicine (stock, name, manufacturer, type, expiry, addedBy, uid) 
                     VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -165,6 +197,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // medicine above / equipments below //
 
     if($tbl == "equipments"){
+        if ($ope == "-") {
+            $sql = "SELECT * FROM `equipments` WHERE
+                        `discarded` = 0 AND
+                        `name` = '$dsc'
+                    ORDER BY `expiry` ASC LIMIT 1";
+            $result = mysqli_query($conn, $sql);
+            if (mysqli_num_rows($result) > 0) {
+                $row = mysqli_fetch_assoc($result);
+                $newStock = $row['stock'] - $qty;
+                $sql1 = "UPDATE equipments SET stock = ? WHERE name = ?";
+                $stmt1 = $conn->prepare($sql1);
+                $stmt1->bind_param("ss", $newStock, $dsc);
+                if ($stmt1->execute()) {
+                    $sql2 = "UPDATE requests SET approved = ?, approved_by = ?, date_approved = now()  WHERE req_id = ?";
+                    $stmt2 = $conn->prepare($sql2);
+                    if (!$stmt2) {
+                        die('Prepare failed: ' . htmlspecialchars($conn->error));
+                    }
+                    $apd = 1;
+                    $stmt2->bind_param("isi", $apd, $_SESSION['usr'], $id);
+                    if ($stmt2->execute()) {
+                        echo "
+                            <form id='myForm' action='items.php' method='POST'>
+                                <input type='text' name='show' value='pending' hidden readonly/>
+                                <input type='text' name='req_by' value='{$req_by}' hidden readonly/>
+                                <input type='text' name='date_added' value='{$date_added}' hidden readonly/>
+                            </form>
+                        ";
+                    }
+                }
+            }
+        }
         if ($ope == "+") {
             $sql = "INSERT INTO equipments (stock, name, manufacturer, type, expiry, addedBy, uid) 
                     VALUES (?, ?, ?, ?, ?, ?, ?)";
