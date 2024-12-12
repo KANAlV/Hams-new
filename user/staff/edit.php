@@ -202,24 +202,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         ";}
                                     }
                                 ?>
+                                </select>
                             </div>
                         </div>
                         <?php
                             if($_SESSION['level'] == '4'){
-                                echo "<label>usertype: </label><select class='border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5' name='level' placeholder='Password' required>
-                                    <option class='hidden dark:bg-slate-800' value='{$accessor->level()}'>{$accessor->level()}</option>
-                                    <option class='dark:bg-slate-800' value='1'>1</option>
-                                    <option class='dark:bg-slate-800' value='2'>2</option>
-                                    <option class='dark:bg-slate-800' value='3'>3</option>
-                                    </select>
-                                <br><br>";
+                                echo '<label>usertype: </label>
+                                <select class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5" name="level" placeholder="Password" required>
+                                    <option class="dark:bg-slate-800" value="1">1</option>
+                                    <option class="dark:bg-slate-800" value="2">2</option>
+                                    <option class="dark:bg-slate-800" value="3">3</option>
+                                </select>
+                                <br><br>';
                             } else if($_SESSION['level'] == '3'){
-                                echo "<label>usertype: </label><select class='border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5' name='level' placeholder='Password' required>
-                                    <option class='hidden dark:bg-slate-800' value='{$accessor->level()}'>{$accessor->level()}</option>
-                                    <option class='dark:bg-slate-800' value='1'>1</option>
-                                    <option class='dark:bg-slate-800' value='2'>2</option>
+                                echo '<label>usertype: </label><select class="border-t-0 border-l-0 border-r-0 border-b-2 border-green-500 bg-white/5" name="level" placeholder="Password" required>
+                                    <option class="dark:bg-slate-800" value="1">1</option>
+                                    <option class="dark:bg-slate-800" value="2">2</option>
                                     </select>
-                                <br><br>";
+                                <br><br>';
                             }else {
                                 echo '<input type="password" name="level" value="1" hidden>';
                             }
