@@ -420,6 +420,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
     }
+    // beds above / rooms below //
+    if($tbl == "room"){
+        if ($ope == "+") {
+            $sql = "INSERT INTO room (room) 
+                    VALUES (?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $dsc);
+            if ($stmt->execute()) {
+                $sql1 = "UPDATE requests SET approved = ?, approved_by = ?, date_approved = now()  WHERE req_id = ?";
+                $stmt1 = $conn->prepare($sql1);
+                if (!$stmt1) {
+                    die('Prepare failed: ' . htmlspecialchars($conn->error));
+                }
+                $apd = 1;
+                $stmt1->bind_param("isi", $apd, $_SESSION['usr'], $id);
+                if ($stmt1->execute()) {
+                    echo "
+                        <form id='myForm' action='items.php' method='POST'>
+                            <input type='text' name='show' value='pending' hidden readonly/>
+                            <input type='text' name='req_by' value='{$req_by}' hidden readonly/>
+                            <input type='text' name='date_added' value='{$date_added}' hidden readonly/>
+                        </form>
+                    ";
+                }
+            }
+        }
+    }
 }
 ?>
 <script>

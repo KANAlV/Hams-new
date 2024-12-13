@@ -38,7 +38,6 @@
         </button>
     </div>
 
-    <a class="flex items-center h-12" href="/hams-new/user/home.php"><div class="w-screen px-12 font-bold block md:bg-[url('../resources/dashboard.png')] md:dark:bg-[url('../resources/dark/dashboard.png')] bg-no-repeat bg-contain">Home</div></a>
     <?php
         if ($_SESSION['level'] == '4' || $_SESSION['p8'] == '1') {
             ?><a class="flex items-center h-12" href="/hams-new/user/approval.php"><div class="w-screen px-12 font-bold block md:bg-[url('../resources/checkbox.png')] md:dark:bg-[url('../resources/dark/checkbox.png')] bg-no-repeat bg-contain">Approval</div></a><?php
@@ -50,7 +49,6 @@
         }
     ?>
     <a class="flex items-center h-12" href="/hams-new/user/staff.php"><div class="w-screen px-12 font-bold block md:bg-[url('../resources/staff.png')] md:dark:bg-[url('../resources/dark/staff.png')] bg-no-repeat bg-contain">Staff</div></a>
-    <a class="flex items-center h-12" href="/hams-new/user/blood.php"><div class="w-screen px-12 font-bold block md:bg-[url('../resources/heart.png')] md:dark:bg-[url('../resources/dark/heart.png')] bg-no-repeat bg-contain">Blood</div></a>
     <a class="flex items-center h-12" href="/hams-new/user/medicine.php"><div class="w-screen px-12 font-bold block md:bg-[url('../resources/medicine.png')] md:dark:bg-[url('../resources/dark/medicine.png')] bg-no-repeat bg-contain">Medicine</div></a>
     <a class="flex items-center h-12" href="/hams-new/user/equipments.php"><div class="w-screen px-12 font-bold block md:bg-[url('../resources/equipment.png')] md:dark:bg-[url('../resources/dark/equipment.png')] bg-no-repeat bg-contain">Equipments</div></a>
     <a class="flex items-center h-12" href="/hams-new/user/rooms.php"><div class="w-screen px-12 font-bold block md:bg-[url('../resources/room.png')] md:dark:bg-[url('../resources/dark/room.png')] bg-no-repeat bg-contain">Rooms</div></a>

@@ -62,9 +62,9 @@
                     <div class='md:hidden block dark:text-white w-24 font-bold text-center'></div>
                     <?php
                         if ($_SESSION['level'] == '3' || $_SESSION['p7'] == '1') {
-                            echo "<div class='flex-1 flex text-center items-center' name='discarded' id='discarded'>"?>
-                                    <div><button data-modal-target='addBeds' data-modal-show='addBeds' class='bg-[url(../resources/add.png)] bg-cover  w-6 h-6 mt-1' type='button'></button></div>
-                                </div>
+                            echo "<form class='flex-1 flex text-center items-center' name='discarded' id='discarded' action='uid/generate.php'>"?>
+                                    <div><button class='bg-[url(../resources/add.png)] bg-cover  w-6 h-6 mt-1' type='submit'></button></div>
+                            </form>
                             <?php ;
                         }
                     ?>
@@ -83,12 +83,6 @@
                                         <input type='submit' class='bg-[url(../resources/qr.png)] bg-cover  w-6 h-6 mt-1' value=' '>
                                     </form>";
                                     if ($_SESSION['level'] == '3' || $_SESSION['p7'] == '1') {echo"
-                                        <form class='flex-1 hidden md:block' action='uid/un-assign.php' method='POST'>    
-                                            <input hidden name='uid' value='{$row['uid']}'>
-                                            <input hidden name='assigned' value='{$row['assigned']}'>
-                                            <input hidden name='table_name' value='{$row['table_name']}'>
-                                            <input type='submit' class='bg-[url(../resources/minus.png)] bg-cover  w-6 h-6 mt-1' value=' '>
-                                        </form>
                                         <form class='flex-1 hidden md:block' action='uid/remove.php' method='POST'>    
                                             <input hidden name='uid' value='{$row['uid']}'>
                                             <input hidden name='assigned' value='{$row['assigned']}'>

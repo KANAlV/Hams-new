@@ -45,8 +45,8 @@
         else{
             header("location: home.php");
         }
-    //addType Modal
-        include "type/addType.php";
+    //Modals
+        include "type/modals.php";
     ?>
     <div class="sm:flex bg-[url('../resources/mbg.jpg')] bg-center sm:bg-[url('../resources/bg.jpg')] bg-cover font-sans m-0 fixed overflow-x-scroll">
         <?php include "navbar.php";?> 
@@ -79,7 +79,7 @@
                                     <div class='hidden md:block dark:text-white w-32 text-center'>{$row['dateAdded']}</div>
                                     <div class='hidden md:block dark:text-white w-32 h-8 text-center'>{$row['addedBy']}</div>
                                     <input type='text' hidden name='type_id' value='{$row['type_id']}'>
-                                    <div class='flex-1 text-center'><button class='bg-[url(../resources/trash.png)] bg-cover  w-4 h-4' type='submit'></button></div>
+                                    <div data-modal-target='delType' data-modal-show='delType' onclick='sendData({$row['type_id']})' class='flex-1 text-center'><button class='bg-[url(../resources/trash.png)] bg-cover  w-4 h-4' type='button'></button></div>
                                 </form>
                             ";
                         }
@@ -133,6 +133,11 @@
         drawerElement.addEventListener('mouseleave', () => {
         drawerInstance.hide(); // Hide drawer on mouse leave
         });
+
+        function sendData(id) {
+            // Set the value of 'delInput'
+            document.getElementById('delInput').value = id;
+        }
         
         function autoSubmit() {
             var formObject = document.forms['discarded'];

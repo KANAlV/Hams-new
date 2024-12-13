@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["p7"] = $user["ui"];
         $_SESSION["p8"] = $user["aprvl"];
         $_SESSION["p9"] = $user["typ"];
-        header("Location: home.php"); // Redirect to a welcome page
+        header("Location: staff.php"); // Redirect to a welcome page
         exit();
     } else {
         // Incorrect username or password

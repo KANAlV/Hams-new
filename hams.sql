@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2024 at 02:04 AM
+-- Generation Time: Dec 13, 2024 at 08:52 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,7 +47,8 @@ INSERT INTO `bed` (`bed_id`, `no`, `room`, `status`, `uid`, `addedBy`, `discarde
 (3, '0003', NULL, 0, NULL, 'root', 0),
 (4, '0004', NULL, 0, NULL, 'root', 0),
 (5, '0005', NULL, 0, NULL, 'root', 0),
-(12, '0006', NULL, 0, '8286418476100', 'root', 1);
+(12, '0006', NULL, 0, '8286418476100', 'root', 1),
+(13, '0007', NULL, 0, '8286418476107', 'root', 0);
 
 -- --------------------------------------------------------
 
@@ -252,7 +253,11 @@ INSERT INTO `requests` (`req_id`, `note`, `uid`, `qty`, `description`, `manufact
 (109, NULL, '', 20, 'bioflu', 'unilab', 'Antifungals', 'medicine', '01/25/2025', '+', 1, 'root', '2024-12-13 08:56:16', 'root', '2024-12-13 08:56:10', NULL),
 (110, NULL, '', 20, 'bioflu', 'unilab', 'Antifungals', 'medicine', '01/15/2025', '+', 1, 'root', '2024-12-13 08:57:26', 'root', '2024-12-13 08:56:54', NULL),
 (111, NULL, '', 20, 'bioflu', 'unilab', 'Antifungals', 'medicine', '01/20/2025', '+', 1, 'root', '2024-12-13 08:57:34', 'root', '2024-12-13 08:57:17', NULL),
-(112, NULL, NULL, 5, 'bioflu', NULL, NULL, 'medicine', NULL, '-', 1, 'root', '2024-12-13 08:59:12', 'acc3', '2024-12-13 08:59:06', NULL);
+(112, NULL, NULL, 5, 'bioflu', NULL, NULL, 'medicine', NULL, '-', 1, 'root', '2024-12-13 08:59:12', 'acc3', '2024-12-13 08:59:06', NULL),
+(113, NULL, '8286418476100', NULL, '0002', NULL, NULL, 'beds', NULL, 'edit', 1, 'root', '2024-12-14 03:12:30', 'root', '2024-12-13 10:40:31', 2),
+(114, NULL, '8286418476107', NULL, '0007', NULL, NULL, 'beds', NULL, '+', 1, 'root', '2024-12-14 03:14:51', 'root', '2024-12-14 03:14:44', NULL),
+(115, NULL, NULL, NULL, '116', NULL, NULL, 'room', NULL, '+', 1, 'root', '2024-12-14 03:37:55', 'root', '2024-12-14 03:37:00', NULL),
+(116, NULL, NULL, NULL, '117', NULL, NULL, 'room', NULL, '+', 1, 'root', '2024-12-14 03:51:45', 'root', '2024-12-14 03:51:38', NULL);
 
 -- --------------------------------------------------------
 
@@ -277,7 +282,7 @@ INSERT INTO `room` (`room_id`, `room`, `type`, `beds`, `available`, `status`) VA
 (1, 101, 'WARD', 2, 1, 0),
 (2, 102, 'STANDARD_PRIVATE', 0, 0, 0),
 (3, 103, 'STANDARD_PRIVATE', 0, 0, 0),
-(4, 104, 'STANDARD_PRIVATE', 0, 0, 0),
+(4, 104, 'STANDARD_PRIVATE', 1, 1, 0),
 (5, 105, '', 0, 0, 0),
 (6, 106, '', 0, 0, 0),
 (7, 107, 'STANDARD_PRIVATE', 0, 0, 0),
@@ -288,7 +293,9 @@ INSERT INTO `room` (`room_id`, `room`, `type`, `beds`, `available`, `status`) VA
 (12, 112, '', 0, 0, 0),
 (13, 113, '', 0, 0, 0),
 (14, 114, '', 0, 0, 0),
-(15, 115, '', 0, 0, 0);
+(15, 115, '', 0, 0, 0),
+(24, 116, '', 0, 0, NULL),
+(25, 117, '', 0, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -410,7 +417,9 @@ INSERT INTO `types` (`type_id`, `table`, `type`, `dateAdded`, `addedBy`) VALUES
 (45, 'medicine', 'Respiratory tract agents', '2024-12-11 00:54:33', 'root'),
 (46, 'medicine', 'Skeletal muscle relaxants', '2024-12-11 00:54:33', 'root'),
 (47, 'medicine', 'Sleep disorder agents', '2024-12-11 00:54:33', 'root'),
-(48, 'equipments', 'ToolExample', '2024-12-11 02:40:22', 'root');
+(48, 'equipments', 'ToolExample', '2024-12-11 02:40:22', 'root'),
+(50, 'room', 'SingleBed', '2024-12-14 03:50:24', 'root'),
+(51, 'room', 'DoubleBed', '2024-12-14 03:50:33', 'root');
 
 -- --------------------------------------------------------
 
@@ -437,7 +446,7 @@ INSERT INTO `uid` (`Q_id`, `uid`, `assigned`, `table_name`) VALUES
 (5, '8286418476104', 'bioflu', 'medicine'),
 (6, '8286418476105', 'Bungi, Coarl ', 'staff'),
 (7, '8286418476106', 'bioflu', 'medicine'),
-(8, '8286418476107', NULL, NULL),
+(8, '8286418476107', '0007', 'bed'),
 (9, '8286418476108', NULL, NULL),
 (10, '8286418476109', NULL, NULL),
 (11, '8286418476110', NULL, NULL),
@@ -449,7 +458,8 @@ INSERT INTO `uid` (`Q_id`, `uid`, `assigned`, `table_name`) VALUES
 (17, '8286418476116', NULL, NULL),
 (18, '8286418476117', NULL, NULL),
 (19, '8286418476118', NULL, NULL),
-(20, '8286418476119', NULL, NULL);
+(20, '8286418476119', NULL, NULL),
+(21, '8286418476120', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -517,7 +527,7 @@ ALTER TABLE `uid`
 -- AUTO_INCREMENT for table `bed`
 --
 ALTER TABLE `bed`
-  MODIFY `bed_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `bed_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `blood`
@@ -541,13 +551,13 @@ ALTER TABLE `medicine`
 -- AUTO_INCREMENT for table `requests`
 --
 ALTER TABLE `requests`
-  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 
 --
 -- AUTO_INCREMENT for table `room`
 --
 ALTER TABLE `room`
-  MODIFY `room_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `room_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `staff`
@@ -559,13 +569,13 @@ ALTER TABLE `staff`
 -- AUTO_INCREMENT for table `types`
 --
 ALTER TABLE `types`
-  MODIFY `type_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `type_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `uid`
 --
 ALTER TABLE `uid`
-  MODIFY `Q_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `Q_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

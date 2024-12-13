@@ -104,7 +104,7 @@
                                 <form id='updateForm' action='scanner/input.php' method='post'>
                                     <input type='text' name='cnt' value='{$OOP->getCount()}' hidden/>
                                     <input typle='text' name='sendType' value='tools-medicine' readonly hidden/>
-                                    <input type='submit'/>
+                                    <input class='text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-small rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center' type='submit'/>
                                     ";
                                     for ($x = 0; $x <= $cnt; $x++){
                                         echo "<tr>

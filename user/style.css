@@ -1709,6 +1709,11 @@ input:checked + .toggle-bg {
   border-style: none;
 }
 
+.border-black {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity, 1));
+}
+
 .border-blue-600 {
   --tw-border-opacity: 1;
   border-color: rgb(28 100 242 / var(--tw-border-opacity, 1));
@@ -1752,6 +1757,11 @@ input:checked + .toggle-bg {
 .border-red-600 {
   --tw-border-opacity: 1;
   border-color: rgb(224 36 36 / var(--tw-border-opacity, 1));
+}
+
+.border-red-700 {
+  --tw-border-opacity: 1;
+  border-color: rgb(200 30 30 / var(--tw-border-opacity, 1));
 }
 
 .border-slate-400 {
@@ -1902,20 +1912,12 @@ input:checked + .toggle-bg {
   background-image: url('../resources/checkbox.png');
 }
 
-.bg-\[url\(\'\.\.\/resources\/dashboard\.png\'\)\] {
-  background-image: url('../resources/dashboard.png');
-}
-
 .bg-\[url\(\'\.\.\/resources\/equipment\.png\'\)\] {
   background-image: url('../resources/equipment.png');
 }
 
 .bg-\[url\(\'\.\.\/resources\/exit\.png\'\)\] {
   background-image: url('../resources/exit.png');
-}
-
-.bg-\[url\(\'\.\.\/resources\/heart\.png\'\)\] {
-  background-image: url('../resources/heart.png');
 }
 
 .bg-\[url\(\'\.\.\/resources\/loupe\.png\'\)\] {
@@ -1952,10 +1954,6 @@ input:checked + .toggle-bg {
 
 .bg-\[url\(\.\.\/resources\/approve\.png\)\] {
   background-image: url(../resources/approve.png);
-}
-
-.bg-\[url\(\.\.\/resources\/minus\.png\)\] {
-  background-image: url(../resources/minus.png);
 }
 
 .bg-\[url\(\.\.\/resources\/pencil\.png\)\] {
@@ -2617,16 +2615,8 @@ input:checked + .toggle-bg {
     background-image: url('../resources/checkbox.png');
   }
 
-  .md\:bg-\[url\(\'\.\.\/resources\/dashboard\.png\'\)\] {
-    background-image: url('../resources/dashboard.png');
-  }
-
   .md\:bg-\[url\(\'\.\.\/resources\/equipment\.png\'\)\] {
     background-image: url('../resources/equipment.png');
-  }
-
-  .md\:bg-\[url\(\'\.\.\/resources\/heart\.png\'\)\] {
-    background-image: url('../resources/heart.png');
   }
 
   .md\:bg-\[url\(\'\.\.\/resources\/medicine\.png\'\)\] {
@@ -2848,16 +2838,8 @@ input:checked + .toggle-bg {
   background-image: url('../resources/dark/checkbox.png');
 }
 
-.dark\:bg-\[url\(\'\.\.\/resources\/dark\/dashboard\.png\'\)\]:where(.dark, .dark *) {
-  background-image: url('../resources/dark/dashboard.png');
-}
-
 .dark\:bg-\[url\(\'\.\.\/resources\/dark\/equipment\.png\'\)\]:where(.dark, .dark *) {
   background-image: url('../resources/dark/equipment.png');
-}
-
-.dark\:bg-\[url\(\'\.\.\/resources\/dark\/heart\.png\'\)\]:where(.dark, .dark *) {
-  background-image: url('../resources/dark/heart.png');
 }
 
 .dark\:bg-\[url\(\'\.\.\/resources\/dark\/medicine\.png\'\)\]:where(.dark, .dark *) {
@@ -3031,16 +3013,8 @@ input:checked + .toggle-bg {
     background-image: url('../resources/dark/checkbox.png');
   }
 
-  .md\:dark\:bg-\[url\(\'\.\.\/resources\/dark\/dashboard\.png\'\)\]:where(.dark, .dark *) {
-    background-image: url('../resources/dark/dashboard.png');
-  }
-
   .md\:dark\:bg-\[url\(\'\.\.\/resources\/dark\/equipment\.png\'\)\]:where(.dark, .dark *) {
     background-image: url('../resources/dark/equipment.png');
-  }
-
-  .md\:dark\:bg-\[url\(\'\.\.\/resources\/dark\/heart\.png\'\)\]:where(.dark, .dark *) {
-    background-image: url('../resources/dark/heart.png');
   }
 
   .md\:dark\:bg-\[url\(\'\.\.\/resources\/dark\/medicine\.png\'\)\]:where(.dark, .dark *) {
