@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2024 at 10:10 PM
+-- Generation Time: Dec 13, 2024 at 02:04 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -42,7 +42,7 @@ CREATE TABLE `bed` (
 --
 
 INSERT INTO `bed` (`bed_id`, `no`, `room`, `status`, `uid`, `addedBy`, `discarded`) VALUES
-(1, '0001', '101', 0, '8286418476103', 'root', 0),
+(1, '0001', '101', 1, '8286418476103', 'root', 0),
 (2, '0002', '101', 0, '8286418476100', 'root', 0),
 (3, '0003', NULL, 0, NULL, 'root', 0),
 (4, '0004', NULL, 0, NULL, 'root', 0),
@@ -89,7 +89,7 @@ CREATE TABLE `equipments` (
   `name` varchar(50) NOT NULL,
   `manufacturer` varchar(50) NOT NULL,
   `type` varchar(300) NOT NULL,
-  `expiry` varchar(30) DEFAULT NULL,
+  `expiry` date DEFAULT NULL,
   `expired` int(1) NOT NULL DEFAULT 0,
   `stock` varchar(11) NOT NULL,
   `discarded` int(1) NOT NULL DEFAULT 0,
@@ -102,9 +102,10 @@ CREATE TABLE `equipments` (
 --
 
 INSERT INTO `equipments` (`equip_id`, `uid`, `name`, `manufacturer`, `type`, `expiry`, `expired`, `stock`, `discarded`, `addedBy`, `date added`) VALUES
-(1, NULL, 'opmaTool', 'opmanufacture', 'ToolExample', '12/10/2024', 0, '12', 1, 'root', '2024-12-11 02:46:35'),
-(2, '8286418476101', 'opmatest', 'opmatest', '', '04/08/2025', 0, '20', 1, 'root', '2024-12-12 22:32:32'),
-(3, '8286418476101', 'opmatest', 'opmatest', '', '02/18/2025', 0, '20', 1, 'root', '2024-12-12 22:36:03');
+(1, NULL, 'opmaTool', 'opmanufacture', 'ToolExample', '2025-01-25', 0, '12', 1, 'root', '2024-12-11 02:46:35'),
+(2, '8286418476101', 'opmatest', 'opmatest', '', '2025-01-20', 0, '20', 1, 'root', '2024-12-12 22:32:32'),
+(3, '8286418476101', 'opmatest', 'opmatest', '', '2024-12-15', 0, '20', 1, 'root', '2024-12-12 22:36:03'),
+(4, '8286418476102', 'opmaGamit', 'opmaGamit', 'ToolExample', '2024-12-15', 0, '29', 0, 'root', '2024-12-13 05:38:17');
 
 -- --------------------------------------------------------
 
@@ -118,7 +119,7 @@ CREATE TABLE `medicine` (
   `name` varchar(50) NOT NULL,
   `manufacturer` varchar(50) NOT NULL,
   `type` varchar(300) NOT NULL,
-  `expiry` varchar(30) NOT NULL,
+  `expiry` date NOT NULL,
   `expired` int(1) NOT NULL DEFAULT 0,
   `stock` varchar(11) NOT NULL,
   `discarded` int(1) NOT NULL DEFAULT 0,
@@ -131,32 +132,9 @@ CREATE TABLE `medicine` (
 --
 
 INSERT INTO `medicine` (`med_id`, `uid`, `name`, `manufacturer`, `type`, `expiry`, `expired`, `stock`, `discarded`, `addedBy`, `date added`) VALUES
-(2, NULL, 'opmadrug', 'opmanufacture', 'Analgesics / Anesthetics / Anti-addiction agents', '02/02/2025', 0, '12', 0, 'root', '2024-11-28 13:58:49'),
-(3, NULL, 'opmadrug', 'opmanufacture', 'Analgesics / Anesthetics / Anti-addiction agents', '02/03/2025', 0, '13', 0, 'root', '2024-11-28 14:03:55'),
-(4, NULL, 'opmadrug', 'opmanufacture', 'Analgesics / Anesthetics / Anti-addiction agents', '02/04/2025', 0, '14', 0, 'root', '2024-11-28 14:04:33'),
-(5, NULL, 'opmadrug', 'opmanufacture', 'Analgesics / Anesthetics / Anti-addiction agents', '02/05/2025', 0, '15', 0, 'root', '2024-11-28 14:05:19'),
-(6, NULL, 'gamot ni coarl', 'carlmano', 'Dental and oral agents', '02/09/2025', 0, '20', 0, 'root', '2024-11-28 16:02:02'),
-(7, NULL, 'opmadrug', 'opmanufacturer', '', '02/27/2025', 0, '35', 0, 'root', '2024-11-28 16:04:09'),
-(8, NULL, 'opmadrug', 'opmanufacture', 'Analgesics / Anesthetics / Anti-addiction agents', '02/28/2025', 0, '35', 0, 'root', '2024-11-28 16:04:37'),
-(9, NULL, 'gamot ni opma', 'opmanufacture', 'Central nervous system agents / Dental and oral agents', '11/30/2024', 0, '77', 0, 'root', '2024-11-28 16:06:12'),
-(10, NULL, 'opma-medicine', 'opmanufacturer', 'Analgesics / Anticonvulsants / Antidepressants / Antifungals / Antispasticity agents', '04/01/2025', 0, '30', 0, 'root', '2024-11-28 16:39:52'),
-(11, NULL, 'opma-medicine', 'manuf', 'Analgesics / Anesthetics', '02/26/2025', 0, '15', 0, 'root', '2024-11-28 16:40:22'),
-(12, NULL, 'enervon', 'unilab', 'Electrolytes, minerals, metals, vitamins', '03/04/2025', 0, '20', 0, 'root', '2024-11-28 16:43:13'),
-(13, NULL, 'bioflu', 'unilab', 'Antifungals', '04/02/2025', 0, '15', 0, 'root', '2024-11-28 16:44:49'),
-(14, NULL, 'opmadrug', 'opmanufacture', 'Analgesics / Anesthetics / Anti-addiction agents', '02/04/2025', 0, '15', 0, 'root', '2024-11-30 00:44:16'),
-(15, NULL, 'opmadrug', 'opmanufacture', 'Analgesics / Anesthetics / Anti-addiction agents', '02/04/2025', 0, '15', 0, 'root', '2024-12-01 16:09:45'),
-(16, NULL, 'opmadrug', 'opmanufacture', 'Analgesics / Anesthetics / Anti-addiction agents', '03/05/2025', 0, '20', 0, 'root', '2024-12-01 16:09:52'),
-(17, NULL, 'gamot ni coarl', 'carlmano', 'Dental and oral agents', '02/12/2025', 0, '30', 0, 'root', '2024-12-01 16:18:17'),
-(18, NULL, 'gamot ni opma', 'opmanufacture', 'Central nervous system agents / Dental and oral agents', '02/11/2025', 0, '32', 0, 'root', '2024-12-01 16:23:47'),
-(19, NULL, 'gamot ni coarl', 'carlmano', 'Dental and oral agents', '01/14/2025', 0, '50', 0, 'root', '2024-12-01 16:24:24'),
-(20, NULL, 'gamot ni opma', 'opmanufacture', 'Central nervous system agents / Dental and oral agents', '02/04/2025', 0, '1', 0, 'root', '2024-12-01 16:24:50'),
-(21, NULL, 'opma-medicine', 'manuf', 'Analgesics / Anesthetics', '12/18/2024', 0, '50', 0, 'root', '2024-12-01 16:28:12'),
-(22, NULL, 'opma-medicine', 'manuf', 'Analgesics / Anesthetics', '02/12/2025', 0, '35', 0, 'root', '2024-12-01 16:28:23'),
-(23, NULL, 'opma-medicine', 'opmanufacturer', 'Analgesics / Anticonvulsants / Antidepressants / Antifungals / Antispasticity agents', '01/21/2025', 0, '20', 0, 'root', '2024-12-01 16:29:20'),
-(24, NULL, 'opmadrug', 'opmanufacturer', '', '12/11/2024', 0, '15', 1, 'root', '2024-12-01 16:29:43'),
-(26, '8286418476100', 'opmatest', 'opmatest', 'Antifungals', '02/05/2025', 0, '32', 1, 'root', '2024-12-12 01:16:10'),
-(27, '8286418476100', 'opmatest', 'opmatest', 'Antifungals', '12/24/2024', 0, '20', 1, 'root', '2024-12-12 01:52:43'),
-(28, '8286418476100', 'opmatest', 'opmatest', 'Antifungals', '02/19/2025', 0, '12', 1, 'root', '2024-12-12 02:12:15');
+(1, '', 'bioflu', 'unilab', 'Antifungals', '2025-01-25', 0, '20', 0, 'root', '2024-12-13 08:56:16'),
+(2, '', 'bioflu', 'unilab', 'Antifungals', '2025-01-15', 0, '15', 0, 'root', '2024-12-13 08:57:26'),
+(3, '', 'bioflu', 'unilab', 'Antifungals', '2025-01-20', 0, '20', 0, 'root', '2024-12-13 08:57:34');
 
 -- --------------------------------------------------------
 
@@ -260,7 +238,21 @@ INSERT INTO `requests` (`req_id`, `note`, `uid`, `qty`, `description`, `manufact
 (95, NULL, '8286418476103', NULL, '0001', NULL, NULL, 'beds', NULL, 'edit', 1, 'root', '2024-12-13 03:22:20', 'root', '2024-12-13 03:22:03', 1),
 (96, NULL, '8286418476102', NULL, '0001', NULL, NULL, 'beds', NULL, 'edit', 1, 'root', '2024-12-13 03:25:28', 'root', '2024-12-13 03:25:20', 1),
 (97, NULL, '8286418476103', NULL, '0001', NULL, NULL, 'beds', NULL, 'edit', 1, 'root', '2024-12-13 03:25:45', 'root', '2024-12-13 03:25:39', 1),
-(98, NULL, '8286418476100', NULL, '0002', NULL, NULL, 'beds', NULL, 'edit', 1, 'root', '2024-12-13 05:09:44', 'root', '2024-12-13 05:09:37', 2);
+(98, NULL, '8286418476100', NULL, '0002', NULL, NULL, 'beds', NULL, 'edit', 1, 'root', '2024-12-13 05:09:44', 'root', '2024-12-13 05:09:37', 2),
+(99, NULL, '8286418476102', 30, 'opmaGamit', 'opmaGamit', 'ToolExample', 'equipments', '03/17/2025', '+', 1, 'root', '2024-12-13 05:38:17', 'root', '2024-12-13 05:38:01', NULL),
+(100, NULL, NULL, 1, 'opmaGamit', NULL, NULL, 'equipments', NULL, '-', 1, 'root', '2024-12-13 05:39:04', 'acc3', '2024-12-13 05:38:42', NULL),
+(101, NULL, '8286418476104', 20, 'bioflu', 'unilab', 'Antifungals', 'medicine', '02/12/2025', '+', 1, 'root', '2024-12-13 05:41:05', 'root', '2024-12-13 05:40:53', NULL),
+(102, NULL, NULL, 5, 'bioflu', NULL, NULL, 'medicine', NULL, '-', 1, 'root', '2024-12-13 05:41:40', 'acc3', '2024-12-13 05:41:31', NULL),
+(103, NULL, '8286418476104', 20, 'bioflu', 'unilab', 'Antifungals', 'medicine', '02/18/2025', '+', 1, 'root', '2024-12-13 08:37:33', 'root', '2024-12-13 08:37:20', NULL),
+(104, NULL, NULL, 5, 'bioflu', NULL, NULL, 'medicine', NULL, '-', 1, 'root', '2024-12-13 08:38:11', 'acc3', '2024-12-13 08:38:04', NULL),
+(105, NULL, NULL, 5, 'bioflu', NULL, NULL, 'medicine', NULL, '-', 1, 'root', '2024-12-13 08:39:15', 'acc3', '2024-12-13 08:39:08', NULL),
+(106, NULL, '8286418476104', 20, 'bioflu', 'unilab', 'Antifungals', 'medicine', '12/14/2024', '+', 1, 'root', '2024-12-13 08:42:43', 'root', '2024-12-13 08:42:37', NULL),
+(107, NULL, NULL, 5, 'bioflu', NULL, NULL, 'medicine', NULL, '-', 1, 'root', '2024-12-13 08:44:18', 'acc3', '2024-12-13 08:44:01', NULL),
+(108, NULL, '8286418476106', 20, 'bioflu', 'unilab', 'Antifungals', 'medicine', '01/25/2025', '+', 1, 'root', '2024-12-13 08:51:58', 'root', '2024-12-13 08:51:50', NULL),
+(109, NULL, '', 20, 'bioflu', 'unilab', 'Antifungals', 'medicine', '01/25/2025', '+', 1, 'root', '2024-12-13 08:56:16', 'root', '2024-12-13 08:56:10', NULL),
+(110, NULL, '', 20, 'bioflu', 'unilab', 'Antifungals', 'medicine', '01/15/2025', '+', 1, 'root', '2024-12-13 08:57:26', 'root', '2024-12-13 08:56:54', NULL),
+(111, NULL, '', 20, 'bioflu', 'unilab', 'Antifungals', 'medicine', '01/20/2025', '+', 1, 'root', '2024-12-13 08:57:34', 'root', '2024-12-13 08:57:17', NULL),
+(112, NULL, NULL, 5, 'bioflu', NULL, NULL, 'medicine', NULL, '-', 1, 'root', '2024-12-13 08:59:12', 'acc3', '2024-12-13 08:59:06', NULL);
 
 -- --------------------------------------------------------
 
@@ -282,7 +274,7 @@ CREATE TABLE `room` (
 --
 
 INSERT INTO `room` (`room_id`, `room`, `type`, `beds`, `available`, `status`) VALUES
-(1, 101, 'WARD', 2, 2, 0),
+(1, 101, 'WARD', 2, 1, 0),
 (2, 102, 'STANDARD_PRIVATE', 0, 0, 0),
 (3, 103, 'STANDARD_PRIVATE', 0, 0, 0),
 (4, 104, 'STANDARD_PRIVATE', 0, 0, 0),
@@ -341,7 +333,7 @@ INSERT INTO `staff` (`staff_id`, `staff_uid`, `profile`, `acc_name`, `acc_pwd`, 
 (3, '', 'default-avatar.jpg', 'acc2', '$2y$10$zLB.28baUdIKx8yt04qZ9ev.3GBCvSLxRzODrQ4Azd9HcjjgDAe5.', 'Mirasol', 'Adrian', '', '', 'normal', 0, '2024-09-07 17:42:26', 'Database', 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0),
 (4, '', 'default-avatar.jpg', 'acc4', '$2y$10$qorsU4oORDRBE4rzkLqFXOpjOw4VEeG/z1mhseAHTbkIDKKx5HfAy', 'Opmacoid', 'Navi', '', '', 'test', 0, '2024-11-21 12:43:00', 'root', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (5, '', 'default-avatar.jpg', 'acc5', '$2y$10$IjCw3LBSb9xNSUce.g30f.F.nCoIqQ0cno4ddYdCjgf3fXMpe1Sx6', 'Opma', 'Nav Elznie', 'S.', 'Jr', 'test', 0, '2024-11-21 13:35:30', 'root', 2, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0),
-(6, '', 'default-avatar.jpg', 'acc3', '$2y$10$/VFnVaPhYq2YEkVvSChsFukAg5SRlC3H8mspy/Q9thretur588qSG', 'Bungi', 'Coarl', 'L.', '', 'test', 0, '2024-11-21 19:04:24', 'root', 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0),
+(6, '8286418476105', 'default-avatar.jpg', 'acc3', '$2y$10$B4sjESwkHnJ1ogOcZYQWqeAqQJ7S10B6xTZaRfU8zPg2Zx0IakYM6', 'Bungi', 'Coarl', '', '', 'test', 0, '2024-11-21 19:04:24', 'root', 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0),
 (7, '', 'default-avatar.jpg', 'acc6', '$2y$10$a3pYl3dPWy16U0NDuRfSo.dU/ipIIvM4TQSxopFAnOdwTYTJBrJDS', 'Miraculo', 'Yan Yan', 'Z.', '', 'test', 0, '2024-11-21 19:43:53', 'root', 2, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0),
 (8, '', 'default-avatar.jpg', 'acc7', '$2y$10$fJscSXq3U8icqSPhN1YQKuAMzCXKt.IPjH7jSuomg8FtcPBR8O2lW', 'Muyco', 'Jan Pauline', 'M.', '', 'test', 0, '2024-11-22 19:37:00', 'root', 2, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0),
 (9, '', 'default-avatar.jpg', 'acc8', '$2y$10$CxFfKSIVwsH5cDi1rFc2ZODI9pp9UKiEBwQcO2VrEcFGbdHpfHZmW', 'Muyco', 'Fatima', '', '', 'test', 0, '2024-11-23 00:13:44', 'root', 2, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0),
@@ -440,11 +432,11 @@ CREATE TABLE `uid` (
 INSERT INTO `uid` (`Q_id`, `uid`, `assigned`, `table_name`) VALUES
 (1, '8286418476100', '0002', 'beds'),
 (2, '8286418476101', 'test', 'equipments'),
-(3, '8286418476102', NULL, NULL),
+(3, '8286418476102', 'opmaGamit', 'equipments'),
 (4, '8286418476103', '0001', 'beds'),
-(5, '8286418476104', NULL, NULL),
-(6, '8286418476105', NULL, NULL),
-(7, '8286418476106', NULL, NULL),
+(5, '8286418476104', 'bioflu', 'medicine'),
+(6, '8286418476105', 'Bungi, Coarl ', 'staff'),
+(7, '8286418476106', 'bioflu', 'medicine'),
 (8, '8286418476107', NULL, NULL),
 (9, '8286418476108', NULL, NULL),
 (10, '8286418476109', NULL, NULL),
@@ -537,19 +529,19 @@ ALTER TABLE `blood`
 -- AUTO_INCREMENT for table `equipments`
 --
 ALTER TABLE `equipments`
-  MODIFY `equip_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `equip_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `medicine`
 --
 ALTER TABLE `medicine`
-  MODIFY `med_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `med_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `requests`
 --
 ALTER TABLE `requests`
-  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT for table `room`

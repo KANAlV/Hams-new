@@ -90,18 +90,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dtaprvd = $getter->magic("date_aprvd");
     $req_by = $getter->magic("req_by");
     $date_added = $getter->magic("date_added");
+    $expFormatted = date("Y-m-d", strtotime($exp));
 
     if($tbl == "medicine"){
         if ($ope == "-") {
             $sql = "SELECT * FROM `medicine` WHERE
                         `discarded` = 0 AND
-                        `name` = '$dsc'
+                        `name` = '$dsc' AND
+                        `stock` != 0
                     ORDER BY `expiry` ASC LIMIT 1";
             $result = mysqli_query($conn, $sql);
             if (mysqli_num_rows($result) > 0) {
                 $row = mysqli_fetch_assoc($result);
                 $newStock = $row['stock'] - $qty;
-                $sql1 = "UPDATE medicine SET stock = ? WHERE name = ? AND expiry = ?";
+                $sql1 = "UPDATE medicine SET stock = ? WHERE name = ? AND expiry = ? AND stock != 0";
                 $stmt1 = $conn->prepare($sql1);
                 $stmt1->bind_param("sss", $newStock, $dsc, $row['expiry']);
                 if ($stmt1->execute()) {
@@ -128,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $sql = "INSERT INTO medicine (stock, name, manufacturer, type, expiry, addedBy, uid) 
                     VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssssss", $qty, $dsc, $man, $typ, $exp, $_SESSION["usr"], $uid);
+            $stmt->bind_param("sssssss", $qty, $dsc, $man, $typ, $expFormatted, $_SESSION["usr"], $uid);
             if ($stmt->execute()) {
                 $sql1 = "UPDATE requests SET approved = ?, approved_by = ?, date_approved = now()  WHERE req_id = ?";
                 $stmt1 = $conn->prepare($sql1);
@@ -233,7 +235,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $sql = "INSERT INTO equipments (stock, name, manufacturer, type, expiry, addedBy, uid) 
                     VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssssss", $qty, $dsc, $man, $typ, $exp, $_SESSION["usr"], $uid);
+            $stmt->bind_param("sssssss", $qty, $dsc, $man, $typ, $expFormatted, $_SESSION["usr"], $uid);
             if ($stmt->execute()) {
                 $sql1 = "UPDATE requests SET approved = ?, approved_by = ?, date_approved = now()  WHERE req_id = ?";
                 $stmt1 = $conn->prepare($sql1);
