@@ -35,11 +35,11 @@
                     while ($uidRow = mysqli_fetch_assoc($uidResult)) {
                         if ($uidRow['table_name'] == "staff"||$uidRow['table_name'] == "beds") {
                             if ($uidRow['table_name'] == "staff"){
-                                $toggleSql = "SELECT * FROM `staff` WHERE `uid` = {$Item[$x]}";
+                                $toggleSql = "SELECT * FROM `staff` WHERE `staff_uid` = {$Item[$x]}";
                                 $toggleResult = mysqli_query($conn, $toggleSql);
                                 if (mysqli_num_rows($toggleResult) > 0) {
                                     while ($toggleRow = mysqli_fetch_assoc($toggleResult)) {
-                                        $sql = "UPDATE staff SET status = ? WHERE uid = {$Item[$x]}";
+                                        $sql = "UPDATE staff SET status = ? WHERE staff_uid = {$Item[$x]}";
                                         $stmt = $conn->prepare($sql);
                                         if (!$stmt) {
                                             die('Prepare failed: ' . htmlspecialchars($conn->error));
