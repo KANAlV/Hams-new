@@ -101,9 +101,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (mysqli_num_rows($result) > 0) {
                 $row = mysqli_fetch_assoc($result);
                 $newStock = $row['stock'] - $qty;
-                $sql1 = "UPDATE medicine SET stock = ? WHERE name = ?";
+                $sql1 = "UPDATE medicine SET stock = ? WHERE name = ? AND expiry = ?";
                 $stmt1 = $conn->prepare($sql1);
-                $stmt1->bind_param("ss", $newStock, $dsc);
+                $stmt1->bind_param("sss", $newStock, $dsc, $row['expiry']);
                 if ($stmt1->execute()) {
                     $sql2 = "UPDATE requests SET approved = ?, approved_by = ?, date_approved = now()  WHERE req_id = ?";
                     $stmt2 = $conn->prepare($sql2);
@@ -206,9 +206,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (mysqli_num_rows($result) > 0) {
                 $row = mysqli_fetch_assoc($result);
                 $newStock = $row['stock'] - $qty;
-                $sql1 = "UPDATE equipments SET stock = ? WHERE name = ?";
+                $sql1 = "UPDATE equipments SET stock = ? WHERE name = ? AND expiry = ?";
                 $stmt1 = $conn->prepare($sql1);
-                $stmt1->bind_param("ss", $newStock, $dsc);
+                $stmt1->bind_param("sss", $newStock, $dsc, $row['expiry']);
                 if ($stmt1->execute()) {
                     $sql2 = "UPDATE requests SET approved = ?, approved_by = ?, date_approved = now()  WHERE req_id = ?";
                     $stmt2 = $conn->prepare($sql2);
